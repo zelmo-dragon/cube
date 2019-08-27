@@ -16,4 +16,5 @@
     <groupId>com.github.zelmothedragon</groupId>
     <artifactId>cube-core</artifactId>
     <packaging>jar</packaging>
+
 </project>

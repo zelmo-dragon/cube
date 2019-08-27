@@ -16,4 +16,34 @@
     <groupId>com.github.zelmothedragon</groupId>
     <artifactId>cube-fx</artifactId>
     <packaging>jar</packaging>
+    
+    <dependencies>
+        <!-- JAVA FX -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <plugins>
+            <!-- EXTENSION JAVA FX -->
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.github.zelmothedragon.cube.fx.engine.Display</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
 </project>
