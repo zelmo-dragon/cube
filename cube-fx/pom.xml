@@ -18,6 +18,13 @@
     <packaging>jar</packaging>
     
     <dependencies>
+        <!-- MODULE -->
+        <dependency>
+            <groupId>com.github.zelmothedragon</groupId>
+            <artifactId>cube-core</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        
         <!-- JAVA FX -->
         <dependency>
             <groupId>org.openjfx</groupId>

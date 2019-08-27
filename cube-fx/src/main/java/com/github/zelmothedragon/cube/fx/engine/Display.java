@@ -1,5 +1,6 @@
 package com.github.zelmothedragon.cube.fx.engine;
 
+import com.github.zelmothedragon.cube.core.GameContainer;
 import javafx.application.Application;
 import javafx.scene.CacheHint;
 import javafx.scene.Group;
@@ -13,7 +14,7 @@ import javafx.stage.Stage;
  *
  * @author MOSELLE Maxime
  */
-public class Display extends Application {
+public final class Display extends Application {
 
     /**
      * Coéfficient de mise à l'échelle.
@@ -39,6 +40,10 @@ public class Display extends Application {
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
+
+        var gc = new GameContainer();
+        var engine = new Engine(gc);
+        engine.start();
 
         var canvas = new Canvas(SCALE * WIDTH, SCALE * HEIGHT);
         canvas.setCache(true);

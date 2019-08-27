@@ -1,6 +1,8 @@
 
 module cube.fx {
 
+    requires cube.core;
+    
     requires javafx.base;
     requires javafx.graphics;
     requires javafx.controls;
