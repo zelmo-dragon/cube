@@ -16,6 +16,7 @@
     <groupId>com.github.zelmothedragon</groupId>
     <artifactId>cube-fx</artifactId>
     <packaging>jar</packaging>
+    <version>0.0.1</version>
     
     <dependencies>
         <!-- MODULE -->
