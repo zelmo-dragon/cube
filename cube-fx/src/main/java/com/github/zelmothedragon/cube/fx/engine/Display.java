@@ -1,11 +1,14 @@
 package com.github.zelmothedragon.cube.fx.engine;
 
 import com.github.zelmothedragon.cube.core.GameContainer;
+import java.util.Objects;
 import javafx.application.Application;
 import javafx.scene.CacheHint;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -54,11 +57,45 @@ public final class Display extends Application {
 
         var scene = new Scene(group, Color.BLACK);
 
+        scene.setOnKeyPressed(e -> {
+            toggleScreen(primaryStage, e);
+            e.consume();
+        });
+
+        scene.setOnKeyReleased(e -> {
+            e.consume();
+        });
+
+        primaryStage.widthProperty().addListener((e, o, n) -> {
+            canvas.setWidth(n.doubleValue());
+        });
+
+        primaryStage.heightProperty().addListener((e, o, n) -> {
+            canvas.setHeight(n.doubleValue());
+        });
+
         primaryStage.setTitle("Cube");
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
         primaryStage.setResizable(true);
         primaryStage.show();
+    }
+
+    /**
+     * Basculer l'affichage en plein écran ou en mode fenêtré. Par défaut le
+     * basculement se fait avec la touche <code>F11</code>.
+     *
+     * @param stage Stage courant
+     * @param event Événement du clavier
+     */
+    private static void toggleScreen(final Stage stage, final KeyEvent event) {
+        if (Objects.equals(event.getCode(), KeyCode.F11)) {
+            if (stage.isFullScreen()) {
+                stage.setFullScreen(false);
+            } else {
+                stage.setFullScreen(true);
+            }
+        }
     }
 
 }
