@@ -1,7 +1,6 @@
-package com.github.zelmothedragon.cube.core;
+package com.github.zelmothedragon.cube.core.system;
 
-import com.github.zelmothedragon.cube.core.system.AbstractSystem;
-import com.github.zelmothedragon.cube.core.system.DebugSystem;
+import com.github.zelmothedragon.cube.core.GameContainer;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,7 +20,7 @@ public final class SystemManager {
 
     /**
      * Constructeur. Construit un gestionnaire de système, pour le bon
-     * fonctionnement du programme cette classe doit être instancié une seul
+     * fonctionnement du programme cette classe doit être instanciée une seul
      * fois.
      *
      * @param gc Conteneur du contexte du jeu

@@ -1,5 +1,8 @@
 package com.github.zelmothedragon.cube.core;
 
+import com.github.zelmothedragon.cube.core.input.InputManager;
+import com.github.zelmothedragon.cube.core.system.SystemManager;
+
 /**
  * Conteneur du contexte du jeu. Il rassemble les principaux gestionnaires.
  *
@@ -12,8 +15,14 @@ public final class GameContainer {
      */
     private final SystemManager systemManager;
 
+    /**
+     * Gestionnaire des entrées du joueur unique.
+     */
+    private final InputManager inputManager;
+
     public GameContainer() {
         this.systemManager = new SystemManager(this);
+        this.inputManager = new InputManager();
     }
 
     /**
@@ -21,8 +30,17 @@ public final class GameContainer {
      *
      * @return Le gestionnaire de système unique
      */
-    public SystemManager getSystemManager() {
+    public SystemManager getSystems() {
         return systemManager;
+    }
+
+    /**
+     * Accesseur, récupère le gestionnaire des entrées du joueur unique.
+     *
+     * @return Le gestionnaire des entrées du joueur unique
+     */
+    public InputManager getInputs() {
+        return inputManager;
     }
 
 }

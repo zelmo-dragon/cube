@@ -1,6 +1,7 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameContainer;
+import com.github.zelmothedragon.cube.core.input.GamePad;
 
 /**
  * Système de déboggage.
@@ -45,6 +46,19 @@ public final class DebugSystem extends AbstractSystem {
     @Override
     public void update() {
         ups++;
+
+        if (gc.getInputs().isKeyUp(GamePad.UP)) {
+            System.out.println("UP");
+        }
+        if (gc.getInputs().isKeyUp(GamePad.DOWN)) {
+            System.out.println("DOWN");
+        }
+        if (gc.getInputs().isKeyUp(GamePad.LEFT)) {
+            System.out.println("LEFT");
+        }
+        if (gc.getInputs().isKeyUp(GamePad.RIGHT)) {
+            System.out.println("RIGHT");
+        }
 
         if (System.currentTimeMillis() - timer >= 1000) {
             var rt = Runtime.getRuntime();
