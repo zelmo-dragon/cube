@@ -1,6 +1,8 @@
 package com.github.zelmothedragon.cube.fx.engine;
 
 import com.github.zelmothedragon.cube.core.GameContainer;
+import com.github.zelmothedragon.cube.core.input.GamePad;
+import com.github.zelmothedragon.cube.core.input.InputManager;
 import java.util.Objects;
 import javafx.application.Application;
 import javafx.scene.CacheHint;
@@ -40,40 +42,44 @@ public final class Display extends Application {
     public Display() {
         // RAS
     }
-
+    
     @Override
     public void start(final Stage primaryStage) throws Exception {
-
+        
         var gc = new GameContainer();
+        loadKeys(gc.getInputs());
+        
         var engine = new Engine(gc);
         engine.start();
-
+        
         var canvas = new Canvas(SCALE * WIDTH, SCALE * HEIGHT);
         canvas.setCache(true);
         canvas.setCacheHint(CacheHint.SPEED);
-
+        
         var group = new Group();
         group.getChildren().add(canvas);
-
+        
         var scene = new Scene(group, Color.BLACK);
-
+        
         scene.setOnKeyPressed(e -> {
             toggleScreen(primaryStage, e);
+            gc.getInputs().keyPressed(e.getCode().getCode());
             e.consume();
         });
-
+        
         scene.setOnKeyReleased(e -> {
+            gc.getInputs().keyReleased(e.getCode().getCode());
             e.consume();
         });
-
+        
         primaryStage.widthProperty().addListener((e, o, n) -> {
             canvas.setWidth(n.doubleValue());
         });
-
+        
         primaryStage.heightProperty().addListener((e, o, n) -> {
             canvas.setHeight(n.doubleValue());
         });
-
+        
         primaryStage.setTitle("Cube");
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
@@ -98,4 +104,21 @@ public final class Display extends Application {
         }
     }
 
+    /**
+     * Charger la configuration par défaut pour le gestionnaire des entrées.
+     *
+     * @param manager Gestionnaire des entrées
+     */
+    private static void loadKeys(final InputManager manager) {
+        manager.assign(GamePad.UP, KeyCode.UP.getCode());
+        manager.assign(GamePad.DOWN, KeyCode.DOWN.getCode());
+        manager.assign(GamePad.LEFT, KeyCode.LEFT.getCode());
+        manager.assign(GamePad.RIGHT, KeyCode.RIGHT.getCode());
+        manager.assign(GamePad.ACTION, KeyCode.A.getCode());
+        manager.assign(GamePad.OPTION, KeyCode.Q.getCode());
+        manager.assign(GamePad.BACK, KeyCode.Z.getCode());
+        manager.assign(GamePad.START, KeyCode.ENTER.getCode());
+        manager.assign(GamePad.SELECT, KeyCode.BACK_SPACE.getCode());
+    }
+    
 }

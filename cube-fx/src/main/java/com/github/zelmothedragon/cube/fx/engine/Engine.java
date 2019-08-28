@@ -87,14 +87,15 @@ public final class Engine extends AnimationTimer {
      * Mettre à jour la logique métier du jeu.
      */
     private void update() {
-        gc.getSystemManager().update();
+        gc.getInputs().update();
+        gc.getSystems().update();
     }
 
     /**
      * Mettre à jour le rendu graphique du jeu.
      */
     private void draw() {
-        gc.getSystemManager().draw();
+        gc.getSystems().draw();
     }
 
 }
