@@ -10,7 +10,7 @@ import com.github.zelmothedragon.cube.fx.engine.Display;
 public final class Launcher {
 
     /**
-     *
+     * Constructeur interne. Pas d'instanciation.
      */
     private Launcher() {
         // RAS
