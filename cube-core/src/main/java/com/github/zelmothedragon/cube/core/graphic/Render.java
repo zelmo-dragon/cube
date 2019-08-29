@@ -48,6 +48,30 @@ public final class Render {
         Arrays.fill(buffer, 0);
     }
 
+    public void drawFillRect(
+            final int xp,
+            final int yp,
+            final int w,
+            final int h,
+            final int color) {
+
+        int xa;
+        int ya;
+
+        for (var y = 0; y < h; y++) {
+            ya = yp + y;
+            if (isInBound(ya, height)) {
+                for (var x = 0; x < w; x++) {
+                    xa = xp + x;
+                    if (isInBound(xa, width)) {
+                        buffer[xa + ya * width] = color;
+                    }
+                }
+            }
+        }
+
+    }
+
     /**
      * Accesseur, obtenir la largeur de l'image en mémoire tampon.
      *
@@ -73,9 +97,14 @@ public final class Render {
      */
     public int[] getBuffer() {
         // Permet l'immuabilité de cette classe
-        int[] copy = new int[buffer.length];
+        var copy = new int[buffer.length];
         System.arraycopy(buffer, 0, copy, 0, buffer.length);
         return copy;
+    }
+
+    private static boolean isInBound(final int position, final int size) {
+
+        return position >= 0 && position < size;
     }
 
 }

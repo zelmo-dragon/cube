@@ -35,32 +35,39 @@ public final class DebugSystem extends AbstractSystem {
      * Message de déboggage.
      */
     private String message;
-
+    
+    private int xp;
+    
+    private int yp;
+    
     public DebugSystem(final GameContainer gc, final int priority) {
         super(gc, priority);
         this.ups = 0;
         this.fps = 0;
         this.timer = System.currentTimeMillis();
         this.message = "loading...";
+        
+        this.xp = 0;
+        this.yp = 0;
     }
-
+    
     @Override
     public void update() {
         ups++;
-
+        
         if (gc.getInputs().isKeyUp(GamePad.UP)) {
-            System.out.println("UP");
+            yp--;
         }
         if (gc.getInputs().isKeyUp(GamePad.DOWN)) {
-            System.out.println("DOWN");
+            yp++;
         }
         if (gc.getInputs().isKeyUp(GamePad.LEFT)) {
-            System.out.println("LEFT");
+            xp--;
         }
         if (gc.getInputs().isKeyUp(GamePad.RIGHT)) {
-            System.out.println("RIGHT");
+            xp++;
         }
-
+        
         if (System.currentTimeMillis() - timer >= 1000) {
             var rt = Runtime.getRuntime();
             var totalMem = rt.totalMemory() / MEGA_BYTE_UNIT;
@@ -72,19 +79,21 @@ public final class DebugSystem extends AbstractSystem {
                     usedMem,
                     totalMem
             );
-
+            
             System.out.println(message);
             ups = 0;
             fps = 0;
             timer += 1000;
         }
-
+        
     }
-
+    
     @Override
     public void draw(final Render g2d) {
         fps++;
-
+        
+        g2d.drawFillRect(xp, yp, 16, 16, 0x00FFFF00);
+        
     }
-
+    
 }

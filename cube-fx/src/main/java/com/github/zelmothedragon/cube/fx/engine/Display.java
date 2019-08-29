@@ -47,16 +47,19 @@ public final class Display extends Application {
     public void start(final Stage primaryStage) throws Exception {
 
         var canvas = new Canvas(SCALE * WIDTH, SCALE * HEIGHT);
-        canvas.setCache(true);
+        canvas.setCache(false);
         canvas.setCacheHint(CacheHint.SPEED);
 
+        var g2d = canvas.getGraphicsContext2D();
+        g2d.setImageSmoothing(false);
+        
         var group = new Group();
         group.getChildren().add(canvas);
 
         var gc = new GameContainer();
         loadKeys(gc.getInputs());
 
-        var engine = new Engine(canvas.getGraphicsContext2D(), gc);
+        var engine = new Engine(g2d, gc);
         engine.start();
 
         var scene = new Scene(group, Color.BLACK);

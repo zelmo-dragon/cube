@@ -118,9 +118,17 @@ public final class Engine extends AnimationTimer {
      * Mettre à jour le rendu graphique du jeu.
      */
     private void draw() {
+
+        // Effacer le canevas
+        g2d.clearRect(0, 0, g2d.getCanvas().getWidth(), g2d.getCanvas().getHeight());
+
+        // Effacer la mémoire tampon
         render.clear();
+
+        // Générer le rendu graphique
         gc.getSystems().draw(render);
 
+        // Transférer la mémoire tampon dans l'image
         image
                 .getPixelWriter()
                 .setPixels(
@@ -128,19 +136,14 @@ public final class Engine extends AnimationTimer {
                         0,
                         render.getWidth(),
                         render.getHeight(),
-                        PixelFormat.getIntArgbInstance(),
+                        PixelFormat.getIntArgbPreInstance(),
                         render.getBuffer(),
                         0,
                         render.getWidth()
                 );
 
-        g2d.drawImage(
-                image,
-                0,
-                0,
-                g2d.getCanvas().getWidth(),
-                g2d.getCanvas().getHeight()
-        );
+        // Dessiner l'image dans le canevas
+        g2d.drawImage(image, 0, 0, g2d.getCanvas().getWidth(), g2d.getCanvas().getHeight());
     }
 
 }
