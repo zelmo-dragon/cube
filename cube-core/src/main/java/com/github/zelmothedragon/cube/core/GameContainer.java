@@ -20,6 +20,10 @@ public final class GameContainer {
      */
     private final InputManager inputManager;
 
+    /**
+     * Constructeur. Construit le conteneur principale du jeu, donne accès aux
+     * principaux gestionnaires.
+     */
     public GameContainer() {
         this.systemManager = new SystemManager(this);
         this.inputManager = new InputManager();
