@@ -42,44 +42,44 @@ public final class Display extends Application {
     public Display() {
         // RAS
     }
-    
+
     @Override
     public void start(final Stage primaryStage) throws Exception {
-        
-        var gc = new GameContainer();
-        loadKeys(gc.getInputs());
-        
-        var engine = new Engine(gc);
-        engine.start();
-        
+
         var canvas = new Canvas(SCALE * WIDTH, SCALE * HEIGHT);
         canvas.setCache(true);
         canvas.setCacheHint(CacheHint.SPEED);
-        
+
         var group = new Group();
         group.getChildren().add(canvas);
-        
+
+        var gc = new GameContainer();
+        loadKeys(gc.getInputs());
+
+        var engine = new Engine(canvas.getGraphicsContext2D(), gc);
+        engine.start();
+
         var scene = new Scene(group, Color.BLACK);
-        
+
         scene.setOnKeyPressed(e -> {
             toggleScreen(primaryStage, e);
             gc.getInputs().keyPressed(e.getCode().getCode());
             e.consume();
         });
-        
+
         scene.setOnKeyReleased(e -> {
             gc.getInputs().keyReleased(e.getCode().getCode());
             e.consume();
         });
-        
+
         primaryStage.widthProperty().addListener((e, o, n) -> {
             canvas.setWidth(n.doubleValue());
         });
-        
+
         primaryStage.heightProperty().addListener((e, o, n) -> {
             canvas.setHeight(n.doubleValue());
         });
-        
+
         primaryStage.setTitle("Cube");
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
@@ -120,5 +120,5 @@ public final class Display extends Application {
         manager.assign(GamePad.START, KeyCode.ENTER.getCode());
         manager.assign(GamePad.SELECT, KeyCode.BACK_SPACE.getCode());
     }
-    
+
 }

@@ -28,7 +28,7 @@ public final class InputManager {
     /**
      * Synchroniser toutes les touches durant la phase de mise à jour du jeu.
      */
-    public void update() {
+    public void update() { 
         keys.forEach(Key::update);
     }
 

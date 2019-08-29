@@ -1,6 +1,7 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameContainer;
+import com.github.zelmothedragon.cube.core.graphic.Render;
 
 /**
  * Système générique.
@@ -49,11 +50,13 @@ public abstract class AbstractSystem implements Comparable<AbstractSystem> {
 
     /**
      * Mettre à jour le rendu graphique du jeu.
+     *
+     * @param g2d Gestionnaire de rendu graphique
      */
-    public abstract void draw();
+    public abstract void draw(Render g2d);
 
     /**
-     * Accesseur, indique si le système est actif ou non.
+     * Accesseur, indiquer si le système est actif ou non.
      *
      * @return La valeur <code>true</code> si le système est actif, sinon
      * <code>false</code>

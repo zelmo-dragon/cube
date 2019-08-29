@@ -1,6 +1,7 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameContainer;
+import com.github.zelmothedragon.cube.core.graphic.Render;
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,14 +47,16 @@ public final class SystemManager {
     }
 
     /**
-     * Mettre à jour le rendu graphique du jeu. Uniquement pour les systèmes
+     * Mettre à jour le rendu graphique du jeu.Uniquement pour les systèmes
      * actifs.
+     *
+     * @param g2d Gestionnaire de rendu graphique
      */
-    public void draw() {
+    public void draw(final Render g2d) {
         world
                 .stream()
                 .filter(AbstractSystem::isEnabled)
-                .forEach(AbstractSystem::draw);
+                .forEach(s -> s.draw(g2d));
     }
 
 }

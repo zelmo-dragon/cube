@@ -1,7 +1,11 @@
 package com.github.zelmothedragon.cube.fx.engine;
 
 import com.github.zelmothedragon.cube.core.GameContainer;
+import com.github.zelmothedragon.cube.core.graphic.Render;
 import javafx.animation.AnimationTimer;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.PixelFormat;
+import javafx.scene.image.WritableImage;
 
 /**
  * Coeur du moteur du jeu. Cadence la boucle principale du jeu.
@@ -23,6 +27,21 @@ public final class Engine extends AnimationTimer {
     private static final boolean LOCK_FPS = false;
 
     /**
+     * Image mémoire.
+     */
+    private final WritableImage image;
+
+    /**
+     * Contexte 2D de JavaFX.
+     */
+    private final GraphicsContext g2d;
+
+    /**
+     * Gestionnaire de rendu graphique.
+     */
+    private final Render render;
+
+    /**
      * Conteneur du contexte du jeu.
      */
     private final GameContainer gc;
@@ -41,12 +60,16 @@ public final class Engine extends AnimationTimer {
     private long lastTime;
 
     /**
-     * Constructeur. Construit le moteur du jeu pour l'ordonnancement de tous
-     * les traitements.
+     * Constructeur.Construit le moteur du jeu pour l'ordonnancement de tous les
+     * traitements.
      *
+     * @param g2d Contexte graphique 2D de JavaFX
      * @param gc Conteneur du contexte du jeu
      */
-    public Engine(final GameContainer gc) {
+    public Engine(final GraphicsContext g2d, final GameContainer gc) {
+        this.image = new WritableImage(Display.WIDTH, Display.HEIGHT);
+        this.render = new Render(Display.WIDTH, Display.HEIGHT);
+        this.g2d = g2d;
         this.gc = gc;
         this.deltaTime = 0.0;
         this.lastTime = System.nanoTime();
@@ -95,7 +118,29 @@ public final class Engine extends AnimationTimer {
      * Mettre à jour le rendu graphique du jeu.
      */
     private void draw() {
-        gc.getSystems().draw();
+        render.clear();
+        gc.getSystems().draw(render);
+
+        image
+                .getPixelWriter()
+                .setPixels(
+                        0,
+                        0,
+                        render.getWidth(),
+                        render.getHeight(),
+                        PixelFormat.getIntArgbInstance(),
+                        render.getBuffer(),
+                        0,
+                        render.getWidth()
+                );
+
+        g2d.drawImage(
+                image,
+                0,
+                0,
+                g2d.getCanvas().getWidth(),
+                g2d.getCanvas().getHeight()
+        );
     }
 
 }

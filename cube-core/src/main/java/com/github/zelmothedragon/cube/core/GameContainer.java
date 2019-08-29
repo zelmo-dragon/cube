@@ -30,7 +30,7 @@ public final class GameContainer {
     }
 
     /**
-     * Accesseur, récupère le gestionnaire de système unique.
+     * Accesseur, obtenir le gestionnaire de système unique.
      *
      * @return Le gestionnaire de système unique
      */
@@ -39,7 +39,7 @@ public final class GameContainer {
     }
 
     /**
-     * Accesseur, récupère le gestionnaire des entrées du joueur unique.
+     * Accesseur, obtenir le gestionnaire des entrées du joueur unique.
      *
      * @return Le gestionnaire des entrées du joueur unique
      */

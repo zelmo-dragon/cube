@@ -1,6 +1,7 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameContainer;
+import com.github.zelmothedragon.cube.core.graphic.Render;
 import com.github.zelmothedragon.cube.core.input.GamePad;
 
 /**
@@ -81,7 +82,7 @@ public final class DebugSystem extends AbstractSystem {
     }
 
     @Override
-    public void draw() {
+    public void draw(final Render g2d) {
         fps++;
 
     }
