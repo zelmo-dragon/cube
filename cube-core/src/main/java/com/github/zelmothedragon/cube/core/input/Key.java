@@ -76,7 +76,13 @@ public final class Key implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Key{name=%s, keyCode=%s, pressed=%s}", name, keyCode, pressed);
+        return String.format(
+                "Key{name=%s, keyCode=%s, pressed=%s, hold=%s}",
+                name,
+                keyCode,
+                pressed,
+                hold
+        );
     }
 
     /**
@@ -93,7 +99,7 @@ public final class Key implements Serializable {
      * <code>false</code>
      */
     public boolean isKeyUp() {
-        return pressed && !hold;
+        return pressed;
     }
 
     /**
@@ -103,7 +109,7 @@ public final class Key implements Serializable {
      * <code>false</code>
      */
     public boolean isKeyDown() {
-        return !pressed && hold;
+        return !pressed;
     }
 
     /**

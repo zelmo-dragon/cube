@@ -11,7 +11,7 @@ import com.github.zelmothedragon.cube.core.input.GamePad;
 public final class DebugSystem extends AbstractSystem {
 
     /**
-     * Conversion de la taille de la mémoire en Méga Octet.
+     * Conversion de la taille de la mémoire en Méga octet.
      */
     private static final int MEGA_BYTE_UNIT = 1024 * 1024;
 
