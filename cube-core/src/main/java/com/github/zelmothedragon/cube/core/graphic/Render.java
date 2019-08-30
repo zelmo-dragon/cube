@@ -184,7 +184,18 @@ public abstract class Render {
                     if (isInBound(xa, width)) {
                         var distance = Math.sqrt(dx + dy);
                         if (distance < radius) {
-                            buffer[xa + ya * width] = color;
+                            var power = 1 - (distance / radius);
+                            var alpha = Pixel.getAlpha(color) * power;
+                            var red = Pixel.getRed(color) * power;
+                            var green = Pixel.getGreen(color) * power;
+                            var blue = Pixel.getBlue(color) * power;
+
+                            buffer[xa + ya * width] = Pixel.toPixel(
+                                    (int) alpha,
+                                    (int) red,
+                                    (int) green,
+                                    (int) blue
+                            );
                         }
                     }
                 }
@@ -264,7 +275,8 @@ public abstract class Render {
 
     private void setPixel(final int xp, final int yp, final int pixel) {
 
-        if (xp >= 0 && xp < width && yp >= 0 && yp < height) {
+        var alpha = Pixel.getAlpha(pixel);
+        if (xp >= 0 && xp < width && yp >= 0 && yp < height && alpha > 0) {
             buffer[xp + yp * width] = pixel;
         }
 
