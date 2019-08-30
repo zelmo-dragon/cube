@@ -1,11 +1,9 @@
 package com.github.zelmothedragon.cube.fx.engine;
 
 import com.github.zelmothedragon.cube.core.GameContainer;
-import com.github.zelmothedragon.cube.core.graphic.Render;
+import com.github.zelmothedragon.cube.fx.graphic.RenderFx;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.PixelFormat;
-import javafx.scene.image.WritableImage;
 
 /**
  * Coeur du moteur du jeu. Cadence la boucle principale du jeu.
@@ -27,19 +25,9 @@ public final class Engine extends AnimationTimer {
     private static final boolean LOCK_FPS = false;
 
     /**
-     * Image mémoire.
-     */
-    private final WritableImage image;
-
-    /**
-     * Contexte 2D de JavaFX.
-     */
-    private final GraphicsContext g2d;
-
-    /**
      * Gestionnaire de rendu graphique.
      */
-    private final Render render;
+    private final RenderFx render;
 
     /**
      * Conteneur du contexte du jeu.
@@ -67,9 +55,7 @@ public final class Engine extends AnimationTimer {
      * @param gc Conteneur du contexte du jeu
      */
     public Engine(final GraphicsContext g2d, final GameContainer gc) {
-        this.image = new WritableImage(Display.WIDTH, Display.HEIGHT);
-        this.render = new Render(Display.WIDTH, Display.HEIGHT);
-        this.g2d = g2d;
+        this.render = new RenderFx(Display.WIDTH, Display.HEIGHT, g2d);
         this.gc = gc;
         this.deltaTime = 0.0;
         this.lastTime = System.nanoTime();
@@ -118,32 +104,9 @@ public final class Engine extends AnimationTimer {
      * Mettre à jour le rendu graphique du jeu.
      */
     private void draw() {
-
-        // Effacer le canevas
-        g2d.clearRect(0, 0, g2d.getCanvas().getWidth(), g2d.getCanvas().getHeight());
-
-        // Effacer la mémoire tampon
         render.clear();
-
-        // Générer le rendu graphique
         gc.getSystems().draw(render);
-
-        // Transférer la mémoire tampon dans l'image
-        image
-                .getPixelWriter()
-                .setPixels(
-                        0,
-                        0,
-                        render.getWidth(),
-                        render.getHeight(),
-                        PixelFormat.getIntArgbPreInstance(),
-                        render.getBuffer(),
-                        0,
-                        render.getWidth()
-                );
-
-        // Dessiner l'image dans le canevas
-        g2d.drawImage(image, 0, 0, g2d.getCanvas().getWidth(), g2d.getCanvas().getHeight());
+        render.draw();
     }
 
 }

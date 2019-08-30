@@ -8,24 +8,24 @@ import java.util.Arrays;
  *
  * @author MOSELLE Maxime
  */
-public final class Render {
+public abstract class Render {
 
     /**
      * Largeur de l'image en mémoire tampon.
      */
-    private final int width;
+    protected final int width;
 
     /**
      * Hauteur de l'image en mémoire tampn.
      */
-    private final int height;
+    protected final int height;
 
     /**
      * Mémoire tampon de l'image sous forme de tableau de pixels. Ce tampon sera
      * ensuite envoyer vers l'image de destination afin d'être afficher à
      * l'écran.
      */
-    private final int[] buffer;
+    protected final int[] buffer;
 
     /**
      * Constructeur. Construit un gestionnaire de rendu graphique pour manipuler
@@ -34,7 +34,7 @@ public final class Render {
      * @param width Largeur de l'image en mémoire tampon
      * @param height Hauteur de l'image en mémoire tampn
      */
-    public Render(final int width, final int height) {
+    protected Render(final int width, final int height) {
         this.width = width;
         this.height = height;
         this.buffer = new int[width * height];
@@ -48,6 +48,15 @@ public final class Render {
         Arrays.fill(buffer, 0);
     }
 
+    /**
+     * Dessiner un rectangle plein unicolore.
+     *
+     * @param xp Position en abcisse
+     * @param yp Position en ordonnée
+     * @param w Largeur en pixel
+     * @param h Hauteur en pixels
+     * @param color Couleur
+     */
     public void drawFillRect(
             final int xp,
             final int yp,
@@ -69,7 +78,158 @@ public final class Render {
                 }
             }
         }
+    }
 
+    /**
+     * Dessiner un rectangle unicolore.
+     *
+     * @param xp Position en abcisse
+     * @param yp Position en ordonnée
+     * @param w Largeur en pixel
+     * @param h Hauteur en pixels
+     * @param color Couleur
+     */
+    public void drawRect(
+            final int xp,
+            final int yp,
+            final int w,
+            final int h,
+            final int color) {
+
+        int xa;
+        int ya;
+
+        for (var y = 0; y < h; y++) {
+            ya = yp + y;
+            if (isInBound(ya, height)) {
+                for (var x = 0; x < w; x++) {
+                    xa = xp + x;
+                    if (isInBound(xa, width) && (x == 0 || x == w - 1 || y == 0 || y == h - 1)) {
+                        buffer[xa + ya * width] = color;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Dessiner un cercle plein unicolore.
+     *
+     * @param xp Position en abcisse
+     * @param yp Position en ordonnée
+     * @param radius Rayon du cercle en pixel
+     * @param color Couleur
+     */
+    public void drawFillCircle(
+            final int xp,
+            final int yp,
+            final int radius,
+            final int color) {
+
+        int xa;
+        int ya;
+
+        double dx;
+        double dy;
+
+        var diameter = radius * 2;
+
+        for (var y = 0; y < diameter; y++) {
+            ya = yp + y;
+            dy = Math.pow(y - radius, 2);
+            if (isInBound(ya, height)) {
+                for (var x = 0; x < diameter; x++) {
+                    xa = xp + x;
+                    dx = Math.pow(x - radius, 2);
+                    if (isInBound(xa, width)) {
+                        var distance = Math.sqrt(dx + dy);
+                        if (distance < radius) {
+                            buffer[xa + ya * width] = color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Dessiner un cercle dégradé unicolore.
+     *
+     * @param xp Position en abcisse
+     * @param yp Position en ordonnée
+     * @param radius Rayon du cercle en pixel
+     * @param color Couleur
+     */
+    public void drawGradientCircle(
+            final int xp,
+            final int yp,
+            final int radius,
+            final int color) {
+
+        int xa;
+        int ya;
+
+        double dx;
+        double dy;
+
+        var diameter = radius * 2;
+
+        for (var y = 0; y < diameter; y++) {
+            ya = yp + y;
+            dy = Math.pow(y - radius, 2);
+            if (isInBound(ya, height)) {
+                for (var x = 0; x < diameter; x++) {
+                    xa = xp + x;
+                    dx = Math.pow(x - radius, 2);
+                    if (isInBound(xa, width)) {
+                        var distance = Math.sqrt(dx + dy);
+                        if (distance < radius) {
+                            buffer[xa + ya * width] = color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Dessiner un cercle plein unicolore.
+     *
+     * @param xp Position en abcisse
+     * @param yp Position en ordonnée
+     * @param radius Rayon du cercle en pixel
+     * @param color Couleur
+     */
+    public void drawCircle(
+            final int xp,
+            final int yp,
+            final int radius,
+            final int color) {
+
+        int xa;
+        int ya;
+
+        double dx;
+        double dy;
+
+        var diameter = radius * 2;
+
+        for (var y = 0; y < diameter; y++) {
+            ya = yp + y;
+            dy = Math.pow(y - radius, 2);
+            if (isInBound(ya, height)) {
+                for (var x = 0; x < diameter; x++) {
+                    xa = xp + x;
+                    dx = Math.pow(x - radius, 2);
+                    if (isInBound(xa, width)) {
+                        var distance = Math.sqrt(dx + dy);
+                        if (distance < radius && distance >= radius - 1) {
+                            buffer[xa + ya * width] = color;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -102,6 +262,22 @@ public final class Render {
         return copy;
     }
 
+    private void setPixel(final int xp, final int yp, final int pixel) {
+
+        if (xp >= 0 && xp < width && yp >= 0 && yp < height) {
+            buffer[xp + yp * width] = pixel;
+        }
+
+    }
+
+    /**
+     * Vérifier qu'une position est comprise dans une taille.
+     *
+     * @param position Position
+     * @param size Taille
+     * @return La valeur <code>true</code> si la position est comprise dans la
+     * taille sinon <code>false</code>
+     */
     private static boolean isInBound(final int position, final int size) {
 
         return position >= 0 && position < size;
