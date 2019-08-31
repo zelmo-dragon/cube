@@ -244,6 +244,55 @@ public abstract class Render {
     }
 
     /**
+     * Dessiner une ligne unicolore.
+     *
+     * @param x0 Position en abcisse du premier point
+     * @param y0 Position en ordonnée du premier point
+     * @param x1 Position en abcisse du second point
+     * @param y1 Position en ordonnée du second point
+     * @param color Couleur
+     */
+    public void drawLine(
+            final int x0,
+            final int y0,
+            final int x1,
+            final int y1,
+            final int color) {
+
+        var xp = x0;
+        var yp = y0;
+
+        var dx = Math.abs(x1 - x0);
+        var dy = Math.abs(y1 - x0);
+
+        var sx = x0 < x1 ? 1 : -1;
+        var sy = y0 < y1 ? 1 : -1;
+
+        var delta = dx - dy;
+        int i;
+
+        while (isInBound(xp, width)
+                && isInBound(yp, height)
+                && (xp != x1 || yp != y1)) {
+
+            buffer[xp + yp * width] = color;
+
+            i = delta * 2;
+
+            if (i > -1 * dy) {
+                delta -= dy;
+                xp += sx;
+            }
+
+            if (i < dx) {
+                delta += dx;
+                yp += sy;
+            }
+
+        }
+    }
+
+    /**
      * Accesseur, obtenir la largeur de l'image en mémoire tampon.
      *
      * @return La largeur
@@ -279,7 +328,6 @@ public abstract class Render {
         if (xp >= 0 && xp < width && yp >= 0 && yp < height && alpha > 0) {
             buffer[xp + yp * width] = pixel;
         }
-
     }
 
     /**

@@ -93,6 +93,7 @@ public final class DebugSystem extends AbstractSystem {
         fps++;
 
         g2d.drawGradientCircle(xp, yp, 64, 0x00FFFF00);
+        g2d.drawLine(8, 8, xp, yp, 0x0000FFFF);
 
     }
 
