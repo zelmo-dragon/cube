@@ -3,6 +3,7 @@ package com.github.zelmothedragon.cube.fx.engine;
 import com.github.zelmothedragon.cube.core.GameContainer;
 import com.github.zelmothedragon.cube.core.input.GamePad;
 import com.github.zelmothedragon.cube.core.input.InputManager;
+import com.github.zelmothedragon.cube.fx.asset.ResourceManager;
 import java.util.Objects;
 import javafx.application.Application;
 import javafx.scene.CacheHint;
@@ -56,7 +57,8 @@ public final class Display extends Application {
         var group = new Group();
         group.getChildren().add(canvas);
 
-        var gc = new GameContainer();
+        var resourceManager = new ResourceManager();
+        var gc = new GameContainer(resourceManager);
         loadKeys(gc.getInputs());
 
         var engine = new Engine(g2d, gc);

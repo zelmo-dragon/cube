@@ -1,8 +1,11 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameContainer;
+import com.github.zelmothedragon.cube.core.asset.AssetManager;
 import com.github.zelmothedragon.cube.core.graphic.Render;
+import com.github.zelmothedragon.cube.core.graphic.Sprite;
 import com.github.zelmothedragon.cube.core.input.GamePad;
+import java.util.Random;
 
 /**
  * Système de déboggage.
@@ -36,6 +39,8 @@ public final class DebugSystem extends AbstractSystem {
      */
     private String message;
 
+    private Sprite background;
+
     private int xp;
 
     private int yp;
@@ -49,6 +54,7 @@ public final class DebugSystem extends AbstractSystem {
 
         this.xp = 0;
         this.yp = 0;
+        this.background = gc.getAssets().loadSprite(AssetManager.DEBUG_BACKGROUND_IMAGE);
     }
 
     @Override
@@ -85,16 +91,25 @@ public final class DebugSystem extends AbstractSystem {
             fps = 0;
             timer += 1000;
         }
-
     }
 
     @Override
     public void draw(final Render g2d) {
         fps++;
+        var time = System.nanoTime();
 
-        g2d.drawGradientCircle(xp, yp, 64, 0x00FFFF00);
-        g2d.drawLine(8, 8, xp, yp, 0x0000FFFF);
+        g2d.drawImage(0, 0, background);
 
+//        var rng = new Random();
+//        var shadow = new int[g2d.getWidth() * g2d.getHeight()];
+//        
+//        for (int i = 0; i < shadow.length; i++) {
+//            shadow[i] = rng.nextInt();
+//        }
+        g2d.drawGradientCircle(xp, yp, 64, 0xFF00FFFF);
+
+        time = System.nanoTime() - time;
+        System.out.printf("TIME: %s ns%n", time);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.github.zelmothedragon.cube.core;
 
+import com.github.zelmothedragon.cube.core.asset.AssetManager;
 import com.github.zelmothedragon.cube.core.input.InputManager;
 import com.github.zelmothedragon.cube.core.system.SystemManager;
 
@@ -9,6 +10,11 @@ import com.github.zelmothedragon.cube.core.system.SystemManager;
  * @author MOSELLE Maxime
  */
 public final class GameContainer {
+
+    /**
+     * Gestionnaire des ressources numériques unique.
+     */
+    private final AssetManager assetManager;
 
     /**
      * Gestionnaire de système unique.
@@ -21,10 +27,13 @@ public final class GameContainer {
     private final InputManager inputManager;
 
     /**
-     * Constructeur. Construit le conteneur principale du jeu, donne accès aux
+     * Constructeur.Construit le conteneur principale du jeu, donne accès aux
      * principaux gestionnaires.
+     *
+     * @param assetManager
      */
-    public GameContainer() {
+    public GameContainer(final AssetManager assetManager) {
+        this.assetManager = assetManager;
         this.systemManager = new SystemManager(this);
         this.inputManager = new InputManager();
     }
@@ -45,6 +54,15 @@ public final class GameContainer {
      */
     public InputManager getInputs() {
         return inputManager;
+    }
+
+    /**
+     * Accesseur, obtenit le gestionnaire de ressources numériques unique.
+     *
+     * @return Le gestionnaire des ressources numériques unique.
+     */
+    public AssetManager getAssets() {
+        return assetManager;
     }
 
 }

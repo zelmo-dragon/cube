@@ -107,4 +107,17 @@ public final class Pixel {
                 | blue;
     }
 
+    /**
+     * Vérifier qu'une position est comprise dans une taille.
+     *
+     * @param position Position
+     * @param size Taille
+     * @return La valeur <code>true</code> si la position est comprise dans la
+     * taille sinon <code>false</code>
+     */
+    public static boolean isInBound(final int position, final int size) {
+
+        return position >= 0 && position < size;
+    }
+
 }

@@ -64,15 +64,12 @@ public abstract class Render {
             final int h,
             final int color) {
 
-        int xa;
-        int ya;
-
         for (var y = 0; y < h; y++) {
-            ya = yp + y;
-            if (isInBound(ya, height)) {
+            var ya = yp + y;
+            if (Pixel.isInBound(ya, height)) {
                 for (var x = 0; x < w; x++) {
-                    xa = xp + x;
-                    if (isInBound(xa, width)) {
+                    var xa = xp + x;
+                    if (Pixel.isInBound(xa, width)) {
                         buffer[xa + ya * width] = color;
                     }
                 }
@@ -96,15 +93,12 @@ public abstract class Render {
             final int h,
             final int color) {
 
-        int xa;
-        int ya;
-
         for (var y = 0; y < h; y++) {
-            ya = yp + y;
-            if (isInBound(ya, height)) {
+            var ya = yp + y;
+            if (Pixel.isInBound(ya, height)) {
                 for (var x = 0; x < w; x++) {
-                    xa = xp + x;
-                    if (isInBound(xa, width) && (x == 0 || x == w - 1 || y == 0 || y == h - 1)) {
+                    var xa = xp + x;
+                    if (Pixel.isInBound(xa, width) && (x == 0 || x == w - 1 || y == 0 || y == h - 1)) {
                         buffer[xa + ya * width] = color;
                     }
                 }
@@ -126,22 +120,16 @@ public abstract class Render {
             final int radius,
             final int color) {
 
-        int xa;
-        int ya;
-
-        double dx;
-        double dy;
-
         var diameter = radius * 2;
 
         for (var y = 0; y < diameter; y++) {
-            ya = yp + y;
-            dy = Math.pow(y - radius, 2);
-            if (isInBound(ya, height)) {
+            var ya = yp + y;
+            var dy = Math.pow(y - radius, 2);
+            if (Pixel.isInBound(ya, height)) {
                 for (var x = 0; x < diameter; x++) {
-                    xa = xp + x;
-                    dx = Math.pow(x - radius, 2);
-                    if (isInBound(xa, width)) {
+                    var xa = xp + x;
+                    var dx = Math.pow(x - radius, 2);
+                    if (Pixel.isInBound(xa, width)) {
                         var distance = Math.sqrt(dx + dy);
                         if (distance < radius) {
                             buffer[xa + ya * width] = color;
@@ -166,22 +154,16 @@ public abstract class Render {
             final int radius,
             final int color) {
 
-        int xa;
-        int ya;
-
-        double dx;
-        double dy;
-
         var diameter = radius * 2;
 
         for (var y = 0; y < diameter; y++) {
-            ya = yp + y;
-            dy = Math.pow(y - radius, 2);
-            if (isInBound(ya, height)) {
+            var ya = yp + y;
+            var dy = Math.pow(y - radius, 2);
+            if (Pixel.isInBound(ya, height)) {
                 for (var x = 0; x < diameter; x++) {
-                    xa = xp + x;
-                    dx = Math.pow(x - radius, 2);
-                    if (isInBound(xa, width)) {
+                    var xa = xp + x;
+                    var dx = Math.pow(x - radius, 2);
+                    if (Pixel.isInBound(xa, width)) {
                         var distance = Math.sqrt(dx + dy);
                         if (distance < radius) {
                             var power = 1 - (distance / radius);
@@ -209,6 +191,56 @@ public abstract class Render {
      * @param xp Position en abcisse
      * @param yp Position en ordonnée
      * @param radius Rayon du cercle en pixel
+     * @param shadow
+     * @param color Couleur
+     */
+    public void drawShadowCircle(
+            final int xp,
+            final int yp,
+            final int radius,
+            final int shadow[],
+            final int color) {
+
+        var diameter = radius * 2;
+
+        for (var y = 0; y < diameter; y++) {
+            var ya = yp + y;
+            var dy = Math.pow(y - radius, 2);
+            if (Pixel.isInBound(ya, height)) {
+                for (var x = 0; x < diameter; x++) {
+                    var xa = xp + x;
+                    var dx = Math.pow(x - radius, 2);
+                    if (Pixel.isInBound(xa, width)) {
+                        var distance = Math.sqrt(dx + dy);
+                        if (distance < radius) {
+                            var power = 1 - (distance / radius);
+                            var alpha = Pixel.getAlpha(color) * power;
+                            var red = Pixel.getRed(color) * power;
+                            var green = Pixel.getGreen(color) * power;
+                            var blue = Pixel.getBlue(color) * power;
+
+                            buffer[xa + ya * width] = Pixel.toPixel(
+                                    (int) alpha,
+                                    (int) red,
+                                    (int) green,
+                                    (int) blue
+                            );
+                        } else {
+                            buffer[xa + ya * width] = shadow[x + y * width];
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    /**
+     * Dessiner un cercle plein unicolore.
+     *
+     * @param xp Position en abcisse
+     * @param yp Position en ordonnée
+     * @param radius Rayon du cercle en pixel
      * @param color Couleur
      */
     public void drawCircle(
@@ -217,22 +249,16 @@ public abstract class Render {
             final int radius,
             final int color) {
 
-        int xa;
-        int ya;
-
-        double dx;
-        double dy;
-
         var diameter = radius * 2;
 
         for (var y = 0; y < diameter; y++) {
-            ya = yp + y;
-            dy = Math.pow(y - radius, 2);
-            if (isInBound(ya, height)) {
+            var ya = yp + y;
+            var dy = Math.pow(y - radius, 2);
+            if (Pixel.isInBound(ya, height)) {
                 for (var x = 0; x < diameter; x++) {
-                    xa = xp + x;
-                    dx = Math.pow(x - radius, 2);
-                    if (isInBound(xa, width)) {
+                    var xa = xp + x;
+                    var dx = Math.pow(x - radius, 2);
+                    if (Pixel.isInBound(xa, width)) {
                         var distance = Math.sqrt(dx + dy);
                         if (distance < radius && distance >= radius - 1) {
                             buffer[xa + ya * width] = color;
@@ -269,15 +295,14 @@ public abstract class Render {
         var sy = y0 < y1 ? 1 : -1;
 
         var delta = dx - dy;
-        int i;
 
-        while (isInBound(xp, width)
-                && isInBound(yp, height)
+        while (Pixel.isInBound(xp, width)
+                && Pixel.isInBound(yp, height)
                 && (xp != x1 || yp != y1)) {
 
             buffer[xp + yp * width] = color;
 
-            i = delta * 2;
+            var i = delta * 2;
 
             if (i > -1 * dy) {
                 delta -= dy;
@@ -288,8 +313,30 @@ public abstract class Render {
                 delta += dx;
                 yp += sy;
             }
-
         }
+    }
+
+    /**
+     * Dessiner une image.
+     *
+     * @param xp Position en abcisse
+     * @param yp Position en ordonnée
+     * @param sprite Une image
+     */
+    public void drawImage(final int xp, final int yp, final Sprite sprite) {
+
+        for (var y = 0; y < sprite.height; y++) {
+            var ya = yp + y;
+            if (Pixel.isInBound(ya, height)) {
+                for (var x = 0; x < sprite.width; x++) {
+                    var xa = xp + x;
+                    if (Pixel.isInBound(xa, width)) {
+                        buffer[xa + ya * width] = sprite.getPixel(x, y);
+                    }
+                }
+            }
+        }
+
     }
 
     /**
@@ -317,30 +364,21 @@ public abstract class Render {
      */
     public int[] getBuffer() {
         // Permet l'immuabilité de cette classe
-        var copy = new int[buffer.length];
-        System.arraycopy(buffer, 0, copy, 0, buffer.length);
-        return copy;
-    }
-
-    private void setPixel(final int xp, final int yp, final int pixel) {
-
-        var alpha = Pixel.getAlpha(pixel);
-        if (xp >= 0 && xp < width && yp >= 0 && yp < height && alpha > 0) {
-            buffer[xp + yp * width] = pixel;
-        }
+        return Arrays.copyOf(buffer, buffer.length);
     }
 
     /**
-     * Vérifier qu'une position est comprise dans une taille.
+     * Muttateur, écrire un pixel sur l'image.
      *
-     * @param position Position
-     * @param size Taille
-     * @return La valeur <code>true</code> si la position est comprise dans la
-     * taille sinon <code>false</code>
+     * @param xp Position en abcisse
+     * @param yp Position en ordonnée
+     * @param pixel Pixel
      */
-    private static boolean isInBound(final int position, final int size) {
+    private void setPixel(final int xp, final int yp, final int pixel) {
 
-        return position >= 0 && position < size;
+        var alpha = Pixel.getAlpha(pixel);
+        if (xp >= 0 && xp < width && yp >= 0 && yp < height && alpha == 0) {
+            buffer[xp + yp * width] = pixel;
+        }
     }
-
 }
