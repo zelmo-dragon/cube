@@ -16,6 +16,11 @@ public final class Pixel {
     private static final int COLOR_MASK = 0xFF;
 
     /**
+     * Ratio du canal alpha.
+     */
+    private static final float ALPHA_RATIO = 255f;
+
+    /**
      * Index du canal alpha d'une couleur.
      */
     private static final int CHANNEL_ALPHA = 24;
@@ -105,6 +110,34 @@ public final class Pixel {
                 | red << CHANNEL_RED
                 | green << CHANNEL_GREEN
                 | blue;
+    }
+
+    /**
+     * Générer un pixel éclairer. Ce pixel se base en combinant les cannaux de
+     * couleurs les plus lumineux en fonction de deux couleurs.
+     *
+     * @param pixel Couleur du pixel initial en arrière plan
+     * @param color Couleur en avant plan
+     * @return Un pixel résultant du mélange des deux paramètres en combinant
+     * les cannaux de couleurs les plus lumineux
+     */
+    public static int light(final int pixel, final int color) {
+
+        var rr0 = Pixel.getRed(pixel);
+        var gg0 = Pixel.getGreen(pixel);
+        var bb0 = Pixel.getBlue(pixel);
+
+        var rr1 = Pixel.getRed(color);
+        var gg1 = Pixel.getGreen(color);
+        var bb1 = Pixel.getBlue(color);
+
+        return toPixel(
+                0,
+                Math.max(rr0, rr1),
+                Math.max(gg0, gg1),
+                Math.max(bb0, bb1)
+        );
+
     }
 
     /**

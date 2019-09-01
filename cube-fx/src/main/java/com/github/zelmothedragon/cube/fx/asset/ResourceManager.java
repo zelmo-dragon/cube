@@ -26,7 +26,7 @@ public final class ResourceManager implements AssetManager {
         var image = new Image(path);
         var width = (int) image.getWidth();
         var height = (int) image.getHeight();
-        var pixels = new int[width * height];
+        var buffer = new int[width * height];
 
         image
                 .getPixelReader()
@@ -36,12 +36,12 @@ public final class ResourceManager implements AssetManager {
                         width,
                         height,
                         PixelFormat.getIntArgbPreInstance(),
-                        pixels,
+                        buffer,
                         0,
                         width
                 );
 
-        return new Sprite(width, height, pixels);
+        return new Sprite(width, height, buffer);
 
     }
 

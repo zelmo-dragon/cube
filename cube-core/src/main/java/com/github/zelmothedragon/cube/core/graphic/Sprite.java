@@ -3,7 +3,7 @@ package com.github.zelmothedragon.cube.core.graphic;
 import java.util.Arrays;
 
 /**
- * Image sous forme de tableau de pixels.
+ * Image sous forme de tableau de buffer.
  *
  * @author MOSELLE Maxime
  */
@@ -23,23 +23,23 @@ public final class Sprite {
      * Image sous forme de tableau de pixels. Ce tampon sera ensuite envoyer
      * vers l'image de destination afin d'être afficher à l'écran.
      */
-    final int[] pixels;
+    final int[] buffer;
 
     /**
      * Constructeur. Construit une image.
      *
      * @param width Largeur de l'image
      * @param height Hauteur de l'image
-     * @param pixels Image sous forme de tableau de pixels
+     * @param buffer Image sous forme de tableau de buffer
      */
     public Sprite(
             final int width,
             final int height,
-            final int[] pixels) {
+            final int[] buffer) {
 
         this.width = width;
         this.height = height;
-        this.pixels = pixels;
+        this.buffer = buffer;
     }
 
     /**
@@ -54,13 +54,20 @@ public final class Sprite {
 
         this.width = width;
         this.height = height;
-        this.pixels = new int[width * height];
+        this.buffer = new int[width * height];
     }
 
+    /**
+     * Accesseur, obtenir un pixel en fonction d'une coordonnée.
+     *
+     * @param xp Position en abcisse
+     * @param yp Position en ordonnée
+     * @return Le pixel à cet emplacement
+     */
     public int getPixel(final int xp, final int yp) {
         int pixel;
         if (Pixel.isInBound(xp, width) && Pixel.isInBound(yp, height)) {
-            pixel = pixels[xp + yp * width];
+            pixel = buffer[xp + yp * width];
         } else {
             pixel = 0;
         }
@@ -80,8 +87,11 @@ public final class Sprite {
             final int pixel) {
 
         var alpha = Pixel.getAlpha(pixel);
-        if (xp >= 0 && xp < width && yp >= 0 && yp < height && alpha > 0) {
-            pixels[xp + yp * width] = pixel;
+        if (Pixel.isInBound(xp, width)
+                && Pixel.isInBound(yp, height)
+                && alpha != 0) {
+
+            buffer[xp + yp * width] = pixel;
         }
     }
 
@@ -104,12 +114,13 @@ public final class Sprite {
     }
 
     /**
-     * Accesseur, obtenir l'image sous forme de tableau de pixels.
+     * Accesseur, obtenir l'image sous forme de tableau de buffer.
      *
-     * @return L'image sous forme de tableau de pixels
+     * @return L'image sous forme de tableau de buffer
      */
-    public int[] getPixels() {
-        return Arrays.copyOf(pixels, pixels.length);
+    public int[] getBuffer() {
+        // Permet l'immuabilité de cette classe
+        return Arrays.copyOf(buffer, buffer.length);
     }
 
 }

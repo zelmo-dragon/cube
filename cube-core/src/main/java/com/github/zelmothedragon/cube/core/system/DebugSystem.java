@@ -5,7 +5,6 @@ import com.github.zelmothedragon.cube.core.asset.AssetManager;
 import com.github.zelmothedragon.cube.core.graphic.Render;
 import com.github.zelmothedragon.cube.core.graphic.Sprite;
 import com.github.zelmothedragon.cube.core.input.GamePad;
-import java.util.Random;
 
 /**
  * Système de déboggage.
@@ -39,7 +38,9 @@ public final class DebugSystem extends AbstractSystem {
      */
     private String message;
 
-    private Sprite background;
+    private final Sprite background;
+
+    private final Sprite wood;
 
     private int xp;
 
@@ -55,6 +56,7 @@ public final class DebugSystem extends AbstractSystem {
         this.xp = 0;
         this.yp = 0;
         this.background = gc.getAssets().loadSprite(AssetManager.DEBUG_BACKGROUND_IMAGE);
+        this.wood = gc.getAssets().loadSprite(AssetManager.DEBUG_WOOD_IMAGE);
     }
 
     @Override
@@ -99,14 +101,9 @@ public final class DebugSystem extends AbstractSystem {
         var time = System.nanoTime();
 
         g2d.drawImage(0, 0, background);
-
-//        var rng = new Random();
-//        var shadow = new int[g2d.getWidth() * g2d.getHeight()];
-//        
-//        for (int i = 0; i < shadow.length; i++) {
-//            shadow[i] = rng.nextInt();
-//        }
-        g2d.drawGradientCircle(xp, yp, 64, 0xFF00FFFF);
+        g2d.drawImage(64, 64, wood);
+        g2d.drawGradientCircle(xp, yp, 64, 0x00FF0000);
+        g2d.drawRect(xp, yp, 128, 128, 0xFFFF0000);
 
         time = System.nanoTime() - time;
         System.out.printf("TIME: %s ns%n", time);
