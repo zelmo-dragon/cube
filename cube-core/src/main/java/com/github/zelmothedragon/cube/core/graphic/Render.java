@@ -313,9 +313,9 @@ public abstract class Render {
     private void setPixel(final int xp, final int yp, final int color) {
 
         var alpha = Pixel.getAlpha(color);
-        if (xp >= 0 && xp < width && yp >= 0 && yp < height) {
+        if (Pixel.isInBound(xp, width) && Pixel.isInBound(yp, height)) {
             var index = xp + yp * width;
-            if (alpha == 255) {
+            if (alpha == Pixel.COLOR_MASK) {
                 buffer[index] = color;
             } else {
                 var pixel = buffer[index];

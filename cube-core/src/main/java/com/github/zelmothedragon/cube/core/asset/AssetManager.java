@@ -12,6 +12,8 @@ public interface AssetManager {
 
     String DEBUG_WOOD_IMAGE = "/assets/images/wood.png";
 
+    String DEBUG_PLAYER_IMAGE = "/assets/images/npc_test.png";
+
     /**
      * Charger une image.
      *

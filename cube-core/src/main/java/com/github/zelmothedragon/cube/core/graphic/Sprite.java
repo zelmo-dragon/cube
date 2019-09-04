@@ -7,7 +7,7 @@ import java.util.Arrays;
  *
  * @author MOSELLE Maxime
  */
-public final class Sprite {
+public class Sprite {
 
     /**
      * Largeur de l'image.
@@ -55,6 +55,13 @@ public final class Sprite {
         this.width = width;
         this.height = height;
         this.buffer = new int[width * height];
+    }
+
+    /**
+     * Effacer tout le contenu de l'image.
+     */
+    public void clear() {
+        Arrays.fill(buffer, 0);
     }
 
     /**

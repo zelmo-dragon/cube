@@ -13,7 +13,7 @@ public final class Pixel {
     /**
      * Masque pour l'extraction d'un canal d'une couleur.
      */
-    private static final int COLOR_MASK = 0xFF;
+    public static final int COLOR_MASK = 0xFF;
 
     /**
      * Ratio du canal alpha.

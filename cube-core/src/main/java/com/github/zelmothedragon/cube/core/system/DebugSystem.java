@@ -2,6 +2,7 @@ package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameContainer;
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
+import com.github.zelmothedragon.cube.core.graphic.AnimatedSprite;
 import com.github.zelmothedragon.cube.core.graphic.Render;
 import com.github.zelmothedragon.cube.core.graphic.Sprite;
 import com.github.zelmothedragon.cube.core.input.GamePad;
@@ -42,6 +43,8 @@ public final class DebugSystem extends AbstractSystem {
 
     private final Sprite wood;
 
+    private final AnimatedSprite player;
+
     private int xp;
 
     private int yp;
@@ -57,24 +60,40 @@ public final class DebugSystem extends AbstractSystem {
         this.yp = 0;
         this.background = gc.getAssets().loadSprite(AssetManager.DEBUG_BACKGROUND_IMAGE);
         this.wood = gc.getAssets().loadSprite(AssetManager.DEBUG_WOOD_IMAGE);
+        this.player = new AnimatedSprite(
+                gc.getAssets().loadSprite(AssetManager.DEBUG_PLAYER_IMAGE),
+                50,
+                4,
+                16,
+                32
+        );
     }
 
     @Override
     public void update() {
         ups++;
 
-        if (gc.getInputs().isKeyUp(GamePad.UP)) {
-            yp--;
-        }
-        if (gc.getInputs().isKeyUp(GamePad.DOWN)) {
-            yp++;
-        }
         if (gc.getInputs().isKeyUp(GamePad.LEFT)) {
             xp--;
-        }
-        if (gc.getInputs().isKeyUp(GamePad.RIGHT)) {
+            player.setOffset(0, 96);
+            player.play();
+        } else if (gc.getInputs().isKeyUp(GamePad.RIGHT)) {
             xp++;
+            player.setOffset(0, 32);
+            player.play();
+        } else if (gc.getInputs().isKeyUp(GamePad.UP)) {
+            yp--;
+            player.setOffset(0, 64);
+            player.play();
+        } else if (gc.getInputs().isKeyUp(GamePad.DOWN)) {
+            yp++;
+            player.setOffset(0, 0);
+            player.play();
+        } else {
+            player.stop();
         }
+
+        player.update(1.0);
 
         if (System.currentTimeMillis() - timer >= 1000) {
             var rt = Runtime.getRuntime();
@@ -102,11 +121,12 @@ public final class DebugSystem extends AbstractSystem {
 
         g2d.drawImage(0, 0, background);
         g2d.drawImage(64, 64, wood);
-        g2d.drawGradientCircle(xp, yp, 64, 0x00FF0000);
-        g2d.drawRect(xp, yp, 128, 128, 0xFFFF0000);
+        //g2d.drawGradientCircle(xp, yp, 64, 0x00FF0000);
+        //g2d.drawRect(xp, yp, 128, 128, 0xFFFF0000);
+        g2d.drawImage(xp, yp, player.getCurrentSprite());
 
         time = System.nanoTime() - time;
-        System.out.printf("TIME: %s ns%n", time);
+        //System.out.printf("TIME: %s ns%n", time);
     }
 
 }
