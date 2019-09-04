@@ -3,7 +3,7 @@ package com.github.zelmothedragon.cube.core.graphic;
 import java.util.Arrays;
 
 /**
- * Image sous forme de tableau de buffer.
+ * Image sous forme de tableau de pixel.
  *
  * @author MOSELLE Maxime
  */

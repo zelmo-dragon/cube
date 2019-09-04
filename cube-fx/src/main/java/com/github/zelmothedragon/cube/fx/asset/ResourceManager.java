@@ -1,7 +1,10 @@
 package com.github.zelmothedragon.cube.fx.asset;
 
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
+import com.github.zelmothedragon.cube.core.graphic.FontSprite;
 import com.github.zelmothedragon.cube.core.graphic.Sprite;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelFormat;
 
@@ -43,6 +46,20 @@ public final class ResourceManager implements AssetManager {
 
         return new Sprite(width, height, buffer);
 
+    }
+
+    @Override
+    public String LoadFontMap(final String path) {
+        String font;
+        try ( var stream = getClass().getResourceAsStream(path)) {
+            var data = stream.readAllBytes();
+            font = new String(data, StandardCharsets.UTF_8);
+            font = font.replaceAll(FontSprite.LINE_SEPARATOR, FontSprite.CHAR_SEPARATOR);
+        } catch (IOException ex) {
+            font = null;
+            ex.printStackTrace();
+        }
+        return font;
     }
 
 }

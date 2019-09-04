@@ -14,6 +14,12 @@ public interface AssetManager {
 
     String DEBUG_PLAYER_IMAGE = "/assets/images/npc_test.png";
 
+    String DEBUG_8X8_TEXT_NO_SHADOW = "/assets/fonts/8x8_text_white_no_shadow.png";
+
+    String DEBUG_8X8_TEXT_SHADOW = "/assets/fonts/8x8_text_white_shadow.png";
+
+    String DEBUG_8X8_TEXT_MAP = "/assets/fonts/8x8_text.txt";
+
     /**
      * Charger une image.
      *
@@ -21,4 +27,12 @@ public interface AssetManager {
      * @return Une image
      */
     Sprite loadSprite(String path);
+
+    /**
+     * Charger la cartographie d'une police de caractères.
+     *
+     * @param path Chemin d'accès à la ressouce
+     * @return La cartographie d'une police de caractères
+     */
+    String LoadFontMap(String path);
 }

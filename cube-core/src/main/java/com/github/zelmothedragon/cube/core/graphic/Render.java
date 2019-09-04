@@ -276,6 +276,33 @@ public abstract class Render {
     }
 
     /**
+     * Dessiner un texte à partir d'une police de charactères.
+     *
+     * @param xp Position en abcisse
+     * @param yp Position en ordonnée
+     * @param sprite Police de charactère
+     * @param text Message à dessiner
+     */
+    public void drawImage(
+            final int xp,
+            final int yp,
+            final FontSprite sprite,
+            final String text) {
+
+        var lines = text.split(FontSprite.LINE_SEPARATOR);
+        for (int y = 0; y < lines.length; y++) {
+            var ya = yp + y * sprite.getCharacterHeight();
+            var characters = lines[y].split(FontSprite.CHAR_SEPARATOR);
+            for (int x = 0; x < characters.length; x++) {
+                var xa = xp + x * sprite.getCharacterWidth();
+
+                drawImage(xa, ya, sprite.getCharacter(characters[x]));
+            }
+        }
+
+    }
+
+    /**
      * Accesseur, obtenir la largeur de l'image en mémoire tampon.
      *
      * @return La largeur

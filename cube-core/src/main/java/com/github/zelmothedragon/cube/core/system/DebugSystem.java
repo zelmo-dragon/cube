@@ -3,6 +3,7 @@ package com.github.zelmothedragon.cube.core.system;
 import com.github.zelmothedragon.cube.core.GameContainer;
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
 import com.github.zelmothedragon.cube.core.graphic.AnimatedSprite;
+import com.github.zelmothedragon.cube.core.graphic.FontSprite;
 import com.github.zelmothedragon.cube.core.graphic.Render;
 import com.github.zelmothedragon.cube.core.graphic.Sprite;
 import com.github.zelmothedragon.cube.core.input.GamePad;
@@ -45,6 +46,8 @@ public final class DebugSystem extends AbstractSystem {
 
     private final AnimatedSprite player;
 
+    private final FontSprite font;
+
     private int xp;
 
     private int yp;
@@ -66,6 +69,13 @@ public final class DebugSystem extends AbstractSystem {
                 4,
                 16,
                 32
+        );
+
+        this.font = new FontSprite(
+                gc.getAssets().loadSprite(AssetManager.DEBUG_8X8_TEXT_SHADOW),
+                gc.getAssets().LoadFontMap(AssetManager.DEBUG_8X8_TEXT_MAP),
+                8,
+                8
         );
     }
 
@@ -106,8 +116,6 @@ public final class DebugSystem extends AbstractSystem {
                     usedMem,
                     totalMem
             );
-
-            System.out.println(message);
             ups = 0;
             fps = 0;
             timer += 1000;
@@ -117,16 +125,11 @@ public final class DebugSystem extends AbstractSystem {
     @Override
     public void draw(final Render g2d) {
         fps++;
-        var time = System.nanoTime();
-
         g2d.drawImage(0, 0, background);
         g2d.drawImage(64, 64, wood);
-        //g2d.drawGradientCircle(xp, yp, 64, 0x00FF0000);
-        //g2d.drawRect(xp, yp, 128, 128, 0xFFFF0000);
         g2d.drawImage(xp, yp, player.getCurrentSprite());
+        g2d.drawImage(0, 0, font, message);
 
-        time = System.nanoTime() - time;
-        //System.out.printf("TIME: %s ns%n", time);
     }
 
 }
