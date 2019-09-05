@@ -11,7 +11,7 @@ import javafx.scene.image.WritableImage;
  *
  * @author MOSELLE Maxime
  */
-public final class RenderFx extends Render {
+public final class RenderFX extends Render {
 
     /**
      * Contexte graphique de JavaFX.
@@ -31,7 +31,7 @@ public final class RenderFx extends Render {
      * @param height Hauteur de l'image en mémoire tampn
      * @param g2d Contexte 2D de JavaFX.
      */
-    public RenderFx(
+    public RenderFX(
             final int width,
             final int height,
             final GraphicsContext g2d) {

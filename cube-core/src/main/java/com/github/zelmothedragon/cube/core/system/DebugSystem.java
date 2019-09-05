@@ -39,26 +39,26 @@ public final class DebugSystem extends AbstractSystem {
      * Message de déboggage.
      */
     private String message;
-
+    
     private final Sprite background;
-
+    
     private final Sprite wood;
-
+    
     private final AnimatedSprite player;
-
+    
     private final FontSprite font;
-
+    
     private int xp;
-
+    
     private int yp;
-
+    
     public DebugSystem(final GameContainer gc, final int priority) {
         super(gc, priority);
         this.ups = 0;
         this.fps = 0;
         this.timer = System.currentTimeMillis();
         this.message = "loading...";
-
+        
         this.xp = 0;
         this.yp = 0;
         this.background = gc.getAssets().loadSprite(AssetManager.DEBUG_BACKGROUND_IMAGE);
@@ -70,7 +70,7 @@ public final class DebugSystem extends AbstractSystem {
                 16,
                 32
         );
-
+        
         this.font = new FontSprite(
                 gc.getAssets().loadSprite(AssetManager.DEBUG_8X8_TEXT_SHADOW),
                 gc.getAssets().LoadFontMap(AssetManager.DEBUG_8X8_TEXT_MAP),
@@ -78,11 +78,11 @@ public final class DebugSystem extends AbstractSystem {
                 8
         );
     }
-
+    
     @Override
     public void update() {
         ups++;
-
+        
         if (gc.getInputs().isKeyUp(GamePad.LEFT)) {
             xp--;
             player.setOffset(0, 96);
@@ -102,9 +102,9 @@ public final class DebugSystem extends AbstractSystem {
         } else {
             player.stop();
         }
-
+        
         player.update(1.0);
-
+        
         if (System.currentTimeMillis() - timer >= 1000) {
             var rt = Runtime.getRuntime();
             var totalMem = rt.totalMemory() / MEGA_BYTE_UNIT;
@@ -121,15 +121,16 @@ public final class DebugSystem extends AbstractSystem {
             timer += 1000;
         }
     }
-
+    
     @Override
     public void draw(final Render g2d) {
         fps++;
         g2d.drawImage(0, 0, background);
         g2d.drawImage(64, 64, wood);
         g2d.drawImage(xp, yp, player.getCurrentSprite());
+        g2d.drawGradientCircle(0, 0, 128, 0xFFFF0000);
         g2d.drawImage(0, 0, font, message);
-
+        
     }
-
+    
 }
