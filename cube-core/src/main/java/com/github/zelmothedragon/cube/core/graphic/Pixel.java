@@ -11,20 +11,15 @@ package com.github.zelmothedragon.cube.core.graphic;
 public final class Pixel {
 
     /**
-     * Valeur de la transparence. Y compris pour le canal alpha.
+     * Valeur de la transparence ou d'un pixel vide.
      */
     public static final int TRANSPARENT = 0;
 
     /**
      * Valeur de l'opcaité maximale. Utilisé également pour l'extraction des
-     * cannaux de couleur d'un pixel.
+     * cannaux de couleur d'un pixel, ou calculer le ratio du canal alpha.
      */
     public static final int OPAQUE = 255;
-
-    /**
-     * Ratio du canal alpha.
-     */
-    private static final float ALPHA_RATIO = 255f;
 
     /**
      * Index du canal alpha d'une couleur.
@@ -170,16 +165,18 @@ public final class Pixel {
             var gg0 = getGreen(sourceColor);
             var bb0 = getBlue(sourceColor);
 
+            var aa1 = getAlpha(destinationColor);
             var rr1 = getRed(destinationColor);
             var gg1 = getGreen(destinationColor);
             var bb1 = getBlue(destinationColor);
 
-            var red = rr0 - (rr0 - rr1) * aa0 / ALPHA_RATIO;
-            var green = gg0 - (gg0 - gg1) * aa0 / ALPHA_RATIO;
-            var blue = bb0 - (bb0 - bb1) * aa0 / ALPHA_RATIO;
+            var alpha = aa0 - (aa0 - aa1) * aa0 / OPAQUE;
+            var red = rr0 - (rr0 - rr1) * aa0 / OPAQUE;
+            var green = gg0 - (gg0 - gg1) * aa0 / OPAQUE;
+            var blue = bb0 - (bb0 - bb1) * aa0 / OPAQUE;
 
             pixel = toPixel(
-                    aa0,
+                    (int) alpha,
                     (int) red,
                     (int) green,
                     (int) blue

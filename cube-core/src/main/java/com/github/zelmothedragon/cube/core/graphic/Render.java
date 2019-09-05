@@ -42,7 +42,7 @@ public abstract class Render {
 
     /**
      * Effacer toute la mémoire tampon. Génère un écran noire. Avant de
-     * commencer à construire une image, il faut vide le tampon.
+     * commencer à construire une image, il faut vider le tampon.
      */
     public void clear() {
         Arrays.fill(buffer, Pixel.TRANSPARENT);
@@ -280,7 +280,7 @@ public abstract class Render {
      *
      * @param xp Position en abcisse
      * @param yp Position en ordonnée
-     * @param sprite Police de charactère
+     * @param sprite Police de charactères
      * @param text Message à dessiner
      */
     public void drawImage(
