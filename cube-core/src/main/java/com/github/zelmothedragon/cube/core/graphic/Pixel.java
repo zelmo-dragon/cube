@@ -186,6 +186,13 @@ public final class Pixel {
         return pixel;
     }
 
+    /**
+     * Mettre à l'échelle une image.
+     *
+     * @param image Image initiale
+     * @param scale Coéfficient de mise à l'échelle, strictement suppérieur à 0.
+     * @return Une nouvelle image agrandi
+     */
     public static Sprite scale(final Sprite image, final int scale) {
 
         var scaleWidth = scale * image.width;
