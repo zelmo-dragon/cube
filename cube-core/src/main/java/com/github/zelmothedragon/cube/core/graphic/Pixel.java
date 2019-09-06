@@ -186,6 +186,26 @@ public final class Pixel {
         return pixel;
     }
 
+    public static Sprite scale(final Sprite image, final int scale) {
+
+        var scaleWidth = scale * image.width;
+        var scaleHeight = scale * image.height;
+        var buffer = new int[scaleWidth * scaleHeight];
+        int ya;
+        int xa;
+
+        for (var y = 0; y < scaleHeight; y++) {
+            ya = y / scale;
+
+            for (var x = 0; x < scaleWidth; x++) {
+                xa = x / scale;
+                var pixel = image.getPixel(xa, ya);
+                buffer[x + y * scaleWidth] = pixel;
+            }
+        }
+        return new Sprite(scaleWidth, scaleHeight, buffer);
+    }
+
     /**
      * Vérifier qu'une position est comprise dans une taille.
      *
