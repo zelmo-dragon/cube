@@ -1,5 +1,8 @@
 package com.github.zelmothedragon.cube.core.graphic;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Police de charactère basée sur une image sous forme de tableau de pixel.
  *
@@ -23,6 +26,11 @@ public final class FontSprite extends Sprite {
      * Valeur si charactère vide.
      */
     public static final int EMPTY_CHARACTER = -1;
+
+    /**
+     * Mémoire cache contenant chaque image de caractères.
+     */
+    private final Map<Integer, Sprite> cache;
 
     /**
      * Cartographie de la police de caractères.
@@ -55,6 +63,7 @@ public final class FontSprite extends Sprite {
             final int characterHeight) {
 
         super(fontSpriteSheet.width, fontSpriteSheet.height, fontSpriteSheet.buffer);
+        this.cache = new HashMap<>();
         this.fontMap = fontMap;
         this.characterWidth = characterWidth;
         this.characterHeight = characterHeight;
@@ -68,24 +77,28 @@ public final class FontSprite extends Sprite {
      */
     public Sprite getCharacter(final String character) {
 
-        var font = new Sprite(characterWidth, characterHeight);
+        Sprite font;
         var index = fontMap.indexOf(character);
-        if (index != EMPTY_CHARACTER) {
+        if (cache.containsKey(index)) {
+            font = cache.get(index);
+        } else {
+            font = new Sprite(characterWidth, characterHeight);
+            if (index != EMPTY_CHARACTER) {
+                var columns = width / characterWidth;
+                var xp = (index % columns) * characterWidth;
+                var yp = (index / columns) * characterHeight;
 
-            var columns = width / characterWidth;
-            var xp = (index % columns) * characterWidth;
-            var yp = (index / columns) * characterHeight;
+                for (var y = 0; y < characterHeight; y++) {
+                    var ya = yp + y;
 
-            for (var y = 0; y < characterHeight; y++) {
-                var ya = yp + y;
-
-                for (var x = 0; x < characterWidth; x++) {
-                    var xa = xp + x;
-                    var pixel = getPixel(xa, ya);
-                    font.setPixel(x, y, pixel);
+                    for (var x = 0; x < characterWidth; x++) {
+                        var xa = xp + x;
+                        var pixel = getPixel(xa, ya);
+                        font.setPixel(x, y, pixel);
+                    }
                 }
             }
-
+            cache.put(index, font);
         }
         return font;
     }

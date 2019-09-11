@@ -1,5 +1,8 @@
 package com.github.zelmothedragon.cube.core.graphic;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Image animée sous forme de tableau de pixel.
  *
@@ -8,9 +11,9 @@ package com.github.zelmothedragon.cube.core.graphic;
 public final class AnimatedSprite extends Sprite {
 
     /**
-     * Image de l'animation courante.
+     * Mémoire cache contenant chaque image de l'animation.
      */
-    private final Sprite currentSprite;
+    private final Map<Integer, Sprite> cache;
 
     /**
      * Delais de l'animation.
@@ -23,9 +26,25 @@ public final class AnimatedSprite extends Sprite {
     private final int count;
 
     /**
-     * Index de l'image courante.
+     * Largeur en pixel d'une image composant l'animation.
+     */
+    private final int spriteWidth;
+
+    /**
+     * Hauteur en pixel d'une image composant l'animation.
+     */
+    private final int spriteHeight;
+
+    /**
+     * Index de l'image courante dans l'animation.
      */
     private int frame;
+
+    /**
+     * Identifiant technique de la position de l'image depuis la feuille de
+     * d'image.
+     */
+    private int currentId;
 
     /**
      * Décalage en abcisse. Ce décalage indique à partir d'où l'image initiale
@@ -62,7 +81,9 @@ public final class AnimatedSprite extends Sprite {
 
         super(spriteSheet.width, spriteSheet.height, spriteSheet.buffer);
 
-        this.currentSprite = new Sprite(spriteWidth, spriteHeight);
+        this.cache = new HashMap<>();
+        this.spriteWidth = spriteWidth;
+        this.spriteHeight = spriteHeight;
         this.duration = duration;
         this.count = count;
         this.frame = 0;
@@ -92,23 +113,27 @@ public final class AnimatedSprite extends Sprite {
         // Calculer l'index et la position de la prochaine image.
         var frac = frame * count / duration;
         var index = Math.min((int) Math.floor(frac), count - 1);
-        var columns = width / currentSprite.width;
-        var xp = (index % columns) * currentSprite.width + xOffset;
-        var yp = (index / columns) * currentSprite.height + yOffset;
+        var columns = width / spriteWidth;
+        var xp = (index % columns) * spriteWidth + xOffset;
+        var yp = (index / columns) * spriteHeight + yOffset;
 
-        // Effacer l'image courante.
-        currentSprite.clear();
+        currentId = xp + yp * count;
+        if (!cache.containsKey(currentId)) {
 
-        // Extraire de la feuille d'image
-        // l'image de l'animation courante.
-        for (var y = 0; y < currentSprite.height; y++) {
-            var ya = yp + y;
+            // Extraire de la feuille d'image
+            // l'image de l'animation courante.
+            var sprite = new Sprite(spriteWidth, spriteHeight);
+            for (var y = 0; y < spriteHeight; y++) {
+                var ya = yp + y;
 
-            for (var x = 0; x < currentSprite.width; x++) {
-                var xa = xp + x;
-                var pixel = getPixel(xa, ya);
-                currentSprite.setPixel(x, y, pixel);
+                for (var x = 0; x < spriteWidth; x++) {
+                    var xa = xp + x;
+                    var pixel = getPixel(xa, ya);
+                    sprite.setPixel(x, y, pixel);
+                }
             }
+
+            cache.put(currentId, sprite);
         }
     }
 
@@ -151,7 +176,7 @@ public final class AnimatedSprite extends Sprite {
      * @return L'image de l'animation courante
      */
     public Sprite getCurrentSprite() {
-        return currentSprite;
+        return cache.get(currentId);
     }
 
     /**
