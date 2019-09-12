@@ -7,6 +7,8 @@ Un simple moteur de jeu 2D basé sur JavaFX (OpenJFX).
 ## Module
 
 Le projet est découpé en modules:
+* **cube**
+    * Projet de référence Maven pour la configuration de tous les autres modules.
 * **cube-core**
     * Le cœur du projet, comporte toute la logique de traitement en pur Java sans dépendance externe. 
     * Comporte par défaut des fonctions de rendu graphique basé sur la manipulation de pixels.
