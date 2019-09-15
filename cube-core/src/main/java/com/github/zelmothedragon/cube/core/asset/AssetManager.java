@@ -4,7 +4,7 @@ import com.github.zelmothedragon.cube.core.graphic.Sprite;
 
 /**
  * Gestionnaire de ressources externe. Une instance unique de cette classe est
- * requis pour le fonctionnement de l'application. Le gestionnaire doit être
+ * requise pour le fonctionnement de l'application. Le gestionnaire doit être
  * accessible depuis le conteneur du jeu.
  *
  * @see GameContainer

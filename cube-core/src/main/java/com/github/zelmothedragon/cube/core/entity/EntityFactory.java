@@ -7,7 +7,7 @@ import com.github.zelmothedragon.cube.core.graphic.FontSprite;
 import java.util.UUID;
 
 /**
- * Fabrique d'entités. Une instance unique de cette classe est requis pour le
+ * Fabrique d'entités. Une instance unique de cette classe est requise pour le
  * fonctionnement de l'application. Le gestionnaire doit être accessible depuis
  * le conteneur du jeu.
  *
