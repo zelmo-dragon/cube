@@ -75,7 +75,16 @@ public final class Entity {
 
     @Override
     public String toString() {
-        return String.format("Entity{id=%s, family=%s, dataCount=%s}", id, family, data.size());
+
+        return new StringBuilder()
+                .append("Entity{id=")
+                .append(id)
+                .append(", family=")
+                .append(family)
+                .append(", dataCount=")
+                .append(data.size())
+                .append("}")
+                .toString();
     }
 
     /**
