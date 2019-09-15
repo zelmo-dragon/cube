@@ -50,9 +50,10 @@ public class Clock implements Component {
     }
 
     /**
-     * Mettre à jour l'horloge.
+     * Mettre à jour l'horloge pour la boucle de mise à jour du jeu.
      */
     public void update() {
+        ups++;
         if (System.currentTimeMillis() - timer >= 1000) {
             var rt = Runtime.getRuntime();
             var totalMem = rt.totalMemory() / MEGA_BYTE_UNIT;
@@ -68,6 +69,13 @@ public class Clock implements Component {
             fps = 0;
             timer += 1000;
         }
+    }
+
+    /**
+     * Mettre à jour l'horloge pour la boucle de rendu du jeu.
+     */
+    public void render() {
+        fps++;
     }
 
     /**

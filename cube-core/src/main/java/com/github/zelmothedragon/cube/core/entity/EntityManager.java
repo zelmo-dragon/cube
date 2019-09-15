@@ -78,12 +78,13 @@ public final class EntityManager {
     /**
      * Obtenir un composant.
      *
+     * @param <T> Type générique de composant
      * @param id Identifiant de l'entité
      * @param type Classe du composant
      * @return Le composant recherché, peut retourner la valeur
      * <code>Component.EMPTY</code> si le composant demandé n'existe pas
      */
-    public Component getComponent(final UUID id, final Class<? extends Component> type) {
+    public <T extends Component> T getComponent(final UUID id, final Class<T> type) {
         final Component component;
         if (data.containsKey(type)) {
             var entities = data.get(type);
@@ -91,7 +92,7 @@ public final class EntityManager {
         } else {
             component = Component.EMPTY;
         }
-        return component;
+        return (T) component;
     }
 
     /**
