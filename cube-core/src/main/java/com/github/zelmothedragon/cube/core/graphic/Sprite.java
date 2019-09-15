@@ -1,5 +1,6 @@
 package com.github.zelmothedragon.cube.core.graphic;
 
+import com.github.zelmothedragon.cube.core.entity.Component;
 import java.util.Arrays;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Arrays;
  *
  * @author MOSELLE Maxime
  */
-public class Sprite {
+public class Sprite implements Component {
 
     /**
      * Largeur de l'image.
