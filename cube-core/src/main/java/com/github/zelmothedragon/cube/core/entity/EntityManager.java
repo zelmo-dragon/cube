@@ -27,6 +27,16 @@ public final class EntityManager {
     }
 
     /**
+     * Construire une nouvelle entité.
+     *
+     * @param family Famille d'entité
+     * @return L'identifiant unique de l'entité
+     */
+    public UUID newEntity(final Family family) {
+        return addComponent(family);
+    }
+
+    /**
      * Ajouter un composant.
      *
      * @param id Identifiant de l'entité
