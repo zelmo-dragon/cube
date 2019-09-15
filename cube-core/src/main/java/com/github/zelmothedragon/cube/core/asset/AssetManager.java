@@ -3,6 +3,7 @@ package com.github.zelmothedragon.cube.core.asset;
 import com.github.zelmothedragon.cube.core.graphic.Sprite;
 
 /**
+ * Gestionnaire de ressources externe.
  *
  * @author MOSELLE Maxime
  */
