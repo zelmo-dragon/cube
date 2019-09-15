@@ -143,6 +143,38 @@ public final class Pixel {
     }
 
     /**
+     * Générer un pixel éclairer.Ce pixel se base en combinant les cannaux de
+     * couleurs les plus lumineux en fonction de deux couleurs.
+     *
+     * @param aa0 Canal alpha du pixel initial en arrière plan
+     * @param rr0 Canal rouge du pixel initial en arrière plan
+     * @param gg0 Canal vert du pixel initial en arrière plan
+     * @param bb0 Canal bleu du pixel initial en arrière plan
+     * @param pixel1 Couleur en avant plan
+     * @return Un pixel résultant du mélange des deux paramètres en combinant
+     * les cannaux de couleurs les plus lumineux
+     */
+    public static int light(
+            final int aa0,
+            final int rr0,
+            final int gg0,
+            final int bb0,
+            final int pixel1) {
+
+        var aa1 = getAlpha(pixel1);
+        var rr1 = getRed(pixel1);
+        var gg1 = getGreen(pixel1);
+        var bb1 = getBlue(pixel1);
+
+        return toPixel(
+                Math.max(aa0, aa1),
+                Math.max(rr0, rr1),
+                Math.max(gg0, gg1),
+                Math.max(bb0, bb1)
+        );
+    }
+
+    /**
      * Calculer une couleur de pixel résultant de deux autres pixels.
      *
      * @param sourceColor Couleur du pixel source
@@ -170,10 +202,10 @@ public final class Pixel {
             var gg1 = getGreen(destinationColor);
             var bb1 = getBlue(destinationColor);
 
-            var alpha = aa0 - (aa0 - aa1) * aa0 / OPAQUE;
-            var red = rr0 - (rr0 - rr1) * aa0 / OPAQUE;
-            var green = gg0 - (gg0 - gg1) * aa0 / OPAQUE;
-            var blue = bb0 - (bb0 - bb1) * aa0 / OPAQUE;
+            var alpha = aa0 - (aa0 - aa1) * aa0 / (float) OPAQUE;
+            var red = rr0 - (rr0 - rr1) * aa0 / (float) OPAQUE;
+            var green = gg0 - (gg0 - gg1) * aa0 / (float) OPAQUE;
+            var blue = bb0 - (bb0 - bb1) * aa0 / (float) OPAQUE;
 
             pixel = toPixel(
                     (int) alpha,
