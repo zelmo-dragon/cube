@@ -6,7 +6,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Gestionnaire des systèmes.
+ * Gestionnaire des systèmes. Une instance unique de cette classe est requis
+ * pour le fonctionnement de l'application. Le gestionnaire doit être accessible
+ * depuis le conteneur du jeu.
+ *
+ * @see GameContainer
  *
  * @author MOSELLE Maxime
  */

@@ -5,7 +5,11 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Gestionnaire des entrées du joueur.
+ * Gestionnaire des entrées du joueur. Une instance unique de cette classe est
+ * requis pour le fonctionnement de l'application. Le gestionnaire doit être
+ * accessible depuis le conteneur du jeu.
+ *
+ * @see GameContainer
  *
  * @author MOSELLE Maxime
  */
@@ -28,7 +32,7 @@ public final class InputManager {
     /**
      * Synchroniser toutes les touches durant la phase de mise à jour du jeu.
      */
-    public void update() { 
+    public void update() {
         keys.forEach(Key::update);
     }
 

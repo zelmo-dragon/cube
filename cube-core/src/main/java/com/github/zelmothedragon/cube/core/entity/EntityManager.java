@@ -6,7 +6,11 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Gestionnaire d'entités.
+ * Gestionnaire d'entités. Une instance unique de cette classe est requis pour
+ * le fonctionnement de l'application. Le gestionnaire doit être accessible
+ * depuis le conteneur du jeu.
+ *
+ * @see GameContainer
  *
  * @author MOSELLE Maxime
  */
