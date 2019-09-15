@@ -14,6 +14,10 @@ public enum Family implements Component {
      */
     PLAYER,
     /**
+     * Débogage.
+     */
+    DEBUG,
+    /**
      * Désigne les entités ne faisant parties d'aucune famille. Il est
      * préférable d'utiliser cette valeur plutôt que la valeur
      * <code>null</code>.
