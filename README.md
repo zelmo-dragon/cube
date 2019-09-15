@@ -23,8 +23,8 @@ L'architecture logicielle mis en place est **ESC** *(Entity Component System)* e
     * Représente un élément métier du jeu 
     * Exemple: un personnage, un monstre, un projectile, etc...
 * **Component**
-    * Représente une propriété d'une d'entité *
-    * Exemple: une position, une vecteur, une barre de vie, etc...
+    * Représente une propriété d'une d'entité
+    * Exemple: une position, un vecteur, une barre de vie, etc...
 * **System**
-    * Représente la logique de traitement, un système manipule des entités *
+    * Représente la logique de traitement, un système manipule des entités
     * Exemple: un système de collision, un système de déplacement, un système de rendu graphique.
