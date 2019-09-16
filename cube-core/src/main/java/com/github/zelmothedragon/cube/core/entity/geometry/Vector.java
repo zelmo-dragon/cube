@@ -75,6 +75,14 @@ public final class Vector implements Component {
     }
 
     /**
+     * Réinitialiser le vector.
+     */
+    public void reset() {
+        this.dx = 0;
+        this.dy = 0;
+    }
+
+    /**
      * Accesseur, obtenir l'ampleur du vecteur en abcisse.
      *
      * @return L'ampleur du vecteur en abcisse

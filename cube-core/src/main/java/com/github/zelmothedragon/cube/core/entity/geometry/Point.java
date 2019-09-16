@@ -77,6 +77,16 @@ public final class Point implements Component {
     }
 
     /**
+     * Déplacer un point en fonction d'un vecteur.
+     *
+     * @param vector Vecteur de déplacement
+     */
+    public void move(final Vector vector) {
+        this.xp += vector.getDx();
+        this.yp += vector.getDy();
+    }
+
+    /**
      * Accesseur, obtenir la position en abcisse.
      *
      * @return La position en abcisse

@@ -3,6 +3,8 @@ package com.github.zelmothedragon.cube.core.entity;
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
 import com.github.zelmothedragon.cube.core.entity.debug.Clock;
 import com.github.zelmothedragon.cube.core.entity.geometry.Point;
+import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
+import com.github.zelmothedragon.cube.core.graphic.AnimatedSprite;
 import com.github.zelmothedragon.cube.core.graphic.FontSprite;
 import java.util.UUID;
 
@@ -62,6 +64,25 @@ public final class EntityFactory {
         entities.addComponent(id, clock);
         entities.addComponent(id, point);
         entities.addComponent(id, font);
+        return id;
+    }
+
+    public UUID createDebugPlayer() {
+
+        var point = new Point();
+        var vector = new Vector();
+        var sprite = new AnimatedSprite(
+                assets.loadSprite(AssetManager.DEBUG_PLAYER_IMAGE),
+                50,
+                4,
+                16,
+                32
+        );
+
+        var id = entities.newEntity(Family.PLAYER);
+        entities.addComponent(id, point);
+        entities.addComponent(id, vector);
+        entities.addComponent(id, sprite);
         return id;
     }
 
