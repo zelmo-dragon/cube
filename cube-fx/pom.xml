@@ -13,7 +13,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     
-    <groupId>com.github.zelmothedragon</groupId>
+    <groupId>com.github.zelmothedragon.cube</groupId>
     <artifactId>cube-fx</artifactId>
     <packaging>jar</packaging>
     <version>0.0.1</version>
@@ -21,7 +21,7 @@
     <dependencies>
         <!-- MODULE -->
         <dependency>
-            <groupId>com.github.zelmothedragon</groupId>
+            <groupId>com.github.zelmothedragon.cube</groupId>
             <artifactId>cube-core</artifactId>
             <version>0.0.1</version>
         </dependency>
