@@ -1,10 +1,13 @@
 package com.github.zelmothedragon.cube.core.entity;
 
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
+import com.github.zelmothedragon.cube.core.entity.behavior.Controllable;
 import com.github.zelmothedragon.cube.core.entity.debug.Clock;
+import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
 import com.github.zelmothedragon.cube.core.entity.geometry.Point;
 import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
 import com.github.zelmothedragon.cube.core.graphic.AnimatedSprite;
+import com.github.zelmothedragon.cube.core.graphic.AnimatedSpriteMetaData;
 import com.github.zelmothedragon.cube.core.graphic.FontSprite;
 import java.util.UUID;
 
@@ -79,10 +82,18 @@ public final class EntityFactory {
                 32
         );
 
+        var metadata = new AnimatedSpriteMetaData();
+        metadata.addOrientation(Orientation.LEFT, new Point(0, 96));
+        metadata.addOrientation(Orientation.RIGHT, new Point(0, 32));
+        metadata.addOrientation(Orientation.UP, new Point(0, 64));
+        metadata.addOrientation(Orientation.DOWN, new Point(0, 0));
+
         var id = entities.newEntity(Family.PLAYER);
+        entities.addComponent(id, Controllable.INSTANCE);
         entities.addComponent(id, point);
         entities.addComponent(id, vector);
         entities.addComponent(id, sprite);
+        entities.addComponent(id, metadata);
         return id;
     }
 

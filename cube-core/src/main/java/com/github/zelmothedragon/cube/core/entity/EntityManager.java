@@ -3,6 +3,7 @@ package com.github.zelmothedragon.cube.core.entity;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -89,41 +90,43 @@ public final class EntityManager {
      * <code>Component.EMPTY</code> si le composant demandé n'existe pas
      */
     public <T extends Component> T getComponent(final UUID id, final Class<T> type) {
-        final Component component;
+        final T component;
         if (data.containsKey(type)) {
             var entities = data.get(type);
-            component = entities.getOrDefault(id, Component.EMPTY);
+            component = (T) entities.get(id);
         } else {
-            component = Component.EMPTY;
+            component = ComponentFactory.newInstance(type);
         }
-        return (T) component;
+        return component;
     }
 
     /**
      * Obtenir toutes les entités par classe de composant.
      *
+     * @param <T> Type générique de composant
      * @param type Classe du composant
      * @return L'ensemble des entités associé à ce type de composant, peut
      * retourner la valeur <code>Collections.emptyMap()</code> si aucune entité
      * ne correspond à ce type de composant
      */
-    public Map<UUID, Component> getComponent(final Class<? extends Component> type) {
+    public <T extends Component> Map<UUID, T> getComponent(final Class<T> type) {
         final Map<UUID, Component> entities;
         if (data.containsKey(type)) {
             entities = data.get(type);
         } else {
             entities = Collections.emptyMap();
         }
-        return entities;
+        return (Map<UUID, T>) entities;
     }
 
     /**
      * Supprimer un composant.
      *
+     * @param <T> Type générique de composant
      * @param id Identifiant de l'entité
      * @param type Classe du composant
      */
-    public void removeComponent(final UUID id, final Class<? extends Component> type) {
+    public <T extends Component> void removeComponent(final UUID id, final Class<T> type) {
         if (data.containsKey(type)) {
             var entities = data.get(type);
             entities.remove(id);
@@ -133,9 +136,10 @@ public final class EntityManager {
     /**
      * Supprimer un composant pour toutes les entités.
      *
+     * @param <T> Type générique de composant
      * @param type Classe du composant
      */
-    public void removeComponent(final Class<? extends Component> type) {
+    public <T extends Component> void removeComponent(final Class<T> type) {
         data.remove(type);
     }
 

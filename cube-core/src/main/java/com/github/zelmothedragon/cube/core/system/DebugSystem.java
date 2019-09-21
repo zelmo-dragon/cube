@@ -7,7 +7,6 @@ import com.github.zelmothedragon.cube.core.entity.geometry.Point;
 import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
 import com.github.zelmothedragon.cube.core.graphic.AnimatedSprite;
 import com.github.zelmothedragon.cube.core.graphic.FontSprite;
-import com.github.zelmothedragon.cube.core.graphic.Pixel;
 import com.github.zelmothedragon.cube.core.graphic.Render;
 import com.github.zelmothedragon.cube.core.graphic.Sprite;
 import com.github.zelmothedragon.cube.core.input.GamePad;
@@ -41,9 +40,13 @@ public final class DebugSystem extends AbstractSystem {
     @Override
     public void update() {
 
-        var playerVector = gc.getEntities().getComponent(player, Vector.class);
-        var playerPoint = gc.getEntities().getComponent(player, Point.class);
-        var playerAnimation = gc.getEntities().getComponent(player, AnimatedSprite.class);
+        var playerVector = gc
+                .getEntities()
+                .getComponent(player, Vector.class);
+        
+        var playerAnimation = gc
+                .getEntities()
+                .getComponent(player, AnimatedSprite.class);
 
         if (gc.getInputs().isKeyUp(GamePad.LEFT)) {
             playerVector.setDx(-1);
@@ -65,8 +68,6 @@ public final class DebugSystem extends AbstractSystem {
             playerAnimation.stop();
         }
 
-        playerPoint.move(playerVector);
-        playerVector.reset();
         playerAnimation.update(1.0);
 
         var debugClock = gc.getEntities().getComponent(debug, Clock.class);
@@ -78,12 +79,6 @@ public final class DebugSystem extends AbstractSystem {
 
         g2d.drawImage(0, 0, background);
         g2d.drawImage(64, 64, wood);
-
-        var playerPoint = gc.getEntities().getComponent(player, Point.class);
-        var playerAnimation = gc.getEntities().getComponent(player, AnimatedSprite.class);
-
-        var playerSprite = Pixel.scale(playerAnimation.getCurrentSprite(), 3);
-        g2d.drawImage(playerPoint.getXp(), playerPoint.getYp(), playerSprite);
 
         g2d.drawRect(0, 0, 64, 64, 0xFFFF0000);
         g2d.drawGradientCircle(0, 0, 32, 0xFFFF0000);
@@ -105,7 +100,12 @@ public final class DebugSystem extends AbstractSystem {
         var debugClock = gc.getEntities().getComponent(debug, Clock.class);
         debugClock.render();
 
-        g2d.drawImage(debugPoint.getXp(), debugPoint.getYp(), debugFont, debugClock.getMessage());
+        g2d.drawImage(
+                debugPoint.getXp(),
+                debugPoint.getYp(),
+                debugFont,
+                debugClock.getMessage()
+        );
 
     }
 

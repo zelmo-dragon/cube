@@ -32,7 +32,10 @@ public final class SystemManager {
      */
     public SystemManager(final GameContainer gc) {
         this.world = Arrays.asList(
-                new DebugSystem(gc, 0)
+                new InputSystem(gc, 1),
+                new MoveSystem(gc, 2),
+                new DebugSystem(gc, 9),
+                new RenderSpriteSystem(gc, 10)
         );
 
         // Pour test uniquement.

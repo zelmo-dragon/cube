@@ -1,6 +1,8 @@
 package com.github.zelmothedragon.cube.core.entity;
 
 import java.util.Objects;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * Identifie toutes les classes destinées à être des propriétés d'une entité.
