@@ -2,7 +2,7 @@ package com.github.zelmothedragon.cube.core.graphic;
 
 import com.github.zelmothedragon.cube.core.entity.Component;
 import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
-import com.github.zelmothedragon.cube.core.entity.geometry.Point;
+import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -16,7 +16,7 @@ public final class AnimatedSpriteMetaData implements Component {
     /**
      * Orientations possibles.
      */
-    private final Map<Orientation, Point> orientations;
+    private final Map<Orientation, Rectangle> orientations;
 
     /**
      * Constructeur par défaut.
@@ -29,10 +29,10 @@ public final class AnimatedSpriteMetaData implements Component {
      * Ajouter un orientation.
      *
      * @param orientation Orientation
-     * @param point Emplacement
+     * @param rectangle Emplacement
      */
-    public void addOrientation(final Orientation orientation, Point point) {
-        this.orientations.put(orientation, point);
+    public void addOrientation(final Orientation orientation, Rectangle rectangle) {
+        this.orientations.put(orientation, rectangle);
     }
 
     /**
@@ -41,8 +41,8 @@ public final class AnimatedSpriteMetaData implements Component {
      * @param orientation Orientation
      * @return L'Emplacement
      */
-    public Point getOrientation(final Orientation orientation) {
-        return orientations.getOrDefault(orientation, new Point());
+    public Rectangle getOrientation(final Orientation orientation) {
+        return orientations.getOrDefault(orientation, new Rectangle());
     }
 
 }

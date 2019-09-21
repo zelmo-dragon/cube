@@ -1,7 +1,6 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameContainer;
-import com.github.zelmothedragon.cube.core.entity.geometry.Point;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
 import com.github.zelmothedragon.cube.core.graphic.Render;
@@ -25,17 +24,10 @@ public final class MoveSystem extends AbstractSystem {
 
     @Override
     public void update() {
-
         gc
                 .getEntities()
                 .getComponent(Vector.class)
                 .forEach((k, v) -> {
-
-                    gc
-                            .getEntities()
-                            .getComponent(k, Point.class)
-                            .move(v);
-
                     gc
                             .getEntities()
                             .getComponent(k, Rectangle.class)

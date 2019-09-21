@@ -3,7 +3,7 @@ package com.github.zelmothedragon.cube.core.system;
 import com.github.zelmothedragon.cube.core.GameContainer;
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
 import com.github.zelmothedragon.cube.core.entity.debug.Clock;
-import com.github.zelmothedragon.cube.core.entity.geometry.Point;
+import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
 import com.github.zelmothedragon.cube.core.graphic.AnimatedSprite;
 import com.github.zelmothedragon.cube.core.graphic.FontSprite;
@@ -43,7 +43,7 @@ public final class DebugSystem extends AbstractSystem {
         var playerVector = gc
                 .getEntities()
                 .getComponent(player, Vector.class);
-        
+
         var playerAnimation = gc
                 .getEntities()
                 .getComponent(player, AnimatedSprite.class);
@@ -95,14 +95,14 @@ public final class DebugSystem extends AbstractSystem {
         g2d.drawRect(256, 0, 64, 64, 0xFF000000);
         g2d.drawGradientCircle(256, 0, 32, 0xFF000000);
 
-        var debugPoint = gc.getEntities().getComponent(debug, Point.class);
+        var debugRect = gc.getEntities().getComponent(debug, Rectangle.class);
         var debugFont = gc.getEntities().getComponent(debug, FontSprite.class);
         var debugClock = gc.getEntities().getComponent(debug, Clock.class);
         debugClock.render();
 
         g2d.drawImage(
-                debugPoint.getXp(),
-                debugPoint.getYp(),
+                debugRect.getXp(),
+                debugRect.getYp(),
                 debugFont,
                 debugClock.getMessage()
         );

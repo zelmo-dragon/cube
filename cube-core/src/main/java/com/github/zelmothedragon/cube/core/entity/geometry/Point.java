@@ -8,6 +8,7 @@ import java.util.Objects;
  *
  * @author MOSELLE Maxime
  */
+@Deprecated(forRemoval = true)
 public final class Point implements Component {
 
     /**

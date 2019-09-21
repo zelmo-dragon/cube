@@ -1,8 +1,6 @@
 package com.github.zelmothedragon.cube.core.entity;
 
 import java.util.Objects;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 /**
  * Identifie toutes les classes destinées à être des propriétés d'une entité.
@@ -15,6 +13,7 @@ public interface Component {
      * Composant vide. Privilégier cette constante plutôt que la valeur
      * <code>null</code>.
      */
+    @Deprecated(forRemoval = true)
     Component EMPTY = new EmptyComponent();
 
     /**

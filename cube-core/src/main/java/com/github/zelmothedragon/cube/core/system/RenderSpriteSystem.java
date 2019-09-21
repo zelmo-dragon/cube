@@ -1,9 +1,9 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameContainer;
-import com.github.zelmothedragon.cube.core.entity.geometry.Point;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.graphic.AnimatedSprite;
+import com.github.zelmothedragon.cube.core.graphic.FontSprite;
 import com.github.zelmothedragon.cube.core.graphic.Render;
 import com.github.zelmothedragon.cube.core.graphic.Sprite;
 
@@ -26,7 +26,6 @@ public final class RenderSpriteSystem extends AbstractSystem {
 
     @Override
     public void update() {
-
         gc
                 .getEntities()
                 .getComponent(AnimatedSprite.class)
@@ -36,22 +35,10 @@ public final class RenderSpriteSystem extends AbstractSystem {
 
     @Override
     public void draw(final Render g2d) {
-
         gc
                 .getEntities()
                 .getComponent(Sprite.class)
                 .forEach((k, s) -> {
-
-                    var point = gc
-                            .getEntities()
-                            .getComponent(k, Point.class);
-
-                    g2d.drawImage(
-                            point.getXp(),
-                            point.getYp(),
-                            s
-                    );
-
                     var rectangle = gc
                             .getEntities()
                             .getComponent(k, Rectangle.class);
@@ -64,6 +51,20 @@ public final class RenderSpriteSystem extends AbstractSystem {
 
                 });
 
+        gc
+                .getEntities()
+                .getComponent(AnimatedSprite.class)
+                .forEach((k, s) -> {
+                    var rectangle = gc
+                            .getEntities()
+                            .getComponent(k, Rectangle.class);
+
+                    g2d.drawImage(
+                            rectangle.getXp(),
+                            rectangle.getYp(),
+                            s.getCurrentSprite()
+                    );
+                });
     }
 
 }

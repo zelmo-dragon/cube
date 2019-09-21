@@ -1,10 +1,11 @@
 package com.github.zelmothedragon.cube.core.entity;
 
+import com.github.zelmothedragon.cube.core.GameContainer;
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
 import com.github.zelmothedragon.cube.core.entity.behavior.Controllable;
 import com.github.zelmothedragon.cube.core.entity.debug.Clock;
 import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
-import com.github.zelmothedragon.cube.core.entity.geometry.Point;
+import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
 import com.github.zelmothedragon.cube.core.graphic.AnimatedSprite;
 import com.github.zelmothedragon.cube.core.graphic.AnimatedSpriteMetaData;
@@ -55,7 +56,7 @@ public final class EntityFactory {
     public UUID createDebugInformation() {
 
         var clock = new Clock();
-        var point = new Point();
+        var rectangle = new Rectangle();
         var font = new FontSprite(
                 assets.loadSprite(AssetManager.DEBUG_8X8_TEXT_SHADOW),
                 assets.LoadFontMap(AssetManager.DEBUG_8X8_TEXT_MAP),
@@ -65,32 +66,34 @@ public final class EntityFactory {
 
         var id = entities.newEntity(Family.DEBUG);
         entities.addComponent(id, clock);
-        entities.addComponent(id, point);
+        entities.addComponent(id, rectangle);
         entities.addComponent(id, font);
         return id;
     }
 
     public UUID createDebugPlayer() {
 
-        var point = new Point();
+        var w = 16;
+        var h = 32;
+        var rectangle = new Rectangle(0, 0, w, h);
         var vector = new Vector();
         var sprite = new AnimatedSprite(
                 assets.loadSprite(AssetManager.DEBUG_PLAYER_IMAGE),
-                50,
+                75,
                 4,
-                16,
-                32
+                w,
+                h
         );
 
         var metadata = new AnimatedSpriteMetaData();
-        metadata.addOrientation(Orientation.LEFT, new Point(0, 96));
-        metadata.addOrientation(Orientation.RIGHT, new Point(0, 32));
-        metadata.addOrientation(Orientation.UP, new Point(0, 64));
-        metadata.addOrientation(Orientation.DOWN, new Point(0, 0));
+        metadata.addOrientation(Orientation.LEFT, new Rectangle(0, 96, w, h));
+        metadata.addOrientation(Orientation.RIGHT, new Rectangle(0, 32, w, h));
+        metadata.addOrientation(Orientation.UP, new Rectangle(0, 64, w, h));
+        metadata.addOrientation(Orientation.DOWN, new Rectangle(0, 0, w, h));
 
         var id = entities.newEntity(Family.PLAYER);
         entities.addComponent(id, Controllable.INSTANCE);
-        entities.addComponent(id, point);
+        entities.addComponent(id, rectangle);
         entities.addComponent(id, vector);
         entities.addComponent(id, sprite);
         entities.addComponent(id, metadata);

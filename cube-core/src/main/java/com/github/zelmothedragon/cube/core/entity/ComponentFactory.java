@@ -24,8 +24,9 @@ public final class ComponentFactory {
     public static <T extends Component> T newInstance(final Class<T> type) {
         T component;
         try {
+            // TODO: Trouver un moyen plus propre d'implémenter
+            // le design pattern NullObject
             component = (T) type.getDeclaredConstructor().newInstance();
-
         } catch (Exception ex) {
             // /!\ Attention invocation dynamique
             ex.printStackTrace();
