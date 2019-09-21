@@ -68,7 +68,7 @@ public final class DebugSystem extends AbstractSystem {
             playerAnimation.stop();
         }
 
-        playerAnimation.update(1.0);
+        playerAnimation.update();
 
         var debugClock = gc.getEntities().getComponent(debug, Clock.class);
         debugClock.update();

@@ -95,11 +95,8 @@ public final class AnimatedSprite extends Sprite {
 
     /**
      * Mettre à jour l'animation.
-     *
-     * @param deltaTime Valeur d'interpolation pour ajuster l'animation en
-     * fonction de la fréquence d'horloge du jeu
      */
-    public void update(final double deltaTime) {
+    public void update() {
 
         // Réinitialiser l'index de l'animation lorsque qu'un cycle complet
         // de l'animation est exécuter.

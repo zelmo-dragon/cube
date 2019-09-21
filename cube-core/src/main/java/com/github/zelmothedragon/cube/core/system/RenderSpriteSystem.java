@@ -30,7 +30,7 @@ public final class RenderSpriteSystem extends AbstractSystem {
         gc
                 .getEntities()
                 .getComponent(AnimatedSprite.class)
-                .forEach((k, s) -> s.update(1.0));
+                .forEach((k, s) -> s.update());
 
     }
 
