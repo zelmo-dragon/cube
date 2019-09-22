@@ -42,11 +42,11 @@ public final class DebugSystem extends AbstractSystem {
 
         var playerVector = gc
                 .getEntities()
-                .getComponent(player, Vector.class);
+                .get(player, Vector.class);
 
         var playerAnimation = gc
                 .getEntities()
-                .getComponent(player, AnimatedSprite.class);
+                .get(player, AnimatedSprite.class);
 
         if (gc.getInputs().isKeyUp(GamePad.LEFT)) {
             playerVector.setDx(-1);
@@ -70,7 +70,7 @@ public final class DebugSystem extends AbstractSystem {
 
         playerAnimation.update();
 
-        var debugClock = gc.getEntities().getComponent(debug, Clock.class);
+        var debugClock = gc.getEntities().get(debug, Clock.class);
         debugClock.update();
     }
 
@@ -95,9 +95,9 @@ public final class DebugSystem extends AbstractSystem {
         g2d.drawRect(256, 0, 64, 64, 0xFF000000);
         g2d.drawGradientCircle(256, 0, 32, 0xFF000000);
 
-        var debugRect = gc.getEntities().getComponent(debug, Rectangle.class);
-        var debugFont = gc.getEntities().getComponent(debug, FontSprite.class);
-        var debugClock = gc.getEntities().getComponent(debug, Clock.class);
+        var debugRect = gc.getEntities().get(debug, Rectangle.class);
+        var debugFont = gc.getEntities().get(debug, FontSprite.class);
+        var debugClock = gc.getEntities().get(debug, Clock.class);
         debugClock.render();
 
         g2d.drawImage(

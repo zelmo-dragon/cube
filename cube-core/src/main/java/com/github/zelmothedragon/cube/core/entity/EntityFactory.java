@@ -65,9 +65,9 @@ public final class EntityFactory {
         );
 
         var id = entities.newEntity(Family.DEBUG);
-        entities.addComponent(id, clock);
-        entities.addComponent(id, rectangle);
-        entities.addComponent(id, font);
+        entities.add(id, clock);
+        entities.add(id, rectangle);
+        entities.add(id, font);
         return id;
     }
 
@@ -92,11 +92,11 @@ public final class EntityFactory {
         metadata.addOrientation(Orientation.DOWN, new Rectangle(0, 0, w, h));
 
         var id = entities.newEntity(Family.PLAYER);
-        entities.addComponent(id, Controllable.INSTANCE);
-        entities.addComponent(id, rectangle);
-        entities.addComponent(id, vector);
-        entities.addComponent(id, sprite);
-        entities.addComponent(id, metadata);
+        entities.add(id, Controllable.INSTANCE);
+        entities.add(id, rectangle);
+        entities.add(id, vector);
+        entities.add(id, sprite);
+        entities.add(id, metadata);
         return id;
     }
 

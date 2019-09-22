@@ -44,7 +44,7 @@ public final class InputSystem extends AbstractSystem {
         }
         if (gc.getInputs().isKeyUp(GamePad.DEBUG)) {
 
-        }
+        }        
         if (gc.getInputs().isKeyUp(GamePad.LEFT)) {
 
         }

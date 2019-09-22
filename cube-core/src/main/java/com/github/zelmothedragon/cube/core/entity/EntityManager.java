@@ -39,7 +39,7 @@ public final class EntityManager {
      * @return L'identifiant unique de l'entité
      */
     public UUID newEntity(final Family family) {
-        return addComponent(family);
+        return add(family);
     }
 
     /**
@@ -48,7 +48,7 @@ public final class EntityManager {
      * @param id Identifiant de l'entité
      * @param component Composant
      */
-    public void addComponent(final UUID id, final Component component) {
+    public void add(final UUID id, final Component component) {
         final var type = component.getClass();
         if (data.containsKey(type)) {
             var entities = data.get(type);
@@ -67,7 +67,7 @@ public final class EntityManager {
      * @param component Composant
      * @return L'identifiant de l'entité
      */
-    public UUID addComponent(final Component component) {
+    public UUID add(final Component component) {
         final var type = component.getClass();
         final var id = UUID.randomUUID();
         if (data.containsKey(type)) {
@@ -90,7 +90,7 @@ public final class EntityManager {
      * @return Le composant recherché, peut retourner la valeur
      * <code>Component.EMPTY</code> si le composant demandé n'existe pas
      */
-    public <T extends Component> T getComponent(final UUID id, final Class<T> type) {
+    public <T extends Component> T get(final UUID id, final Class<T> type) {
         final T component;
         if (data.containsKey(type)) {
             var entities = data.get(type);
@@ -110,7 +110,7 @@ public final class EntityManager {
      * retourner la valeur <code>Collections.emptyMap()</code> si aucune entité
      * ne correspond à ce type de composant
      */
-    public <T extends Component> Map<UUID, T> getComponent(final Class<T> type) {
+    public <T extends Component> Map<UUID, T> get(final Class<T> type) {
         final Map<UUID, Component> entities;
         if (data.containsKey(type)) {
             entities = data.get(type);
@@ -127,7 +127,7 @@ public final class EntityManager {
      * @param id Identifiant de l'entité
      * @param type Classe du composant
      */
-    public <T extends Component> void removeComponent(final UUID id, final Class<T> type) {
+    public <T extends Component> void remove(final UUID id, final Class<T> type) {
         if (data.containsKey(type)) {
             var entities = data.get(type);
             entities.remove(id);
@@ -140,7 +140,7 @@ public final class EntityManager {
      * @param <T> Type générique de composant
      * @param type Classe du composant
      */
-    public <T extends Component> void removeComponent(final Class<T> type) {
+    public <T extends Component> void remove(final Class<T> type) {
         data.remove(type);
     }
 

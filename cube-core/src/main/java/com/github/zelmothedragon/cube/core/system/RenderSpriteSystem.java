@@ -28,7 +28,7 @@ public final class RenderSpriteSystem extends AbstractSystem {
     public void update() {
         gc
                 .getEntities()
-                .getComponent(AnimatedSprite.class)
+                .get(AnimatedSprite.class)
                 .forEach((k, s) -> s.update());
 
     }
@@ -37,11 +37,11 @@ public final class RenderSpriteSystem extends AbstractSystem {
     public void draw(final Render g2d) {
         gc
                 .getEntities()
-                .getComponent(Sprite.class)
+                .get(Sprite.class)
                 .forEach((k, s) -> {
                     var rectangle = gc
                             .getEntities()
-                            .getComponent(k, Rectangle.class);
+                            .get(k, Rectangle.class);
 
                     g2d.drawImage(
                             rectangle.getXp(),
@@ -53,11 +53,11 @@ public final class RenderSpriteSystem extends AbstractSystem {
 
         gc
                 .getEntities()
-                .getComponent(AnimatedSprite.class)
+                .get(AnimatedSprite.class)
                 .forEach((k, s) -> {
                     var rectangle = gc
                             .getEntities()
-                            .getComponent(k, Rectangle.class);
+                            .get(k, Rectangle.class);
 
                     g2d.drawImage(
                             rectangle.getXp(),

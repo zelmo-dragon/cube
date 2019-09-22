@@ -26,11 +26,11 @@ public final class MoveSystem extends AbstractSystem {
     public void update() {
         gc
                 .getEntities()
-                .getComponent(Vector.class)
+                .get(Vector.class)
                 .forEach((k, v) -> {
                     gc
                             .getEntities()
-                            .getComponent(k, Rectangle.class)
+                            .get(k, Rectangle.class)
                             .move(v);
 
                     v.reset();
