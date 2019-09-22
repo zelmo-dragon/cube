@@ -47,5 +47,4 @@ Il utilise l'outil **Maven** en version 3.6.2.
     mvn clean javafx:run
 ~~~
 
-> **/!\**
 > Il n'est pas encore possible d'empaqueter le projet sous forme de binaire Java exécutable.
