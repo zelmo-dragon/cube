@@ -1,11 +1,13 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameContainer;
+import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.graphic.AnimatedSprite;
-import com.github.zelmothedragon.cube.core.graphic.FontSprite;
+import com.github.zelmothedragon.cube.core.graphic.AnimatedSpriteMetaData;
 import com.github.zelmothedragon.cube.core.graphic.Render;
 import com.github.zelmothedragon.cube.core.graphic.Sprite;
+import java.util.Objects;
 
 /**
  * Système de rendu graphique pour les images.
@@ -29,7 +31,23 @@ public final class RenderSpriteSystem extends AbstractSystem {
         gc
                 .getEntities()
                 .get(AnimatedSprite.class)
-                .forEach((k, s) -> s.update());
+                .forEach((k, s) -> {
+
+                    var metaData = gc
+                            .getEntities()
+                            .get(k, AnimatedSpriteMetaData.class);
+
+                    var offset = metaData.getCurrentOffset();
+                    var orientation = metaData.getOrientation();
+
+                    if (Objects.equals(orientation, Orientation.EMPTY)) {
+                        s.stop();
+                    } else {
+                        s.setOffset(offset.getXp(), offset.getYp());
+                        s.play();
+                    }
+                    s.update();
+                });
 
     }
 

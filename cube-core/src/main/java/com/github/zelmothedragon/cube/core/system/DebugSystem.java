@@ -3,9 +3,9 @@ package com.github.zelmothedragon.cube.core.system;
 import com.github.zelmothedragon.cube.core.GameContainer;
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
 import com.github.zelmothedragon.cube.core.entity.debug.Clock;
+import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
-import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
-import com.github.zelmothedragon.cube.core.graphic.AnimatedSprite;
+import com.github.zelmothedragon.cube.core.graphic.AnimatedSpriteMetaData;
 import com.github.zelmothedragon.cube.core.graphic.FontSprite;
 import com.github.zelmothedragon.cube.core.graphic.Render;
 import com.github.zelmothedragon.cube.core.graphic.Sprite;
@@ -40,35 +40,21 @@ public final class DebugSystem extends AbstractSystem {
     @Override
     public void update() {
 
-        var playerVector = gc
+        var playerMetaData = gc
                 .getEntities()
-                .get(player, Vector.class);
-
-        var playerAnimation = gc
-                .getEntities()
-                .get(player, AnimatedSprite.class);
+                .get(player, AnimatedSpriteMetaData.class);
 
         if (gc.getInputs().isKeyUp(GamePad.LEFT)) {
-            playerVector.setDx(-1);
-            playerAnimation.setOffset(0, 96);
-            playerAnimation.play();
+            playerMetaData.setOrientation(Orientation.LEFT);
         } else if (gc.getInputs().isKeyUp(GamePad.RIGHT)) {
-            playerVector.setDx(1);
-            playerAnimation.setOffset(0, 32);
-            playerAnimation.play();
+            playerMetaData.setOrientation(Orientation.RIGHT);
         } else if (gc.getInputs().isKeyUp(GamePad.UP)) {
-            playerVector.setDy(-1);
-            playerAnimation.setOffset(0, 64);
-            playerAnimation.play();
+            playerMetaData.setOrientation(Orientation.UP);
         } else if (gc.getInputs().isKeyUp(GamePad.DOWN)) {
-            playerVector.setDy(1);
-            playerAnimation.setOffset(0, 0);
-            playerAnimation.play();
+            playerMetaData.setOrientation(Orientation.DOWN);
         } else {
-            playerAnimation.stop();
+            playerMetaData.setOrientation(Orientation.EMPTY);
         }
-
-        playerAnimation.update();
 
         var debugClock = gc.getEntities().get(debug, Clock.class);
         debugClock.update();

@@ -86,10 +86,10 @@ public final class EntityFactory {
         );
 
         var metadata = new AnimatedSpriteMetaData();
-        metadata.addOrientation(Orientation.LEFT, new Rectangle(0, 96, w, h));
-        metadata.addOrientation(Orientation.RIGHT, new Rectangle(0, 32, w, h));
-        metadata.addOrientation(Orientation.UP, new Rectangle(0, 64, w, h));
-        metadata.addOrientation(Orientation.DOWN, new Rectangle(0, 0, w, h));
+        metadata.addOffset(Orientation.LEFT, new Rectangle(0, 96, w, h));
+        metadata.addOffset(Orientation.RIGHT, new Rectangle(0, 32, w, h));
+        metadata.addOffset(Orientation.UP, new Rectangle(0, 64, w, h));
+        metadata.addOffset(Orientation.DOWN, new Rectangle(0, 0, w, h));
 
         var id = entities.newEntity(Family.PLAYER);
         entities.add(id, Controllable.INSTANCE);
