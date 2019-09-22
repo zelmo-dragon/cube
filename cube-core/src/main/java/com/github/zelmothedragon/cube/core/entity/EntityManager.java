@@ -1,9 +1,10 @@
 package com.github.zelmothedragon.cube.core.entity;
 
+import com.github.zelmothedragon.cube.core.GameContainer;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -141,6 +142,27 @@ public final class EntityManager {
      */
     public <T extends Component> void removeComponent(final Class<T> type) {
         data.remove(type);
+    }
+
+    /**
+     * Vérifier l'existence d'un composant pour une entité.
+     *
+     * @param <T> ype générique de composant
+     * @param id Identifiant de l'entité
+     * @param type Classe du composant
+     * @return La valeur <code>true</code> si une instance de composant existe,
+     * sinon la valeur <code>false</code>
+     */
+    public <T extends Component> boolean contains(final UUID id, final Class<T> type) {
+        boolean contain;
+        if (data.containsKey(id)) {
+            var entities = data.get(type);
+            var component = entities.get(type);
+            contain = Objects.nonNull(component);
+        } else {
+            contain = false;
+        }
+        return contain;
     }
 
 }
