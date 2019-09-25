@@ -1,6 +1,8 @@
 package com.github.zelmothedragon.cube.core.entity.geometry;
 
 import com.github.zelmothedragon.cube.core.entity.Component;
+import com.github.zelmothedragon.cube.core.util.lang.Equal;
+import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.Objects;
 
 /**
@@ -82,40 +84,25 @@ public final class Rectangle implements Component {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        boolean eq;
-        if (this == obj) {
-            eq = true;
-        } else if (Objects.isNull(obj)) {
-            eq = false;
-        } else {
-            if (!Objects.equals(getClass(), obj.getClass())) {
-                eq = false;
-            } else {
-                var other = (Rectangle) obj;
-                eq = other.xp == xp
-                        && other.yp == yp
-                        && other.width == width
-                        && other.height == height;
-            }
-        }
-        return eq;
+    public boolean equals(final Object obj) {
+        return Equal
+                .of(this, obj)
+                .with(Rectangle::getXp)
+                .with(Rectangle::getYp)
+                .with(Rectangle::getWidth)
+                .with(Rectangle::getHeight)
+                .get();
     }
 
     @Override
     public String toString() {
-
-        return new StringBuilder()
-                .append("Rectagle{xp=")
-                .append(xp)
-                .append(", yp=")
-                .append(yp)
-                .append(", width=")
-                .append(width)
-                .append(", height=")
-                .append(height)
-                .append("}")
-                .toString();
+        return ToString
+                .of(this)
+                .with("xp", Rectangle::getXp)
+                .with("yp", Rectangle::getYp)
+                .with("width", Rectangle::getWidth)
+                .with("height", Rectangle::getHeight)
+                .get();
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.github.zelmothedragon.cube.core.graphic;
 
 import com.github.zelmothedragon.cube.core.entity.Component;
+import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.Arrays;
 
 /**
@@ -58,6 +59,16 @@ public class Sprite implements Component {
         this.buffer = new int[width * height];
     }
 
+    @Override
+    public String toString() {
+        return ToString
+                .of(this)
+                .with("width", Sprite::getWidth)
+                .with("height", Sprite::getHeight)
+                .with("buffer.length", Sprite::getBufferLength)
+                .get();
+    }
+
     /**
      * Effacer tout le contenu de l'image.
      */
@@ -101,6 +112,15 @@ public class Sprite implements Component {
 
             buffer[xp + yp * width] = pixel;
         }
+    }
+
+    /**
+     * Accesseur, obtenir le nombre de pixel contenu dans la mémoire tampon.
+     *
+     * @return Le nombre de pixel dans la mémoire tampon
+     */
+    protected int getBufferLength() {
+        return buffer.length;
     }
 
     /**

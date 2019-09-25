@@ -51,6 +51,7 @@ public final class GameContainer {
         this.factory = new EntityFactory(entities, assets);
 
         // Doit être initialisé à la fin
+        // Car il s'agit de dépendance récursive
         this.systems = new SystemManager(this);
     }
 

@@ -1,5 +1,6 @@
 package com.github.zelmothedragon.cube.core.graphic;
 
+import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,6 +92,24 @@ public final class AnimatedSprite extends Sprite {
         this.yOffset = 0;
         this.playing = false;
 
+    }
+
+    @Override
+    public String toString() {
+        return ToString
+                .of(this)
+                .with("width", AnimatedSprite::getWidth)
+                .with("height", AnimatedSprite::getHeight)
+                .with("buffer.length", AnimatedSprite::getBufferLength)
+                .with("spriteWidth", e -> e.spriteWidth)
+                .with("spriteHeight", e -> e.spriteHeight)
+                .with("duration", e -> e.duration)
+                .with("count", e -> e.count)
+                .with("frame", e -> e.frame)
+                .with("xOffset", e -> e.xOffset)
+                .with("yOffset", e -> e.yOffset)
+                .with("playing", e -> e.playing)
+                .get();
     }
 
     /**

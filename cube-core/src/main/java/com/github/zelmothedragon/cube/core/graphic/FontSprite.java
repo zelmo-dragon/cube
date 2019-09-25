@@ -1,5 +1,6 @@
 package com.github.zelmothedragon.cube.core.graphic;
 
+import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,6 +68,18 @@ public final class FontSprite extends Sprite {
         this.fontMap = fontMap;
         this.characterWidth = characterWidth;
         this.characterHeight = characterHeight;
+    }
+
+    @Override
+    public String toString() {
+        return ToString
+                .of(this)
+                .with("width", FontSprite::getWidth)
+                .with("height", FontSprite::getHeight)
+                .with("buffer.length", FontSprite::getBufferLength)
+                .with("characterWidth", FontSprite::getCharacterWidth)
+                .with("characterHeight", FontSprite::getCharacterHeight)
+                .get();
     }
 
     /**

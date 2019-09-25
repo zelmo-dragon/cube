@@ -1,6 +1,8 @@
 package com.github.zelmothedragon.cube.core.entity.geometry;
 
 import com.github.zelmothedragon.cube.core.entity.Component;
+import com.github.zelmothedragon.cube.core.util.lang.Equal;
+import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.Objects;
 
 /**
@@ -45,33 +47,21 @@ public final class Vector implements Component {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        boolean eq;
-        if (this == obj) {
-            eq = true;
-        } else if (Objects.isNull(obj)) {
-            eq = false;
-        } else {
-            if (!Objects.equals(getClass(), obj.getClass())) {
-                eq = false;
-            } else {
-                var other = (Vector) obj;
-                eq = other.dx == dx && other.dy == dy;
-            }
-        }
-        return eq;
+    public boolean equals(final Object obj) {
+        return Equal
+                .of(this, obj)
+                .with(Vector::getDx)
+                .with(Vector::getDy)
+                .get();
     }
 
     @Override
     public String toString() {
-
-        return new StringBuilder()
-                .append("Vector{dx=")
-                .append(dx)
-                .append(", dy=")
-                .append(dy)
-                .append("}")
-                .toString();
+        return ToString
+                .of(this)
+                .with("dx", Vector::getDx)
+                .with("dy", Vector::getDy)
+                .get();
     }
 
     /**

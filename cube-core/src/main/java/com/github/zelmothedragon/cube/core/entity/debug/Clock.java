@@ -1,6 +1,9 @@
 package com.github.zelmothedragon.cube.core.entity.debug;
 
 import com.github.zelmothedragon.cube.core.entity.Component;
+import com.github.zelmothedragon.cube.core.util.lang.Equal;
+import com.github.zelmothedragon.cube.core.util.lang.ToString;
+import java.util.Objects;
 
 /**
  * Horloge de débogage.
@@ -47,6 +50,27 @@ public class Clock implements Component {
         this.fps = 0;
         this.timer = System.currentTimeMillis();
         this.message = "loading...";
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(message);
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        return Equal
+                .of(this, obj)
+                .with(Clock::getMessage)
+                .get();
+    }
+
+    @Override
+    public String toString() {
+        return ToString
+                .of(this)
+                .with("message", Clock::getMessage)
+                .get();
     }
 
     /**
