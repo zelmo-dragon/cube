@@ -73,6 +73,17 @@ public final class Vector implements Component {
     }
 
     /**
+     * Modifier l'ampleur du vecteur.
+     *
+     * @param dx L'ampleur du vecteur en abcisse
+     * @param dy L'ampleur du vecteur en ordonnée
+     */
+    public void set(final int dx, final int dy) {
+        this.dx = dx;
+        this.dy = dy;
+    }
+
+    /**
      * Accesseur, obtenir l'ampleur du vecteur en abcisse.
      *
      * @return L'ampleur du vecteur en abcisse

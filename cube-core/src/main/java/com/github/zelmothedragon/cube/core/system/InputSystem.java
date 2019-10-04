@@ -34,16 +34,13 @@ public final class InputSystem extends AbstractSystem {
                             .get(k, Vector.class);
 
                     if (gc.getInputs().isKeyUp(GamePad.LEFT)) {
-                        vector.setDx(-1);
-                    }
-                    if (gc.getInputs().isKeyUp(GamePad.RIGHT)) {
-                        vector.setDx(1);
-                    }
-                    if (gc.getInputs().isKeyUp(GamePad.UP)) {
-                        vector.setDy(-1);
-                    }
-                    if (gc.getInputs().isKeyUp(GamePad.DOWN)) {
-                        vector.setDy(1);
+                        vector.set(-1, 0);
+                    } else if (gc.getInputs().isKeyUp(GamePad.RIGHT)) {
+                        vector.set(1, 0);
+                    } else if (gc.getInputs().isKeyUp(GamePad.UP)) {
+                        vector.set(0, -1);
+                    } else if (gc.getInputs().isKeyUp(GamePad.DOWN)) {
+                        vector.set(0, 1);
                     }
 
                     if (gc.getInputs().isKeyUp(GamePad.ACTION)) {
