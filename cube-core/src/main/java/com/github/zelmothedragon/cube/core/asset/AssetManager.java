@@ -39,5 +39,14 @@ public interface AssetManager {
      * @param path Chemin d'accès à la ressouce
      * @return La cartographie d'une police de caractères
      */
-    String LoadFontMap(String path);
+    String loadFontMap(String path);
+
+    /**
+     * Charger une carte de tuiles graphiques.
+     *
+     * @param path Chemin d'accès à la ressouce
+     * @return La carte de tuiles graphiques sous forme de tableau à deux
+     * dimension
+     */
+    int[][] loadMap(String path);
 }

@@ -298,7 +298,28 @@ public abstract class Render {
                 drawImage(xa, ya, sprite.getCharacter(characters[x]));
             }
         }
+    }
 
+    /**
+     * Dessiner une carte de tuile graphique.
+     *
+     * @param xp Position en abcisse
+     * @param yp Position en ordonnée
+     * @param tileMap Carte de tuiles graphiques
+     */
+    public void drawImage(
+            final int xp,
+            final int yp,
+            final TileMap tileMap) {
+
+        for (var y = 0; y < tileMap.getMapHeight(); y++) {
+            for (var x = 0; x < tileMap.getMapWidth(); x++) {
+                var tile = tileMap.getTile(x, y);
+                var ya = yp + y * tile.height;
+                var xa = xp + x * tile.width;
+                drawImage(xa, ya, tile);
+            }
+        }
     }
 
     /**

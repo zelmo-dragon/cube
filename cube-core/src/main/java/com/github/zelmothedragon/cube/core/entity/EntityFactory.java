@@ -59,7 +59,7 @@ public final class EntityFactory {
         var rectangle = new Rectangle();
         var font = new FontSprite(
                 assets.loadSprite(AssetManager.DEBUG_8X8_TEXT_SHADOW),
-                assets.LoadFontMap(AssetManager.DEBUG_8X8_TEXT_MAP),
+                assets.loadFontMap(AssetManager.DEBUG_8X8_TEXT_MAP),
                 8,
                 8
         );

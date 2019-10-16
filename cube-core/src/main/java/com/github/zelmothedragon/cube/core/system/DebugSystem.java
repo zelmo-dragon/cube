@@ -9,6 +9,7 @@ import com.github.zelmothedragon.cube.core.graphic.AnimatedSpriteMetaData;
 import com.github.zelmothedragon.cube.core.graphic.FontSprite;
 import com.github.zelmothedragon.cube.core.graphic.Render;
 import com.github.zelmothedragon.cube.core.graphic.Sprite;
+import com.github.zelmothedragon.cube.core.graphic.TileMap;
 import com.github.zelmothedragon.cube.core.input.GamePad;
 import java.util.UUID;
 
@@ -27,6 +28,8 @@ public final class DebugSystem extends AbstractSystem {
 
     private final Sprite wood;
 
+    private final TileMap tileMap;
+
     public DebugSystem(final GameContainer gc, final int priority) {
         super(gc, priority);
 
@@ -35,6 +38,13 @@ public final class DebugSystem extends AbstractSystem {
 
         this.debug = gc.getFactory().createDebugInformation();
         this.player = gc.getFactory().createDebugPlayer();
+
+        this.tileMap = new TileMap(
+                gc.getAssets().loadSprite("/assets/images/overworld.png"),
+                16,
+                16,
+                gc.getAssets().loadMap("/assets/maps/debug.csv")
+        );
     }
 
     @Override
@@ -62,8 +72,16 @@ public final class DebugSystem extends AbstractSystem {
 
     @Override
     public void draw(final Render g2d) {
+        var debugRect = gc.getEntities().get(debug, Rectangle.class);
+        var debugFont = gc.getEntities().get(debug, FontSprite.class);
+        var debugClock = gc.getEntities().get(debug, Clock.class);
 
-        g2d.drawImage(0, 0, background);
+        g2d.drawImage(
+                debugRect.getXp(),
+                debugRect.getYp(),
+                tileMap
+        );
+
         g2d.drawImage(64, 64, wood);
 
         g2d.drawRect(0, 0, 64, 64, 0xFFFF0000);
@@ -81,9 +99,6 @@ public final class DebugSystem extends AbstractSystem {
         g2d.drawRect(256, 0, 64, 64, 0xFF000000);
         g2d.drawGradientCircle(256, 0, 32, 0xFF000000);
 
-        var debugRect = gc.getEntities().get(debug, Rectangle.class);
-        var debugFont = gc.getEntities().get(debug, FontSprite.class);
-        var debugClock = gc.getEntities().get(debug, Clock.class);
         debugClock.render();
 
         g2d.drawImage(
