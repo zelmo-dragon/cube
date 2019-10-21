@@ -53,7 +53,7 @@ public final class Display extends Application {
 
         var g2d = canvas.getGraphicsContext2D();
         g2d.setImageSmoothing(false);
-        
+
         var group = new Group();
         group.getChildren().add(canvas);
 
@@ -75,6 +75,10 @@ public final class Display extends Application {
         scene.setOnKeyReleased(e -> {
             gc.getInputs().keyReleased(e.getCode().getCode());
             e.consume();
+        });
+
+        scene.setOnMouseMoved(e -> {
+            gc.getInputs().cursorMoved(e.getSceneX(), e.getSceneY());
         });
 
         primaryStage.widthProperty().addListener((e, o, n) -> {

@@ -99,6 +99,39 @@ public final class DebugSystem extends AbstractSystem {
         g2d.drawRect(256, 0, 64, 64, 0xFF000000);
         g2d.drawGradientCircle(256, 0, 32, 0xFF000000);
 
+        for (var i = 0; i < 50; i++) {
+            g2d.drawLine(
+                    50 + i,
+                    0,
+                    gc.getInputs().getCursorX(),
+                    gc.getInputs().getCursorY(),
+                    0xFFFF00FF
+            );
+
+            g2d.drawLine(
+                    0,
+                    50 + i,
+                    gc.getInputs().getCursorX(),
+                    gc.getInputs().getCursorY(),
+                    0xFFFFFF00
+            );
+        }
+
+        g2d.drawCircle(
+                gc.getInputs().getCursorX(),
+                gc.getInputs().getCursorY(),
+                50,
+                0xFFFF0000
+        );
+
+        g2d.drawRect(
+                gc.getInputs().getCursorX(),
+                gc.getInputs().getCursorY(),
+                5,
+                5,
+                0xFFFF0000
+        );
+
         debugClock.render();
 
         g2d.drawImage(

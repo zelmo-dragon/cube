@@ -191,19 +191,33 @@ public abstract class Render {
             final int radius,
             final int color) {
 
-        var diameter = radius * 2;
+        // Algorithme de tracé de cercle d'Andres
+        var x = 0;
+        var y = radius;
+        var d = radius - 1;
 
-        for (var y = 0; y < diameter; y++) {
-            var ya = yp + y;
-            var dy = Math.pow(y - radius, 2);
+        while (y >= x) {
+            // pixels
+            setPixel(xp + x, yp + y, color);
+            setPixel(xp - x, yp + y, color);
+            setPixel(xp + x, yp - y, color);
+            setPixel(xp - x, yp - y, color);
 
-            for (var x = 0; x < diameter; x++) {
-                var xa = xp + x;
-                var dx = Math.pow(x - radius, 2);
-                var distance = Math.sqrt(dx + dy);
-                if (distance < radius && distance >= radius - 1) {
-                    setPixel(xa, ya, color);
-                }
+            setPixel(xp + y, yp + x, color);
+            setPixel(xp - y, yp + x, color);
+            setPixel(xp + y, yp - x, color);
+            setPixel(xp - y, yp - x, color);
+
+            if (d >= 2 * x) {
+                d -= 2 * x + 1;
+                x++;
+            } else if (d < 2 * (radius - y)) {
+                d += 2 * y - 1;
+                y--;
+            } else {
+                d += 2 * (y - x - 1);
+                y--;
+                x++;
             }
         }
     }
@@ -224,33 +238,32 @@ public abstract class Render {
             final int y1,
             final int color) {
 
+        // Algorithme de tracé de ligne de Bresenham
         var xp = x0;
         var yp = y0;
 
-        var dx = Math.abs(x1 - x0);
-        var dy = Math.abs(y1 - x0);
+        var dx = Math.abs(x1 - xp);
+        var dy = Math.abs(y1 - yp);
 
-        var sx = x0 < x1 ? 1 : -1;
-        var sy = y0 < y1 ? 1 : -1;
+        var sx = (xp < x1) ? 1 : -1;
+        var sy = (yp < y1) ? 1 : -1;
 
-        var delta = dx - dy;
+        var err = dx - dy;
 
-        while (Pixel.isInBound(xp, width)
-                && Pixel.isInBound(yp, height)
-                && (xp != x1 || yp != y1)) {
+        while (!(xp == x1 && yp == y1)) {
 
-            buffer[xp + yp * width] = color;
+            setPixel(xp, yp, color);
 
-            var i = delta * 2;
+            var e2 = 2 * err;
 
-            if (i > -1 * dy) {
-                delta -= dy;
-                xp += sx;
+            if (e2 > -dy) {
+                err = err - dy;
+                xp = xp + sx;
             }
 
-            if (i < dx) {
-                delta += dx;
-                yp += sy;
+            if (e2 < dx) {
+                err = err + dx;
+                yp = yp + sy;
             }
         }
     }

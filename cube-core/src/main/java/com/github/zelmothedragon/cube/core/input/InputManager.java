@@ -21,12 +21,24 @@ public final class InputManager {
     private final Set<Key> keys;
 
     /**
+     * Position abcisse du curseur.
+     */
+    private double cursorX;
+
+    /**
+     * Position ordonnée du curseur.
+     */
+    private double cursorY;
+
+    /**
      * Constructeur. Construit un gestionnaire des entrées du joueur, pour le
      * bon fonctionnement du programme cette classe doit être instanciée une
      * seul fois.
      */
     public InputManager() {
         this.keys = new HashSet<>(GamePad.values().length);
+        this.cursorX = 0.0;
+        this.cursorY = 0.0;
     }
 
     /**
@@ -104,6 +116,36 @@ public final class InputManager {
                 .stream()
                 .filter(k -> Objects.equals(k.getKeyCode(), keyCode))
                 .forEach(Key::keyReleased);
+    }
+
+    /**
+     * Déplacer le curseur. Cette méthode permet le traitement technique hors de
+     * la boucle principale du jeu.
+     *
+     * @param cursorX Position abcisse
+     * @param cursorY Position ordonnée
+     */
+    public void cursorMoved(final double cursorX, final double cursorY) {
+        this.cursorX = cursorX;
+        this.cursorY = cursorY;
+    }
+
+    /**
+     * Accesseur, obtenir la position du curseur en abcisse.
+     *
+     * @return La position du cuseur en abcisse
+     */
+    public int getCursorX() {
+        return (int) cursorX;
+    }
+
+    /**
+     * Accesseur, obtenir la position du curseur en ordonnée.
+     *
+     * @return La position du curseur en ordonnée
+     */
+    public int getCursorY() {
+        return (int) cursorY;
     }
 
 }
