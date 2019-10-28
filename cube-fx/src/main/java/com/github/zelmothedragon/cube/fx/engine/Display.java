@@ -78,7 +78,11 @@ public final class Display extends Application {
         });
 
         scene.setOnMouseMoved(e -> {
-            gc.getInputs().cursorMoved(e.getSceneX(), e.getSceneY());
+            // TODO: calculer la position exacte du curseur.
+            var x = e.getSceneX()/ SCALE;
+            var y = e.getSceneY() / SCALE;
+            gc.getInputs().cursorMoved(x, y);
+            System.out.printf("X:%s Y=%s%n", x, y);
         });
 
         primaryStage.widthProperty().addListener((e, o, n) -> {

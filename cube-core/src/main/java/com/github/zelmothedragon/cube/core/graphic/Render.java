@@ -197,7 +197,7 @@ public abstract class Render {
         var d = radius - 1;
 
         while (y >= x) {
-            // pixels
+
             setPixel(xp + x, yp + y, color);
             setPixel(xp - x, yp + y, color);
             setPixel(xp + x, yp - y, color);

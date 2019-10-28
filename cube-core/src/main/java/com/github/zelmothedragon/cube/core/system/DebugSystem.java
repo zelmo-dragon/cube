@@ -117,13 +117,6 @@ public final class DebugSystem extends AbstractSystem {
             );
         }
 
-        g2d.drawCircle(
-                gc.getInputs().getCursorX(),
-                gc.getInputs().getCursorY(),
-                50,
-                0xFFFF0000
-        );
-
         g2d.drawRect(
                 gc.getInputs().getCursorX(),
                 gc.getInputs().getCursorY(),
