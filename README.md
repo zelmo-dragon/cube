@@ -36,7 +36,7 @@ Ainsi, il devient plus facile de le faire évoluer.
     
 ## Environnement
 
-Ce projet est réalisé en **Java 12** *(OpenJDK)*. et JavaFX 13 *(OpenJFX)*.
+Ce projet est réalisé en **Java 13** *(OpenJDK)*. et JavaFX 13 *(OpenJFX)*.
 Il utilise l'outil **Maven** en version 3.6.2.
 
 ### Exécution
