@@ -22,14 +22,14 @@ public final class DebugSystem extends AbstractSystem {
     private static final int HIT_BOX_COLOR = 0xFFFF0000;
 
     /**
-     * Couleur des zones des textures. Vert per défaut.
+     * Couleur des zones des textures. Verte par défaut.
      */
     private static final int SPRITE_BOX_COLOR = 0xFF00FF00;
 
     /**
-     * Couleur des zones divers. Bleu par défaut.
+     * Couleur des zones d'événement. Bleue par défaut.
      */
-    private static final int BOX_COLOR = 0xFF0000FF;
+    private static final int EVENT_BOX_COLOR = 0xFF0000FF;
 
     /**
      * Entité de déboggage.
