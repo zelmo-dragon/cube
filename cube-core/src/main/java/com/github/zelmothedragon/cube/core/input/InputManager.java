@@ -56,13 +56,13 @@ public final class InputManager {
      * @return La valeur <code>true</code> si la touche est appuyée, sinon
      * <code>false</code>
      */
-    public boolean isKeyUp(final GamePad name) {
+    public boolean isKeyPressed(final GamePad name) {
         return keys
                 .stream()
                 .filter(k -> Objects.equals(k.getName(), name))
                 .findFirst()
                 .orElse(Key.EMPTY)
-                .isKeyUp();
+                .isPressed();
     }
 
     /**
@@ -73,13 +73,13 @@ public final class InputManager {
      * @return La valeur <code>true</code> si la touche est relâchée, sinon
      * <code>false</code>
      */
-    public boolean isKeyDown(final GamePad name) {
+    public boolean isKeyReleased(final GamePad name) {
         return keys
                 .stream()
                 .filter(k -> Objects.equals(k.getName(), name))
                 .findFirst()
                 .orElse(Key.EMPTY)
-                .isKeyDown();
+                .isReleased();
     }
 
     /**
@@ -102,7 +102,7 @@ public final class InputManager {
         keys
                 .stream()
                 .filter(k -> Objects.equals(k.getKeyCode(), keyCode))
-                .forEach(Key::keyPressed);
+                .forEach(Key::pressed);
     }
 
     /**
@@ -115,7 +115,7 @@ public final class InputManager {
         keys
                 .stream()
                 .filter(k -> Objects.equals(k.getKeyCode(), keyCode))
-                .forEach(Key::keyReleased);
+                .forEach(Key::released);
     }
 
     /**

@@ -1,5 +1,7 @@
 package com.github.zelmothedragon.cube.core.input;
 
+import com.github.zelmothedragon.cube.core.util.lang.Equal;
+import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -54,35 +56,29 @@ public final class Key implements Serializable {
         this.pressed = false;
         this.hold = false;
     }
-
+    
     @Override
     public int hashCode() {
-        return Objects.hash(42, name);
+        return Objects.hash(name, keyCode);
     }
-
+    
     @Override
     public boolean equals(final Object obj) {
-        final boolean eq;
-        if (this == obj) {
-            eq = true;
-        } else if (Objects.isNull(obj) || !Objects.equals(getClass(), obj.getClass())) {
-            eq = false;
-        } else {
-            final Key other = (Key) obj;
-            eq = Objects.equals(this.name, other.name);
-        }
-        return eq;
+        return Equal
+                .of(this, obj)
+                .with(Key::getName)
+                .with(Key::getKeyCode)
+                .get();
     }
-
+    
     @Override
     public String toString() {
-        return String.format(
-                "Key{name=%s, keyCode=%s, pressed=%s, hold=%s}",
-                name,
-                keyCode,
-                pressed,
-                hold
-        );
+        return ToString
+                .of(this)
+                .with("name", Key::getName)
+                .with("keyCode", Key::getKeyCode)
+                .with("pressed", Key::isPressed)
+                .get();
     }
 
     /**
@@ -98,7 +94,7 @@ public final class Key implements Serializable {
      * @return La valeur <code>true</code> si la touche est appuyée, sinon
      * <code>false</code>
      */
-    public boolean isKeyUp() {
+    public boolean isPressed() {
         return pressed;
     }
 
@@ -108,7 +104,7 @@ public final class Key implements Serializable {
      * @return La valeur <code>true</code> si la touche est relâchée, sinon
      * <code>false</code>
      */
-    public boolean isKeyDown() {
+    public boolean isReleased() {
         return !pressed;
     }
 
@@ -116,7 +112,7 @@ public final class Key implements Serializable {
      * Appuyer sur la touche. Cette méthode permet le traitement technique hors
      * temps de la boucle principale du jeu.
      */
-    public void keyPressed() {
+    public void pressed() {
         hold = true;
     }
 
@@ -124,7 +120,7 @@ public final class Key implements Serializable {
      * Relâcher la touche. Cette méthode permet le traitement technique hors de
      * la boucle principale du jeu.
      */
-    public void keyReleased() {
+    public void released() {
         hold = false;
     }
 
@@ -145,5 +141,5 @@ public final class Key implements Serializable {
     public int getKeyCode() {
         return keyCode;
     }
-
+    
 }

@@ -47,13 +47,13 @@ public final class TestSystem extends AbstractSystem {
                 .getEntities()
                 .get(player, AnimatedSpriteMetaData.class);
 
-        if (gc.getInputs().isKeyUp(GamePad.LEFT)) {
+        if (gc.getInputs().isKeyPressed(GamePad.LEFT)) {
             playerMetaData.setOrientation(Orientation.LEFT);
-        } else if (gc.getInputs().isKeyUp(GamePad.RIGHT)) {
+        } else if (gc.getInputs().isKeyPressed(GamePad.RIGHT)) {
             playerMetaData.setOrientation(Orientation.RIGHT);
-        } else if (gc.getInputs().isKeyUp(GamePad.UP)) {
+        } else if (gc.getInputs().isKeyPressed(GamePad.UP)) {
             playerMetaData.setOrientation(Orientation.UP);
-        } else if (gc.getInputs().isKeyUp(GamePad.DOWN)) {
+        } else if (gc.getInputs().isKeyPressed(GamePad.DOWN)) {
             playerMetaData.setOrientation(Orientation.DOWN);
         } else {
             playerMetaData.setOrientation(Orientation.EMPTY);

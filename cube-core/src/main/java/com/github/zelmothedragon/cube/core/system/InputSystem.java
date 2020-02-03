@@ -33,37 +33,37 @@ public final class InputSystem extends AbstractSystem {
                             .getEntities()
                             .get(k, Vector.class);
 
-                    if (gc.getInputs().isKeyUp(GamePad.LEFT)) {
+                    if (gc.getInputs().isKeyPressed(GamePad.LEFT)) {
                         vector.set(-1, 0);
-                    } else if (gc.getInputs().isKeyUp(GamePad.RIGHT)) {
+                    } else if (gc.getInputs().isKeyPressed(GamePad.RIGHT)) {
                         vector.set(1, 0);
-                    } else if (gc.getInputs().isKeyUp(GamePad.UP)) {
+                    } else if (gc.getInputs().isKeyPressed(GamePad.UP)) {
                         vector.set(0, -1);
-                    } else if (gc.getInputs().isKeyUp(GamePad.DOWN)) {
+                    } else if (gc.getInputs().isKeyPressed(GamePad.DOWN)) {
                         vector.set(0, 1);
                     }else {
                         vector.reset();
                     }
                     
-                    if (gc.getInputs().isKeyUp(GamePad.ACTION)) {
+                    if (gc.getInputs().isKeyPressed(GamePad.ACTION)) {
 
                     }
-                    if (gc.getInputs().isKeyUp(GamePad.OPTION)) {
+                    if (gc.getInputs().isKeyPressed(GamePad.OPTION)) {
 
                     }
-                    if (gc.getInputs().isKeyUp(GamePad.BACK)) {
+                    if (gc.getInputs().isKeyPressed(GamePad.BACK)) {
 
                     }
-                    if (gc.getInputs().isKeyUp(GamePad.BACK)) {
+                    if (gc.getInputs().isKeyPressed(GamePad.BACK)) {
 
                     }
-                    if (gc.getInputs().isKeyUp(GamePad.START)) {
+                    if (gc.getInputs().isKeyPressed(GamePad.START)) {
 
                     }
-                    if (gc.getInputs().isKeyUp(GamePad.SELECT)) {
+                    if (gc.getInputs().isKeyPressed(GamePad.SELECT)) {
 
                     }
-                    if (gc.getInputs().isKeyUp(GamePad.DEBUG)) {
+                    if (gc.getInputs().isKeyPressed(GamePad.DEBUG)) {
 
                     }
                 });
