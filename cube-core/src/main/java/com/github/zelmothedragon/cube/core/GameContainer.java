@@ -2,8 +2,8 @@ package com.github.zelmothedragon.cube.core;
 
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
 import com.github.zelmothedragon.cube.core.entity.EntityFactory;
-import com.github.zelmothedragon.cube.core.input.InputManager;
 import com.github.zelmothedragon.cube.core.entity.EntityManager;
+import com.github.zelmothedragon.cube.core.input.InputManager;
 import com.github.zelmothedragon.cube.core.system.SystemManager;
 
 /**
@@ -51,7 +51,7 @@ public final class GameContainer {
         this.factory = new EntityFactory(entities, assets);
 
         // Doit être initialisé à la fin
-        // Car il s'agit de dépendance récursive
+        // Car il s'agit de dépendance bidirectionnelle
         this.systems = new SystemManager(this);
     }
 

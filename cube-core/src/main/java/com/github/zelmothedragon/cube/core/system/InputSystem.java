@@ -41,8 +41,10 @@ public final class InputSystem extends AbstractSystem {
                         vector.set(0, -1);
                     } else if (gc.getInputs().isKeyUp(GamePad.DOWN)) {
                         vector.set(0, 1);
+                    }else {
+                        vector.reset();
                     }
-
+                    
                     if (gc.getInputs().isKeyUp(GamePad.ACTION)) {
 
                     }
@@ -64,7 +66,6 @@ public final class InputSystem extends AbstractSystem {
                     if (gc.getInputs().isKeyUp(GamePad.DEBUG)) {
 
                     }
-
                 });
     }
 

@@ -3,8 +3,11 @@ package com.github.zelmothedragon.cube.core.graphic;
 import com.github.zelmothedragon.cube.core.entity.Component;
 import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
+import com.github.zelmothedragon.cube.core.util.lang.Equal;
+import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Méta-données d'une image animée.
@@ -36,6 +39,29 @@ public final class AnimatedSpriteMetaData implements Component {
      */
     public AnimatedSpriteMetaData() {
         this.orientations = new EnumMap<>(Orientation.class);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(orientation, currentOffset);
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        return Equal
+                .of(this, obj)
+                .with(AnimatedSpriteMetaData::getOrientation)
+                .with(AnimatedSpriteMetaData::getCurrentOffset)
+                .get();
+    }
+
+    @Override
+    public String toString() {
+        return ToString
+                .of(this)
+                .with("orientation", AnimatedSpriteMetaData::getOrientation)
+                .with("currentOffset", AnimatedSpriteMetaData::getCurrentOffset)
+                .get();
     }
 
     /**

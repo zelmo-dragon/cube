@@ -56,6 +56,20 @@ public abstract class AbstractSystem implements Comparable<AbstractSystem> {
     public abstract void draw(Render g2d);
 
     /**
+     * Activer le système.
+     */
+    public void enable() {
+        this.enabled = true;
+    }
+
+    /**
+     * Désactiver le système.
+     */
+    public void disable() {
+        this.enabled = false;
+    }
+
+    /**
      * Accesseur, indiquer si le système est actif ou non.
      *
      * @return La valeur <code>true</code> si le système est actif, sinon
@@ -63,15 +77,6 @@ public abstract class AbstractSystem implements Comparable<AbstractSystem> {
      */
     public boolean isEnabled() {
         return enabled;
-    }
-
-    /**
-     * Muttateur, modifier l'état d'activité du système.
-     *
-     * @param enabled Indique si le système est actif ou non
-     */
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 
 }

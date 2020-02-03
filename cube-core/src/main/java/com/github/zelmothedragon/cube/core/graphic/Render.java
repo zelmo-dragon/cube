@@ -248,21 +248,21 @@ public abstract class Render {
         var sx = (xp < x1) ? 1 : -1;
         var sy = (yp < y1) ? 1 : -1;
 
-        var err = dx - dy;
+        var delta = dx - dy;
 
         while (!(xp == x1 && yp == y1)) {
 
             setPixel(xp, yp, color);
 
-            var e2 = 2 * err;
+            var e2 = 2 * delta;
 
             if (e2 > -dy) {
-                err = err - dy;
+                delta = delta - dy;
                 xp = xp + sx;
             }
 
             if (e2 < dx) {
-                err = err + dx;
+                delta = delta + dx;
                 yp = yp + sy;
             }
         }

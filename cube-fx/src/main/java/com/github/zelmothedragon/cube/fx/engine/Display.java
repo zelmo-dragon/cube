@@ -79,10 +79,10 @@ public final class Display extends Application {
 
         scene.setOnMouseMoved(e -> {
             // TODO: calculer la position exacte du curseur.
-            var x = e.getSceneX()/ SCALE;
-            var y = e.getSceneY() / SCALE;
+            var x = (e.getSceneX());
+            var y = (e.getSceneY());
             gc.getInputs().cursorMoved(x, y);
-            System.out.printf("X:%s Y=%s%n", x, y);
+            // System.out.printf("X:%s Y=%s%n", x, y);
         });
 
         primaryStage.widthProperty().addListener((e, o, n) -> {

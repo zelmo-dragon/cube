@@ -2,7 +2,6 @@ package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameContainer;
 import com.github.zelmothedragon.cube.core.graphic.Render;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -31,15 +30,17 @@ public final class SystemManager {
      * @param gc Conteneur du contexte du jeu
      */
     public SystemManager(final GameContainer gc) {
-        this.world = Arrays.asList(
-                new InputSystem(gc, 1),
-                new MoveSystem(gc, 2),
-                new DebugSystem(gc, 9),
-                new RenderSpriteSystem(gc, 10)
+        this.world = List.of(
+                new InputSystem(gc, 10),
+                new MoveSystem(gc, 20),
+                new RenderSpriteSystem(gc, 30),
+//                ,
+//                new TestSystem(gc, 0),
+                new DebugSystem(gc, Integer.MAX_VALUE)
         );
 
         // Pour test uniquement.
-        this.world.forEach(s -> s.setEnabled(true));
+        this.world.forEach(AbstractSystem::enable);
     }
 
     /**

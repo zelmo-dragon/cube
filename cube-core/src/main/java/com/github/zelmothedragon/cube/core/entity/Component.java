@@ -13,7 +13,6 @@ public interface Component {
      * Composant vide. Privilégier cette constante plutôt que la valeur
      * <code>null</code>.
      */
-    @Deprecated(forRemoval = true)
     Component EMPTY = new EmptyComponent();
 
     /**

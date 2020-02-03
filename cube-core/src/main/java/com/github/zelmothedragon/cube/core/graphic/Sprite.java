@@ -1,8 +1,10 @@
 package com.github.zelmothedragon.cube.core.graphic;
 
 import com.github.zelmothedragon.cube.core.entity.Component;
+import com.github.zelmothedragon.cube.core.util.lang.Equal;
 import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Image sous forme de tableau de pixel.
@@ -57,6 +59,21 @@ public class Sprite implements Component {
         this.width = width;
         this.height = height;
         this.buffer = new int[width * height];
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(width, height, buffer);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return Equal
+                .of(this, obj)
+                .with(Sprite::getWidth)
+                .with(Sprite::getHeight)
+                .with(s -> s.buffer)
+                .get();
     }
 
     @Override

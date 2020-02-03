@@ -28,7 +28,7 @@ public final class RenderFX extends Render {
      * une image à partir de la bibliothèque JavaFX.
      *
      * @param width Largeur de l'image en mémoire tampon
-     * @param height Hauteur de l'image en mémoire tampn
+     * @param height Hauteur de l'image en mémoire tampon
      * @param g2d Contexte 2D de JavaFX.
      */
     public RenderFX(

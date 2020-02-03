@@ -1,9 +1,11 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameContainer;
+import com.github.zelmothedragon.cube.core.entity.EntityManager;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
 import com.github.zelmothedragon.cube.core.graphic.Render;
+import java.util.UUID;
 
 /**
  * Système de mouvement des entités.
@@ -27,19 +29,23 @@ public final class MoveSystem extends AbstractSystem {
         gc
                 .getEntities()
                 .get(Vector.class)
-                .forEach((k, v) -> {
-                    gc
-                            .getEntities()
-                            .get(k, Rectangle.class)
-                            .move(v);
+                .forEach((k, v) -> doMove(k, v, gc.getEntities()));
 
-                    v.reset();
-                });
     }
 
     @Override
     public void draw(final Render g2d) {
         // RAS
+    }
+
+    private static void doMove(
+            final UUID id,
+            final Vector vector,
+            final EntityManager em) {
+
+        var rectangle = em.get(id, Rectangle.class);
+        rectangle.move(vector);
+        //vector.reset();
     }
 
 }

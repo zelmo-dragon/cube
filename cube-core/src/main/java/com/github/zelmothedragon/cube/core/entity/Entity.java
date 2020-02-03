@@ -11,13 +11,13 @@ import java.util.UUID;
  * avec une hiérarchie de classe n'est pas une solution satisfaisante.
  * L'héritage est solution trop rigide et peut évolutif. C'est pourquoi tous les
  * attributs seront stockés dans un dictionnaire de données type
- * <code>java.util.Map</code>. Le type d'entité sera alors porté par l'attribut
- * de type <code>Family</code>.
+ * <code>java.util.Map</code>.
  *
  * @see Family
  *
  * @author MOSELLE Maxime
  */
+@Deprecated
 public final class Entity {
 
     /**
@@ -26,23 +26,15 @@ public final class Entity {
     private final UUID id;
 
     /**
-     * Famille d'entité.
-     */
-    private final Family family;
-
-    /**
      * Ensemble des propriétés de l'entité.
      */
     private final Map<Class<? extends Component>, Component> data;
 
     /**
      * Constructeur. Construit une entité sans propriété.
-     *
-     * @param family Famille d'entité
      */
-    public Entity(final Family family) {
+    public Entity() {
         this.id = UUID.randomUUID();
-        this.family = family;
         this.data = new HashMap<>();
 
     }
@@ -79,8 +71,6 @@ public final class Entity {
         return new StringBuilder()
                 .append("Entity{id=")
                 .append(id)
-                .append(", family=")
-                .append(family)
                 .append(", dataCount=")
                 .append(data.size())
                 .append("}")
@@ -138,15 +128,6 @@ public final class Entity {
      */
     public UUID getId() {
         return id;
-    }
-
-    /**
-     * Accesseur, obtenir la famille d'entité.
-     *
-     * @return La famille, ne pas jamais être nulle
-     */
-    public Family getFamily() {
-        return family;
     }
 
 }

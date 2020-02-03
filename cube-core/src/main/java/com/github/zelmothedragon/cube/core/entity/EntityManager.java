@@ -35,11 +35,14 @@ public final class EntityManager {
     /**
      * Construire une nouvelle entité.
      *
-     * @param family Famille d'entité
      * @return L'identifiant unique de l'entité
      */
-    public UUID newEntity(final Family family) {
-        return add(family);
+    public UUID newEntity() {
+        var id = UUID.randomUUID();
+        var entities = new HashMap<UUID, Component>();
+        entities.put(id, Component.EMPTY);
+        data.put(Component.EmptyComponent.class, entities);
+        return id;
     }
 
     /**
@@ -61,34 +64,12 @@ public final class EntityManager {
     }
 
     /**
-     * Ajouter un composant. Une nouvelle entité est également créée pour
-     * associer ce composant.
-     *
-     * @param component Composant
-     * @return L'identifiant de l'entité
-     */
-    public UUID add(final Component component) {
-        final var type = component.getClass();
-        final var id = UUID.randomUUID();
-        if (data.containsKey(type)) {
-            var entities = data.get(type);
-            entities.put(id, component);
-        } else {
-            var entities = new HashMap<UUID, Component>();
-            entities.put(id, component);
-            data.put(type, entities);
-        }
-        return id;
-    }
-
-    /**
      * Obtenir un composant.
      *
      * @param <T> Type générique de composant
      * @param id Identifiant de l'entité
      * @param type Classe du composant
-     * @return Le composant recherché, peut retourner la valeur
-     * <code>Component.EMPTY</code> si le composant demandé n'existe pas
+     * @return Le composant recherché
      */
     public <T extends Component> T get(final UUID id, final Class<T> type) {
         final T component;
@@ -96,7 +77,7 @@ public final class EntityManager {
             var entities = data.get(type);
             component = (T) entities.get(id);
         } else {
-            component = ComponentFactory.newInstance(type);
+            component = null;
         }
         return component;
     }
@@ -155,9 +136,9 @@ public final class EntityManager {
      */
     public <T extends Component> boolean contains(final UUID id, final Class<T> type) {
         boolean contain;
-        if (data.containsKey(id)) {
+        if (data.containsKey(type)) {
             var entities = data.get(type);
-            var component = entities.get(type);
+            var component = entities.get(id);
             contain = Objects.nonNull(component);
         } else {
             contain = false;
