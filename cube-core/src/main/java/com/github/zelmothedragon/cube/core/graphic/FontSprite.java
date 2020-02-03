@@ -73,13 +73,12 @@ public final class FontSprite extends Sprite {
     @Override
     public String toString() {
         return ToString
-                .of(this)
                 .with("width", FontSprite::getWidth)
-                .with("height", FontSprite::getHeight)
-                .with("buffer.length", FontSprite::getBufferLength)
-                .with("characterWidth", FontSprite::getCharacterWidth)
-                .with("characterHeight", FontSprite::getCharacterHeight)
-                .get();
+                .thenWith("height", FontSprite::getHeight)
+                .thenWith("buffer.length", FontSprite::getBufferLength)
+                .thenWith("characterWidth", FontSprite::getCharacterWidth)
+                .thenWith("characterHeight", FontSprite::getCharacterHeight)
+                .apply(this);
     }
 
     /**

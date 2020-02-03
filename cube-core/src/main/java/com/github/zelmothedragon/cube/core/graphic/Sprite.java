@@ -69,21 +69,19 @@ public class Sprite implements Component {
     @Override
     public boolean equals(Object obj) {
         return Equal
-                .of(this, obj)
                 .with(Sprite::getWidth)
-                .with(Sprite::getHeight)
-                .with(s -> s.buffer)
-                .get();
+                .thenWith(Sprite::getHeight)
+                .thenWith(s -> s.buffer)
+                .apply(this, obj);
     }
 
     @Override
     public String toString() {
         return ToString
-                .of(this)
                 .with("width", Sprite::getWidth)
-                .with("height", Sprite::getHeight)
-                .with("buffer.length", Sprite::getBufferLength)
-                .get();
+                .thenWith("height", Sprite::getHeight)
+                .thenWith("buffer.length", Sprite::getBufferLength)
+                .apply(this);
     }
 
     /**

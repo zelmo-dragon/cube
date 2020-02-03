@@ -49,19 +49,17 @@ public final class Vector implements Component {
     @Override
     public boolean equals(final Object obj) {
         return Equal
-                .of(this, obj)
                 .with(Vector::getDx)
-                .with(Vector::getDy)
-                .get();
+                .thenWith(Vector::getDy)
+                .apply(this, obj);
     }
 
     @Override
     public String toString() {
         return ToString
-                .of(this)
                 .with("dx", Vector::getDx)
-                .with("dy", Vector::getDy)
-                .get();
+                .thenWith("dy", Vector::getDy)
+                .apply(this);
     }
 
     /**

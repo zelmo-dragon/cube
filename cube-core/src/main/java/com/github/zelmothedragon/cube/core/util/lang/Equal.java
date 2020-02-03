@@ -10,22 +10,12 @@ import java.util.function.Function;
  * une approche fonctionnelle. Lors de la redéfinition de la méthode
  * <code>equals</code>, il est également nécessaire de redéfinir la méthode
  * <code>hashCode</code>. La classe <code>java.util.Objects</code> propose déjà
- * une manière simple de cette méthode.
+ * une manière simple pour cette méthode.
  *
  * @param <T> Type quelconque
  * @author MOSELLE Maxime
  */
 public final class Equal<T> {
-
-    /**
-     * Instance initiale pour le calcul de l'égalité.
-     */
-    private final T me;
-
-    /**
-     * Instance cible pour le calcul de l'égalité.
-     */
-    private final Object target;
 
     /**
      * Liste de fonctions utilisées pour la comparaison.
@@ -34,16 +24,15 @@ public final class Equal<T> {
 
     /**
      * Constructeur. Ce constructeur est privé, afin de faciliter l'emploi de
-     * cette classe, utiliser la méthode <code>of</code> et chaîner les appels
+     * cette classe, utiliser la méthode <code>with</code> et chaîner les appels
      * de méthodes.
      *
-     * @param me Instance initiale
-     * @param target Instance cible
+     * @param method Une méthode de l'instance initiale, en général des
+     * accesseurs sont employés
      */
-    private Equal(final T me, final Object target) {
-        this.me = me;
-        this.target = target;
+    private Equal(final Function<T, ?> method) {
         this.methods = new ArrayList<>();
+        this.methods.add(method);
     }
 
     /**
@@ -51,29 +40,25 @@ public final class Equal<T> {
      * l'égalité entre deux objets.
      *
      * @param <T> Type quelconque
-     * @param me Instance initiale
-     * @param target Instance cible
-     * @return Une instance de cette classe afin de chaîner les appels de
-     * méthodes
-     */
-    public static <T> Equal<T> of(final T me, final Object target) {
-        return new Equal<>(
-                Objects.requireNonNull(me),
-                Objects.requireNonNull(target)
-        );
-    }
-
-    /**
-     * Ajouter une méthode utilisée pour le calcul de l'égalité. L'appel de
-     * cette méthode peut être chaîner autant de fois que nécessaire.
-     *
-     * @param <R> Type de retour de la méthode
      * @param method Une méthode de l'instance initiale, en général des
      * accesseurs sont employés
      * @return Une instance de cette classe afin de chaîner les appels de
      * méthodes
      */
-    public <R> Equal<T> with(final Function<T, R> method) {
+    public static <T> Equal<T> with(final Function<T, ?> method) {
+        return new Equal<>(method);
+    }
+
+    /**
+     * Ajouter une méthode supplémentaire pour le calcul de l'égalité. L'appel
+     * de cette méthode peut être chaîner autant de fois que nécessaire.
+     *
+     * @param method Une méthode de l'instance initiale, en général des
+     * accesseurs sont employés
+     * @return Une instance de cette classe afin de chaîner les appels de
+     * méthodes
+     */
+    public Equal<T> thenWith(final Function<T, ?> method) {
         methods.add(method);
         return this;
     }
@@ -81,10 +66,12 @@ public final class Equal<T> {
     /**
      * Opération de terminaison, résout le calcul de l'égalité.
      *
+     * @param me Instance courante
+     * @param target Enstance cible
      * @return La valeur <code>true</code> si les deux objets sont identiques,
      * sinon la valeur <code>false</code>
      */
-    public boolean get() {
+    public boolean apply(final T me, final Object target) {
         boolean eq;
         if (me == target) {
             eq = true;

@@ -49,19 +49,17 @@ public final class AnimatedSpriteMetaData implements Component {
     @Override
     public boolean equals(final Object obj) {
         return Equal
-                .of(this, obj)
                 .with(AnimatedSpriteMetaData::getOrientation)
-                .with(AnimatedSpriteMetaData::getCurrentOffset)
-                .get();
+                .thenWith(AnimatedSpriteMetaData::getCurrentOffset)
+                .apply(this, obj);
     }
 
     @Override
     public String toString() {
         return ToString
-                .of(this)
                 .with("orientation", AnimatedSpriteMetaData::getOrientation)
-                .with("currentOffset", AnimatedSpriteMetaData::getCurrentOffset)
-                .get();
+                .thenWith("currentOffset", AnimatedSpriteMetaData::getCurrentOffset)
+                .apply(this);
     }
 
     /**

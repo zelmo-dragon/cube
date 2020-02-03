@@ -97,19 +97,18 @@ public final class AnimatedSprite extends Sprite {
     @Override
     public String toString() {
         return ToString
-                .of(this)
                 .with("width", AnimatedSprite::getWidth)
-                .with("height", AnimatedSprite::getHeight)
-                .with("buffer.length", AnimatedSprite::getBufferLength)
-                .with("spriteWidth", e -> e.spriteWidth)
-                .with("spriteHeight", e -> e.spriteHeight)
-                .with("duration", e -> e.duration)
-                .with("count", e -> e.count)
-                .with("frame", e -> e.frame)
-                .with("xOffset", e -> e.xOffset)
-                .with("yOffset", e -> e.yOffset)
-                .with("playing", e -> e.playing)
-                .get();
+                .thenWith("height", AnimatedSprite::getHeight)
+                .thenWith("buffer.length", AnimatedSprite::getBufferLength)
+                .thenWith("spriteWidth", e -> e.spriteWidth)
+                .thenWith("spriteHeight", e -> e.spriteHeight)
+                .thenWith("duration", e -> e.duration)
+                .thenWith("count", e -> e.count)
+                .thenWith("frame", e -> e.frame)
+                .thenWith("xOffset", e -> e.xOffset)
+                .thenWith("yOffset", e -> e.yOffset)
+                .thenWith("playing", e -> e.playing)
+                .apply(this);
     }
 
     /**

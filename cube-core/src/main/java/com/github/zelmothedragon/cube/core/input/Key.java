@@ -65,20 +65,18 @@ public final class Key implements Serializable {
     @Override
     public boolean equals(final Object obj) {
         return Equal
-                .of(this, obj)
                 .with(Key::getName)
-                .with(Key::getKeyCode)
-                .get();
+                .thenWith(Key::getKeyCode)
+                .apply(this, obj);
     }
     
     @Override
     public String toString() {
         return ToString
-                .of(this)
                 .with("name", Key::getName)
-                .with("keyCode", Key::getKeyCode)
-                .with("pressed", Key::isPressed)
-                .get();
+                .thenWith("keyCode", Key::getKeyCode)
+                .thenWith("pressed", Key::isPressed)
+                .apply(this);
     }
 
     /**

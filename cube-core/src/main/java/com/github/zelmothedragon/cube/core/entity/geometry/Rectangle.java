@@ -86,23 +86,21 @@ public final class Rectangle implements Component {
     @Override
     public boolean equals(final Object obj) {
         return Equal
-                .of(this, obj)
                 .with(Rectangle::getXp)
-                .with(Rectangle::getYp)
-                .with(Rectangle::getWidth)
-                .with(Rectangle::getHeight)
-                .get();
+                .thenWith(Rectangle::getYp)
+                .thenWith(Rectangle::getWidth)
+                .thenWith(Rectangle::getHeight)
+                .apply(this, obj);
     }
 
     @Override
     public String toString() {
         return ToString
-                .of(this)
                 .with("xp", Rectangle::getXp)
-                .with("yp", Rectangle::getYp)
-                .with("width", Rectangle::getWidth)
-                .with("height", Rectangle::getHeight)
-                .get();
+                .thenWith("yp", Rectangle::getYp)
+                .thenWith("width", Rectangle::getWidth)
+                .thenWith("height", Rectangle::getHeight)
+                .apply(this);
     }
 
     /**

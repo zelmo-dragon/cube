@@ -60,17 +60,15 @@ public class Clock implements Component {
     @Override
     public boolean equals(final Object obj) {
         return Equal
-                .of(this, obj)
                 .with(Clock::getMessage)
-                .get();
+                .apply(this, obj);
     }
 
     @Override
     public String toString() {
         return ToString
-                .of(this)
                 .with("message", Clock::getMessage)
-                .get();
+                .apply(this);
     }
 
     /**
