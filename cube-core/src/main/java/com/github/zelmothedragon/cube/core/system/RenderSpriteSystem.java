@@ -1,7 +1,6 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameContainer;
-import com.github.zelmothedragon.cube.core.entity.EntityManager;
 import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
@@ -35,12 +34,12 @@ public final class RenderSpriteSystem extends AbstractSystem {
         gc
                 .getEntities()
                 .get(AnimatedSprite.class)
-                .forEach((k, v) -> doSpriteAnimation(k, v, gc.getEntities()));
+                .forEach(this::doSpriteAnimation);
 
         gc
                 .getEntities()
                 .get(AnimatedSpriteMetaData.class)
-                .forEach((k, v) -> doSpriteOrientation(k, v, gc.getEntities()));
+                .forEach(this::doSpriteOrientation);
     }
 
     @Override
@@ -48,20 +47,22 @@ public final class RenderSpriteSystem extends AbstractSystem {
         gc
                 .getEntities()
                 .get(Sprite.class)
-                .forEach((k, s) -> doRenderSprite(k, s, gc.getEntities(), g2d));
+                .forEach((k, s) -> doRenderSprite(k, s, g2d));
 
         gc
                 .getEntities()
                 .get(AnimatedSprite.class)
-                .forEach((k, s) -> doRenderAnimatedSprite(k, s, gc.getEntities(), g2d));
+                .forEach((k, s) -> doRenderAnimatedSprite(k, s, g2d));
     }
 
-    private static void doSpriteAnimation(
+    private void doSpriteAnimation(
             final UUID id,
-            final AnimatedSprite sprite,
-            final EntityManager em) {
+            final AnimatedSprite sprite) {
 
-        var metaData = em.get(id, AnimatedSpriteMetaData.class);
+        var metaData = gc
+                .getEntities()
+                .get(id, AnimatedSpriteMetaData.class);
+
         var orientation = metaData.getOrientation();
         if (Objects.equals(orientation, Orientation.EMPTY)) {
             sprite.stop();
@@ -73,12 +74,14 @@ public final class RenderSpriteSystem extends AbstractSystem {
         sprite.update();
     }
 
-    private static void doSpriteOrientation(
+    private void doSpriteOrientation(
             final UUID id,
-            final AnimatedSpriteMetaData metaData,
-            final EntityManager em) {
+            final AnimatedSpriteMetaData metaData) {
 
-        var vector = em.get(id, Vector.class);
+        var vector = gc
+                .getEntities()
+                .get(id, Vector.class);
+
         if (vector.getDx() < 0 && vector.getDy() == 0) {
             metaData.setOrientation(Orientation.LEFT);
         } else if (vector.getDx() > 0 && vector.getDy() == 0) {
@@ -92,13 +95,15 @@ public final class RenderSpriteSystem extends AbstractSystem {
         }
     }
 
-    private static void doRenderSprite(
+    private void doRenderSprite(
             final UUID id,
             final Sprite sprite,
-            final EntityManager em,
             final Render g2d) {
 
-        var rectangle = em.get(id, Rectangle.class);
+        var rectangle = gc
+                .getEntities()
+                .get(id, Rectangle.class);
+
         g2d.drawImage(
                 rectangle.getXp(),
                 rectangle.getYp(),
@@ -107,13 +112,15 @@ public final class RenderSpriteSystem extends AbstractSystem {
 
     }
 
-    private static void doRenderAnimatedSprite(
+    private void doRenderAnimatedSprite(
             final UUID id,
             final AnimatedSprite sprite,
-            final EntityManager em,
             final Render g2d) {
 
-        var rectangle = em.get(id, Rectangle.class);
+        var rectangle = gc
+                .getEntities()
+                .get(id, Rectangle.class);
+
         g2d.drawImage(
                 rectangle.getXp(),
                 rectangle.getYp(),

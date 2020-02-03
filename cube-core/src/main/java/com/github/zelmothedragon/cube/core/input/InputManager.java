@@ -1,5 +1,6 @@
 package com.github.zelmothedragon.cube.core.input;
 
+import com.github.zelmothedragon.cube.core.GameContainer;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -80,6 +81,32 @@ public final class InputManager {
                 .findFirst()
                 .orElse(Key.EMPTY)
                 .isReleased();
+    }
+
+    /**
+     * Approche fonctionnelle pour lier une action lorsqu'une touche est
+     * appuyée.
+     *
+     * @param name Nom de la touche
+     * @param action Expression lambda du traitement de l'événement
+     */
+    public void computeIfKeyPressed(final GamePad name, final InputAction action) {
+        if (isKeyPressed(name)) {
+            action.apply();
+        }
+    }
+
+    /**
+     * Approche fonctionnelle pour lier une action lorsqu'une touche est
+     * relachée.
+     *
+     * @param name Nom de la touche
+     * @param action Expression lambda du traitement de l'événement
+     */
+    public void computeIfKeyReleased(final GamePad name, final InputAction action) {
+        if (isKeyReleased(name)) {
+            action.apply();
+        }
     }
 
     /**

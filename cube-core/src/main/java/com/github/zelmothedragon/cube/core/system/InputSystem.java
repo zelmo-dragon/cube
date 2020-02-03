@@ -5,6 +5,7 @@ import com.github.zelmothedragon.cube.core.entity.behavior.Controllable;
 import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
 import com.github.zelmothedragon.cube.core.graphic.Render;
 import com.github.zelmothedragon.cube.core.input.GamePad;
+import java.util.UUID;
 
 /**
  * Système de gestion des entrées.
@@ -28,50 +29,65 @@ public final class InputSystem extends AbstractSystem {
         gc
                 .getEntities()
                 .get(Controllable.class)
-                .forEach((k, v) -> {
-                    var vector = gc
-                            .getEntities()
-                            .get(k, Vector.class);
+                .forEach(this::doInputDirectionnal);
 
-                    if (gc.getInputs().isKeyPressed(GamePad.LEFT)) {
-                        vector.set(-1, 0);
-                    } else if (gc.getInputs().isKeyPressed(GamePad.RIGHT)) {
-                        vector.set(1, 0);
-                    } else if (gc.getInputs().isKeyPressed(GamePad.UP)) {
-                        vector.set(0, -1);
-                    } else if (gc.getInputs().isKeyPressed(GamePad.DOWN)) {
-                        vector.set(0, 1);
-                    }else {
-                        vector.reset();
-                    }
-                    
-                    if (gc.getInputs().isKeyPressed(GamePad.ACTION)) {
-
-                    }
-                    if (gc.getInputs().isKeyPressed(GamePad.OPTION)) {
-
-                    }
-                    if (gc.getInputs().isKeyPressed(GamePad.BACK)) {
-
-                    }
-                    if (gc.getInputs().isKeyPressed(GamePad.BACK)) {
-
-                    }
-                    if (gc.getInputs().isKeyPressed(GamePad.START)) {
-
-                    }
-                    if (gc.getInputs().isKeyPressed(GamePad.SELECT)) {
-
-                    }
-                    if (gc.getInputs().isKeyPressed(GamePad.DEBUG)) {
-
-                    }
-                });
+        gc
+                .getEntities()
+                .get(Controllable.class)
+                .forEach(this::doInputAction);
     }
 
     @Override
     public void draw(final Render g2d) {
         // RAS
+    }
+
+    private void doInputDirectionnal(
+            final UUID id,
+            final Controllable controllable) {
+
+        var vector = gc
+                .getEntities()
+                .get(id, Vector.class);
+
+        if (gc.getInputs().isKeyPressed(GamePad.LEFT)) {
+            vector.set(-1, 0);
+        } else if (gc.getInputs().isKeyPressed(GamePad.RIGHT)) {
+            vector.set(1, 0);
+        } else if (gc.getInputs().isKeyPressed(GamePad.UP)) {
+            vector.set(0, -1);
+        } else if (gc.getInputs().isKeyPressed(GamePad.DOWN)) {
+            vector.set(0, 1);
+        } else {
+            vector.reset();
+        }
+    }
+
+    private void doInputAction(
+            final UUID id,
+            final Controllable controllable) {
+
+        if (gc.getInputs().isKeyPressed(GamePad.ACTION)) {
+
+        }
+        if (gc.getInputs().isKeyPressed(GamePad.OPTION)) {
+
+        }
+        if (gc.getInputs().isKeyPressed(GamePad.BACK)) {
+
+        }
+        if (gc.getInputs().isKeyPressed(GamePad.BACK)) {
+
+        }
+        if (gc.getInputs().isKeyPressed(GamePad.START)) {
+
+        }
+        if (gc.getInputs().isKeyPressed(GamePad.SELECT)) {
+
+        }
+        if (gc.getInputs().isKeyPressed(GamePad.DEBUG)) {
+
+        }
     }
 
 }

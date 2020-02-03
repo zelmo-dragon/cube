@@ -8,6 +8,11 @@ package com.github.zelmothedragon.cube.core.util.validation;
 public class ValidationException extends Exception {
 
     /**
+     * Numéro de série.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * Constructeur. Construit une erreur de validation.
      *
      * @param message Message d'erreur
