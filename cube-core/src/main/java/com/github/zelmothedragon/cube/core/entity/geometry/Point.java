@@ -1,6 +1,8 @@
 package com.github.zelmothedragon.cube.core.entity.geometry;
 
 import com.github.zelmothedragon.cube.core.entity.Component;
+import com.github.zelmothedragon.cube.core.util.lang.Equal;
+import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.Objects;
 
 /**
@@ -8,7 +10,6 @@ import java.util.Objects;
  *
  * @author MOSELLE Maxime
  */
-@Deprecated
 public final class Point implements Component {
 
     /**
@@ -47,34 +48,20 @@ public final class Point implements Component {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        boolean eq;
-        if (this == obj) {
-            eq = true;
-        } else if (Objects.isNull(obj)) {
-            eq = false;
-        } else {
-            if (!Objects.equals(getClass(), obj.getClass())) {
-                eq = false;
-            } else {
-                var other = (Point) obj;
-                eq = other.xp == xp
-                        && other.yp == yp;
-            }
-        }
-        return eq;
+    public boolean equals(final Object obj) {
+        return Equal
+                .with(Point::getXp)
+                .thenWith(Point::getYp)
+                .apply(this, obj);
     }
 
     @Override
     public String toString() {
 
-        return new StringBuilder()
-                .append("Point{xp=")
-                .append(xp)
-                .append(", yp=")
-                .append(yp)
-                .append("}")
-                .toString();
+        return ToString
+                .with("xp", Point::getXp)
+                .thenWith("yp", Point::getYp)
+                .apply(this);
     }
 
     /**
