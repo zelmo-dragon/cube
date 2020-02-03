@@ -147,7 +147,6 @@ public final class AnimatedSprite extends Sprite {
                     sprite.setPixel(x, y, pixel);
                 }
             }
-
             cache.put(currentId, sprite);
         }
     }
