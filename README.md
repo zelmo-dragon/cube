@@ -2,9 +2,11 @@
 
 ## Présentation
 
-Un simple moteur de jeu 2D basé sur JavaFX.
+Un simple prototype de moteur de jeu 2D basé sur JavaFX.
 Ce projet est sous licence **CeCILL** (**CE**A **C**NRS **I**NRIA **L**ogiciel **L**ibre),
 une licence de logicielle libre compatible avec la **GNU GPL**.
+
+> En savoir plus sur la licence **CeCILL**: [CeCILL](http://cecill.info/index.fr.html)
 
 ## Module
 
@@ -36,7 +38,7 @@ Ainsi, il devient plus facile de le faire évoluer.
     
 ## Environnement
 
-Ce projet est réalisé en **Java 13** *(OpenJDK)*. et JavaFX 13 *(OpenJFX)*.
+Ce projet est réalisé en **Java 13** *(OpenJDK)*. et **JavaFX 13** *(OpenJFX)*.
 Il utilise l'outil **Maven** en version 3.6.2.
 
 ### Exécution
@@ -48,4 +50,4 @@ Il utilise l'outil **Maven** en version 3.6.2.
     mvn javafx:run
 ~~~
 
-> Il n'est pas encore possible d'empaqueter le projet sous forme de binaire Java exécutable.
+> Il n'est pas encore possible d'empaqueter le projet sous forme de binaire Java exécutable avec *jlink*.
