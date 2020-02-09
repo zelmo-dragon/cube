@@ -116,7 +116,7 @@ public class TileMap extends Sprite {
     /**
      * Accesseur, obtenir la largeur de la carte.
      *
-     * @return La largeur de la carte
+     * @return La largeur de la carte en tuile
      */
     public int getMapWidth() {
         return map[0].length;
@@ -125,10 +125,28 @@ public class TileMap extends Sprite {
     /**
      * Accesseur, obtenir la hauteur de la carte.
      *
-     * @return La hauteur de la carte
+     * @return La hauteur de la carte en tuile
      */
     public int getMapHeight() {
         return map.length;
+    }
+
+    /**
+     * Accesseur, obtenir la largeur de la carte.
+     *
+     * @return La largeur de la carte en pixel
+     */
+    public int getMapWidthInPixel() {
+        return tileWidth * getMapWidth();
+    }
+
+    /**
+     * Accesseur, obtenir la hauteur de la carte.
+     *
+     * @return La hauteur de la carte en pixel
+     */
+    public int getMapHeightInPixel() {
+        return tileHeight * getMapHeight();
     }
 
 }

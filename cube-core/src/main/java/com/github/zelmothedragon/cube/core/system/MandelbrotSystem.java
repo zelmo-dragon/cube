@@ -50,6 +50,10 @@ public class MandelbrotSystem extends AbstractSystem {
                 data.setIteration(iteration);
             }
         }
+
+        if (manager.getInputs().isKeyPressed(GamePad.BACK)) {
+            this.disable();
+        }
     }
 
     @Override

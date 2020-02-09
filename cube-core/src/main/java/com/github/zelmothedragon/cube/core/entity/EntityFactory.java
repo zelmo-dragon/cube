@@ -13,6 +13,7 @@ import com.github.zelmothedragon.cube.core.graphic.AnimatedSprite;
 import com.github.zelmothedragon.cube.core.graphic.AnimatedSpriteMetaData;
 import com.github.zelmothedragon.cube.core.graphic.FontSprite;
 import com.github.zelmothedragon.cube.core.graphic.Sprite;
+import com.github.zelmothedragon.cube.core.graphic.TileMap;
 
 /**
  * Fabrique d'entités. Une instance unique de cette classe est requise pour le
@@ -104,6 +105,27 @@ public final class EntityFactory {
         entity.addComponent(sprite);
         entity.addComponent(metadata);
         entity.addComponent(camera);
+        entities.add(entity);
+        return entity;
+    }
+
+    public Entity createMapDebug() {
+
+        var tileMap = new TileMap(
+                assets.loadSprite(AssetManager.DEBUG_BACKGROUND_IMAGE),
+                16,
+                16,
+                assets.loadMap(AssetManager.DEBUG_BACKGROUND_MAP_LAYER_0)
+        );
+
+        var rectangle = new Rectangle(
+                tileMap.getMapWidthInPixel(),
+                tileMap.getMapHeightInPixel()
+        );
+
+        var entity = new Entity(Family.MAP_DEBUG);
+        entity.addComponent(tileMap);
+        entity.addComponent(rectangle);
         entities.add(entity);
         return entity;
     }

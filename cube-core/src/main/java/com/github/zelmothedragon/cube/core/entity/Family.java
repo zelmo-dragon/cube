@@ -20,6 +20,11 @@ public enum Family {
     MANDELBROT,
     
     /**
+     * Carte de test
+     */
+    MAP_DEBUG,
+    
+    /**
      * Débogage.
      */
     DEBUG,

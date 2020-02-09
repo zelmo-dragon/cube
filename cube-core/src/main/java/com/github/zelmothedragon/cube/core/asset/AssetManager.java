@@ -7,13 +7,13 @@ import com.github.zelmothedragon.cube.core.graphic.Sprite;
  * requise pour le fonctionnement de l'application. Le gestionnaire doit être
  * accessible depuis le conteneur du jeu.
  *
- * @see GameContainer
- *
  * @author MOSELLE Maxime
  */
 public interface AssetManager {
 
-    String DEBUG_BACKGROUND_IMAGE = "/assets/images/background.png";
+    String DEBUG_BACKGROUND_IMAGE = "/assets/images/overworld.png";
+    
+    String DEBUG_BACKGROUND_MAP_LAYER_0 = "/assets/maps/debug.csv";
 
     String DEBUG_WOOD_IMAGE = "/assets/images/wood.png";
 
