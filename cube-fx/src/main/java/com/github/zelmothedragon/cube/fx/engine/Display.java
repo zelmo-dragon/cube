@@ -7,6 +7,7 @@ import com.github.zelmothedragon.cube.fx.asset.ResourceManager;
 import java.util.Objects;
 import javafx.application.Application;
 import javafx.scene.CacheHint;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -65,6 +66,7 @@ public final class Display extends Application {
         engine.start();
 
         var scene = new Scene(group, Color.BLACK);
+        scene.setCursor(Cursor.NONE);
 
         scene.setOnKeyPressed(e -> {
             toggleScreen(primaryStage, e);
