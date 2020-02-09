@@ -30,8 +30,14 @@ public abstract class Render {
      */
     protected final int[] buffer;
 
+    /**
+     * Décalage en abcisse.
+     */
     protected int xOffset;
 
+    /**
+     * Décalage en ordonnée.
+     */
     protected int yOffset;
 
     /**
@@ -411,8 +417,7 @@ public abstract class Render {
     /**
      * Changer le décalage de la caréma.
      *
-     * @param xOffset Décalage sur l'abcisse
-     * @param yOffset Décalage sur l'ordonnée
+     * @param camera Caméra
      */
     public void setOffset(final Camera camera) {
         this.xOffset = camera.getXp() - width / 2;
