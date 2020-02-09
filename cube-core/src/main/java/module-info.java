@@ -7,5 +7,4 @@ module cube.core {
     exports com.github.zelmothedragon.cube.core.graphic;
     exports com.github.zelmothedragon.cube.core.system;
     
-    requires java.desktop;
 }
