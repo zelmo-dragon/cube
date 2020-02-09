@@ -1,6 +1,6 @@
 package com.github.zelmothedragon.cube.core.system;
 
-import com.github.zelmothedragon.cube.core.GameContainer;
+import com.github.zelmothedragon.cube.core.GameManager;
 import com.github.zelmothedragon.cube.core.graphic.Render;
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,14 +30,14 @@ public final class SystemManager {
      * fonctionnement du programme cette classe doit être instanciée une seul
      * fois.
      *
-     * @param gc Conteneur du contexte du jeu
+     * @param manager Gestionnaire du jeu
      */
-    public SystemManager(final GameContainer gc) {
+    public SystemManager(final GameManager manager) {
         world = Arrays.asList(
-                new CameraSystem(gc, 50),
-                new MandelbrotSystem(gc, 100),
-                new PlayerSystem(gc, 110),
-                new DebugSystem(gc, Integer.MAX_VALUE)
+                new CameraSystem(manager, 50),
+                new MandelbrotSystem(manager, 100),
+                new PlayerSystem(manager, 110),
+                new DebugSystem(manager, Integer.MAX_VALUE)
         );
 
         // Ce type de liste est immuable, mais supporte le tri.

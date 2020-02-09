@@ -1,6 +1,6 @@
 package com.github.zelmothedragon.cube.core.system;
 
-import com.github.zelmothedragon.cube.core.GameContainer;
+import com.github.zelmothedragon.cube.core.GameManager;
 import com.github.zelmothedragon.cube.core.entity.Entity;
 import com.github.zelmothedragon.cube.core.entity.geometry.Camera;
 import com.github.zelmothedragon.cube.core.entity.geometry.Point;
@@ -14,14 +14,22 @@ import com.github.zelmothedragon.cube.core.graphic.Render;
  */
 public final class CameraSystem extends AbstractSystem {
 
-    public CameraSystem(final GameContainer gc, final int priority) {
-        super(gc, priority);
+    /**
+     * Constructeur. Constuire un système, une seule instance est nécessaire
+     * pour le fonctionnemenr global de l'application. Le système doit être
+     * instancier dans le gestionnaire de système.
+     *
+     * @param manager Gestionnaire du jeu
+     * @param priority Priorié d'exécuter du système
+     */
+    public CameraSystem(final GameManager manager, final int priority) {
+        super(manager, priority);
     }
 
     @Override
     public void update() {
 
-        gc
+        manager
                 .getEntities()
                 .filter(Camera.class)
                 .stream()
@@ -33,7 +41,7 @@ public final class CameraSystem extends AbstractSystem {
     public void draw(final Render g2d) {
 
         // Appliquer la caméra pour le rendu.
-        gc
+        manager
                 .getEntities()
                 .filter(Camera.class)
                 .stream()

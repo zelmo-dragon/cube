@@ -1,6 +1,5 @@
 package com.github.zelmothedragon.cube.core.entity;
 
-import com.github.zelmothedragon.cube.core.GameContainer;
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
 import com.github.zelmothedragon.cube.core.entity.behavior.Controllable;
 import com.github.zelmothedragon.cube.core.entity.data.Mandelbrot;

@@ -1,6 +1,6 @@
 package com.github.zelmothedragon.cube.fx.engine;
 
-import com.github.zelmothedragon.cube.core.GameContainer;
+import com.github.zelmothedragon.cube.core.GameManager;
 import com.github.zelmothedragon.cube.fx.graphic.RenderFX;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
@@ -30,9 +30,9 @@ public final class Engine extends AnimationTimer {
     private final RenderFX render;
 
     /**
-     * Conteneur du contexte du jeu.
+     * Gestionnaire du jeu.
      */
-    private final GameContainer gc;
+    private final GameManager manager;
 
     /**
      * Valeur d'interpolation. Utilisé pour ajuster les calculs en cas de
@@ -52,11 +52,11 @@ public final class Engine extends AnimationTimer {
      * traitements.
      *
      * @param g2d Contexte graphique 2D de JavaFX
-     * @param gc Conteneur du contexte du jeu
+     * @param manager Conteneur du contexte du jeu
      */
-    public Engine(final GraphicsContext g2d, final GameContainer gc) {
+    public Engine(final GraphicsContext g2d, final GameManager manager) {
         this.render = new RenderFX(Display.WIDTH, Display.HEIGHT, g2d);
-        this.gc = gc;
+        this.manager = manager;
         this.deltaTime = 0.0;
         this.lastTime = System.nanoTime();
     }
@@ -96,8 +96,8 @@ public final class Engine extends AnimationTimer {
      * Mettre à jour la logique métier du jeu.
      */
     private void update() {
-        gc.getInputs().update();
-        gc.getSystems().update();
+        manager.getInputs().update();
+        manager.getSystems().update();
     }
 
     /**
@@ -105,7 +105,7 @@ public final class Engine extends AnimationTimer {
      */
     private void draw() {
         render.clear();
-        gc.getSystems().draw(render);
+        manager.getSystems().draw(render);
         render.draw();
     }
 

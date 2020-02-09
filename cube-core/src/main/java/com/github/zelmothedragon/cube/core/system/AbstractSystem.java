@@ -1,6 +1,6 @@
 package com.github.zelmothedragon.cube.core.system;
 
-import com.github.zelmothedragon.cube.core.GameContainer;
+import com.github.zelmothedragon.cube.core.GameManager;
 import com.github.zelmothedragon.cube.core.graphic.Render;
 
 /**
@@ -13,7 +13,7 @@ public abstract class AbstractSystem implements Comparable<AbstractSystem> {
     /**
      * Conteneur du contexte du jeu.
      */
-    protected final GameContainer gc;
+    protected final GameManager manager;
 
     /**
      * Priorité d'exécution du système.
@@ -29,11 +29,11 @@ public abstract class AbstractSystem implements Comparable<AbstractSystem> {
      * Constructeur. Construit un système spécialisé dans un traitement. Le
      * système est inactif par défaut.
      *
-     * @param gc Conteneur du contexte du jeu
+     * @param manager Gestionnaire du jeu
      * @param priority Priorité d'exécution du système
      */
-    protected AbstractSystem(final GameContainer gc, final int priority) {
-        this.gc = gc;
+    protected AbstractSystem(final GameManager manager, final int priority) {
+        this.manager = manager;
         this.priority = priority;
         this.enabled = false;
     }

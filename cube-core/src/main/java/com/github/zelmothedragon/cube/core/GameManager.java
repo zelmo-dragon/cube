@@ -11,7 +11,7 @@ import com.github.zelmothedragon.cube.core.system.SystemManager;
  *
  * @author MOSELLE Maxime
  */
-public final class GameContainer {
+public final class GameManager {
 
     /**
      * Gestionnaire des ressources numériques unique.
@@ -44,7 +44,7 @@ public final class GameContainer {
      *
      * @param assets Gestionnaire des ressources numériques
      */
-    public GameContainer(final AssetManager assets) {
+    public GameManager(final AssetManager assets) {
         this.assets = assets;
         this.inputs = new InputManager();
         this.entities = new EntityManager();

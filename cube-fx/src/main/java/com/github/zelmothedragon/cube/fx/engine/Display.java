@@ -1,6 +1,6 @@
 package com.github.zelmothedragon.cube.fx.engine;
 
-import com.github.zelmothedragon.cube.core.GameContainer;
+import com.github.zelmothedragon.cube.core.GameManager;
 import com.github.zelmothedragon.cube.core.input.GamePad;
 import com.github.zelmothedragon.cube.core.input.InputManager;
 import com.github.zelmothedragon.cube.fx.asset.ResourceManager;
@@ -58,22 +58,22 @@ public final class Display extends Application {
         group.getChildren().add(canvas);
 
         var resourceManager = new ResourceManager();
-        var gc = new GameContainer(resourceManager);
-        loadKeys(gc.getInputs());
+        var manager = new GameManager(resourceManager);
+        loadKeys(manager.getInputs());
 
-        var engine = new Engine(g2d, gc);
+        var engine = new Engine(g2d, manager);
         engine.start();
 
         var scene = new Scene(group, Color.BLACK);
 
         scene.setOnKeyPressed(e -> {
             toggleScreen(primaryStage, e);
-            gc.getInputs().keyPressed(e.getCode().getCode());
+            manager.getInputs().keyPressed(e.getCode().getCode());
             e.consume();
         });
 
         scene.setOnKeyReleased(e -> {
-            gc.getInputs().keyReleased(e.getCode().getCode());
+            manager.getInputs().keyReleased(e.getCode().getCode());
             e.consume();
         });
 
@@ -81,7 +81,7 @@ public final class Display extends Application {
             // TODO: calculer la position exacte du curseur.
             var x = (e.getSceneX());
             var y = (e.getSceneY());
-            gc.getInputs().cursorMoved(x, y);
+            manager.getInputs().cursorMoved(x, y);
             // System.out.printf("X:%s Y=%s%n", x, y);
         });
 

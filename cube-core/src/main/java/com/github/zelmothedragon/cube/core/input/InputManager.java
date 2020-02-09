@@ -1,6 +1,5 @@
 package com.github.zelmothedragon.cube.core.input;
 
-import com.github.zelmothedragon.cube.core.GameContainer;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;

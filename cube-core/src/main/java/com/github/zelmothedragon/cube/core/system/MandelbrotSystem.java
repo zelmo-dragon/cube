@@ -1,6 +1,6 @@
 package com.github.zelmothedragon.cube.core.system;
 
-import com.github.zelmothedragon.cube.core.GameContainer;
+import com.github.zelmothedragon.cube.core.GameManager;
 import com.github.zelmothedragon.cube.core.entity.Entity;
 import com.github.zelmothedragon.cube.core.entity.behavior.Controllable;
 import com.github.zelmothedragon.cube.core.entity.data.Mandelbrot;
@@ -16,11 +16,22 @@ import com.github.zelmothedragon.cube.core.input.GamePad;
  */
 public class MandelbrotSystem extends AbstractSystem {
 
+    /**
+     * Entité de Mandelbrot.
+     */
     private final Entity mandelbrot;
 
-    public MandelbrotSystem(final GameContainer gc, final int priority) {
-        super(gc, priority);
-        this.mandelbrot = gc.getFactory().createMandelbrot();
+    /**
+     * Constructeur. Constuire un système, une seule instance est nécessaire
+     * pour le fonctionnemenr global de l'application. Le système doit être
+     * instancier dans le gestionnaire de système.
+     *
+     * @param manager Gestionnaire du jeu
+     * @param priority Priorié d'exécuter du système
+     */
+    public MandelbrotSystem(final GameManager manager, final int priority) {
+        super(manager, priority);
+        this.mandelbrot = manager.getFactory().createMandelbrot();
     }
 
     @Override
@@ -28,12 +39,12 @@ public class MandelbrotSystem extends AbstractSystem {
 
         if (mandelbrot.hasComponent(Controllable.class)) {
             var data = mandelbrot.getComponent(Mandelbrot.class);
-            if (gc.getInputs().isKeyPressed(GamePad.ACTION)) {
+            if (manager.getInputs().isKeyPressed(GamePad.ACTION)) {
                 var scale = data.getScale();
                 scale += 1;
                 data.setScale(scale);
             }
-            if (gc.getInputs().isKeyPressed(GamePad.OPTION)) {
+            if (manager.getInputs().isKeyPressed(GamePad.OPTION)) {
                 var iteration = data.getIteration();
                 iteration += 1;
                 data.setIteration(iteration);
@@ -76,7 +87,7 @@ public class MandelbrotSystem extends AbstractSystem {
             var ny = cy + 2 * x * y;
             x = nx;
             y = ny;
-            
+
             if (x * x + y * y > 4) {
                 break;
             }

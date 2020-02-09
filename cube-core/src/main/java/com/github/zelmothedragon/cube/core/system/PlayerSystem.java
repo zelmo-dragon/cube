@@ -1,6 +1,6 @@
 package com.github.zelmothedragon.cube.core.system;
 
-import com.github.zelmothedragon.cube.core.GameContainer;
+import com.github.zelmothedragon.cube.core.GameManager;
 import com.github.zelmothedragon.cube.core.entity.Entity;
 import com.github.zelmothedragon.cube.core.entity.behavior.Controllable;
 import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
@@ -19,12 +19,23 @@ import java.util.Objects;
  */
 public final class PlayerSystem extends AbstractSystem {
 
+    /**
+     * Entité du joueur par défaut.
+     */
     private final Entity player;
 
-    public PlayerSystem(final GameContainer gc, final int priority) {
-        super(gc, priority);
+    /**
+     * Constructeur. Constuire un système, une seule instance est nécessaire
+     * pour le fonctionnemenr global de l'application. Le système doit être
+     * instancier dans le gestionnaire de système.
+     *
+     * @param manager Gestionnaire du jeu
+     * @param priority Priorié d'exécuter du système
+     */
+    public PlayerSystem(final GameManager manager, final int priority) {
+        super(manager, priority);
 
-        this.player = gc.getFactory().createDebugPlayer();
+        this.player = manager.getFactory().createDebugPlayer();
     }
 
     @Override
@@ -33,16 +44,16 @@ public final class PlayerSystem extends AbstractSystem {
         var metaData = player.getComponent(AnimatedSpriteMetaData.class);
         if (player.hasComponent(Controllable.class)) {
             var vector = player.getComponent(Vector.class);
-            if (gc.getInputs().isKeyPressed(GamePad.LEFT)) {
+            if (manager.getInputs().isKeyPressed(GamePad.LEFT)) {
                 metaData.setOrientation(Orientation.LEFT);
                 vector.set(-1, 0);
-            } else if (gc.getInputs().isKeyPressed(GamePad.RIGHT)) {
+            } else if (manager.getInputs().isKeyPressed(GamePad.RIGHT)) {
                 metaData.setOrientation(Orientation.RIGHT);
                 vector.set(1, 0);
-            } else if (gc.getInputs().isKeyPressed(GamePad.UP)) {
+            } else if (manager.getInputs().isKeyPressed(GamePad.UP)) {
                 metaData.setOrientation(Orientation.UP);
                 vector.set(0, -1);
-            } else if (gc.getInputs().isKeyPressed(GamePad.DOWN)) {
+            } else if (manager.getInputs().isKeyPressed(GamePad.DOWN)) {
                 metaData.setOrientation(Orientation.DOWN);
                 vector.set(0, 1);
             } else {
