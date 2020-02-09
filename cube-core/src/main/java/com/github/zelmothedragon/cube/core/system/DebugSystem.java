@@ -29,7 +29,7 @@ public final class DebugSystem extends AbstractSystem {
      * @param manager Gestionnaire du jeu
      * @param priority Priorié d'exécuter du système
      */
-    public DebugSystem(final GameManager manager, final int priority) {
+    DebugSystem(final GameManager manager, final int priority) {
         super(manager, priority);
         this.debug = manager.getFactory().createDebugInformation();
     }

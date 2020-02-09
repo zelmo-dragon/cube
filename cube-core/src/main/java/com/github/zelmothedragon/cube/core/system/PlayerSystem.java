@@ -32,7 +32,7 @@ public final class PlayerSystem extends AbstractSystem {
      * @param manager Gestionnaire du jeu
      * @param priority Priorié d'exécuter du système
      */
-    public PlayerSystem(final GameManager manager, final int priority) {
+    PlayerSystem(final GameManager manager, final int priority) {
         super(manager, priority);
 
         this.player = manager.getFactory().createDebugPlayer();

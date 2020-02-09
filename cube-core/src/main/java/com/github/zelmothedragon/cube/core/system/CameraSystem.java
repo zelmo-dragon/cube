@@ -22,7 +22,7 @@ public final class CameraSystem extends AbstractSystem {
      * @param manager Gestionnaire du jeu
      * @param priority Priorié d'exécuter du système
      */
-    public CameraSystem(final GameManager manager, final int priority) {
+    CameraSystem(final GameManager manager, final int priority) {
         super(manager, priority);
     }
 
