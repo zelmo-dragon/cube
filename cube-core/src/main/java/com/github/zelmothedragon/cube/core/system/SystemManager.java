@@ -5,6 +5,7 @@ import com.github.zelmothedragon.cube.core.graphic.Render;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Gestionnaire des systèmes. Une instance unique de cette classe est requise
@@ -66,6 +67,32 @@ public final class SystemManager {
                 .stream()
                 .filter(AbstractSystem::isEnabled)
                 .forEach(s -> s.draw(g2d));
+    }
+
+    /**
+     * Activer un système.
+     *
+     * @param system Type de système
+     */
+    public void enbable(final Class<? extends AbstractSystem> system) {
+        world
+                .stream()
+                .filter(s -> Objects.equals(s.getClass(), system))
+                .findAny()
+                .ifPresent(AbstractSystem::enable);
+    }
+
+    /**
+     * Désactiver un système.
+     *
+     * @param system Type de système
+     */
+    public void disable(final Class<? extends AbstractSystem> system) {
+        world
+                .stream()
+                .filter(s -> Objects.equals(s.getClass(), system))
+                .findAny()
+                .ifPresent(AbstractSystem::disable);
     }
 
 }
