@@ -30,8 +30,6 @@ public class MandelbrotSystem extends AbstractSystem {
                 .getEntities()
                 .get(mandelbrot, Mandelbrot.class);
 
-        System.out.println(data);
-
         if (gc.getInputs().isKeyPressed(GamePad.ACTION)) {
             var scale = data.getScale();
             scale += 1;
