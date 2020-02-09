@@ -2,7 +2,9 @@ package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameContainer;
 import com.github.zelmothedragon.cube.core.graphic.Render;
-import java.util.Set;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Gestionnaire des systèmes. Une instance unique de cette classe est requise
@@ -20,7 +22,7 @@ public final class SystemManager {
      * définissent la logique fonctionnement et le rendu graphique du jeu, en
      * somme l'écosystème du jeu.
      */
-    private final Set<AbstractSystem> world;
+    private final List<AbstractSystem> world;
 
     /**
      * Constructeur. Construit un gestionnaire de système, pour le bon
@@ -30,14 +32,16 @@ public final class SystemManager {
      * @param gc Conteneur du contexte du jeu
      */
     public SystemManager(final GameContainer gc) {
-        this.world = Set.of(
+        world = Arrays.asList(
+                new CameraSystem(gc, 50),
                 new MandelbrotSystem(gc, 100),
                 new PlayerSystem(gc, 110),
                 new DebugSystem(gc, Integer.MAX_VALUE)
         );
 
-        // Pour test uniquement.
-        this.world.forEach(AbstractSystem::enable);
+        // Ce type de liste est immuable, mais supporte le tri.
+        Collections.sort(world);
+        world.forEach(AbstractSystem::enable);
     }
 
     /**

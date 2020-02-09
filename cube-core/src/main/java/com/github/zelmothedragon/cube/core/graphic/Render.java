@@ -1,5 +1,6 @@
 package com.github.zelmothedragon.cube.core.graphic;
 
+import com.github.zelmothedragon.cube.core.entity.geometry.Camera;
 import com.github.zelmothedragon.cube.core.entity.geometry.Point;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import java.util.Arrays;
@@ -29,6 +30,10 @@ public abstract class Render {
      */
     protected final int[] buffer;
 
+    protected int xOffset;
+
+    protected int yOffset;
+
     /**
      * Constructeur. Construit un gestionnaire de rendu graphique pour manipuler
      * une image sous forme de tableau de pixels.
@@ -40,6 +45,8 @@ public abstract class Render {
         this.width = width;
         this.height = height;
         this.buffer = new int[width * height];
+        this.xOffset = 0;
+        this.yOffset = 0;
     }
 
     /**
@@ -47,7 +54,7 @@ public abstract class Render {
      * commencer à construire une image, il faut vider le tampon.
      */
     public void clear() {
-        Arrays.fill(buffer, Pixel.TRANSPARENT);
+        Arrays.fill(buffer, Pixel.BLACK);
     }
 
     /**
@@ -363,8 +370,10 @@ public abstract class Render {
      */
     private int getPixel(final int xp, final int yp) {
         int pixel;
-        if (Pixel.isInBound(xp, width) && Pixel.isInBound(yp, height)) {
-            pixel = buffer[xp + yp * width];
+        var xo = xp - xOffset;
+        var yo = yp - yOffset;
+        if (Pixel.isInBound(xo, width) && Pixel.isInBound(yo, height)) {
+            pixel = buffer[xo + yo * width];
         } else {
             pixel = Pixel.TRANSPARENT;
         }
@@ -380,11 +389,13 @@ public abstract class Render {
      */
     private void setPixel(final int xp, final int yp, final int color) {
 
-        if (Pixel.isInBound(xp, width) && Pixel.isInBound(yp, height)) {
+        var xo = xp - xOffset;
+        var yo = yp - yOffset;
+        if (Pixel.isInBound(xo, width) && Pixel.isInBound(yo, height)) {
 
-            var index = xp + yp * width;
+            var index = xo + yo * width;
             var alpha = Pixel.getAlpha(color);
-            if (alpha == Pixel.OPAQUE) {
+            if (alpha == Pixel.UNICOLOR_MAX_VALUE) {
                 buffer[index] = color;
             } else {
                 var pixel = buffer[index];
@@ -395,5 +406,24 @@ public abstract class Render {
                 }
             }
         }
+    }
+
+    /**
+     * Changer le décalage de la caréma.
+     *
+     * @param xOffset Décalage sur l'abcisse
+     * @param yOffset Décalage sur l'ordonnée
+     */
+    public void setOffset(final Camera camera) {
+        this.xOffset = camera.getXp() - width / 2;
+        this.yOffset = camera.getYp() - height / 2;
+    }
+
+    /**
+     * Supprimer le décalage de la caméra.
+     */
+    public void resetOffset() {
+        this.xOffset = 0;
+        this.yOffset = 0;
     }
 }

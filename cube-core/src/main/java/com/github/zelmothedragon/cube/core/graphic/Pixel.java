@@ -39,7 +39,7 @@ public final class Pixel {
      * Valeur de l'opacité maximale. Utilisé également pour l'extraction des
      * cannaux de couleur d'un pixel, ou calculer le ratio du canal alpha.
      */
-    public static final int OPAQUE = 255;
+    public static final int UNICOLOR_MAX_VALUE = 255;
 
     /**
      * Index du canal alpha d'une couleur.
@@ -76,7 +76,7 @@ public final class Pixel {
      * 255.
      */
     public static int getAlpha(final int color) {
-        return (color >> CHANNEL_ALPHA) & OPAQUE;
+        return (color >> CHANNEL_ALPHA) & UNICOLOR_MAX_VALUE;
     }
 
     /**
@@ -87,7 +87,7 @@ public final class Pixel {
      * 255.
      */
     public static int getRed(final int color) {
-        return (color >> CHANNEL_RED) & OPAQUE;
+        return (color >> CHANNEL_RED) & UNICOLOR_MAX_VALUE;
     }
 
     /**
@@ -98,7 +98,7 @@ public final class Pixel {
      * 255.
      */
     public static int getGreen(final int color) {
-        return (color >> CHANNEL_GREEN) & OPAQUE;
+        return (color >> CHANNEL_GREEN) & UNICOLOR_MAX_VALUE;
     }
 
     /**
@@ -109,7 +109,7 @@ public final class Pixel {
      * 255.
      */
     public static int getBlue(final int color) {
-        return color & OPAQUE;
+        return color & UNICOLOR_MAX_VALUE;
     }
 
     /**
@@ -263,7 +263,7 @@ public final class Pixel {
 
         if (aa0 == TRANSPARENT) {
             pixel = TRANSPARENT;
-        } else if (aa0 == OPAQUE) {
+        } else if (aa0 == UNICOLOR_MAX_VALUE) {
             pixel = sourceColor;
         } else {
 
@@ -276,10 +276,10 @@ public final class Pixel {
             var gg1 = getGreen(destinationColor);
             var bb1 = getBlue(destinationColor);
 
-            var alpha = aa0 - (aa0 - aa1) * aa0 / (float) OPAQUE;
-            var red = rr0 - (rr0 - rr1) * aa0 / (float) OPAQUE;
-            var green = gg0 - (gg0 - gg1) * aa0 / (float) OPAQUE;
-            var blue = bb0 - (bb0 - bb1) * aa0 / (float) OPAQUE;
+            var alpha = aa0 - (aa0 - aa1) * aa0 / (float) UNICOLOR_MAX_VALUE;
+            var red = rr0 - (rr0 - rr1) * aa0 / (float) UNICOLOR_MAX_VALUE;
+            var green = gg0 - (gg0 - gg1) * aa0 / (float) UNICOLOR_MAX_VALUE;
+            var blue = bb0 - (bb0 - bb1) * aa0 / (float) UNICOLOR_MAX_VALUE;
 
             pixel = toPixel(
                     (int) alpha,

@@ -171,7 +171,7 @@ public final class RenderFX extends Render {
         var red = Pixel.getRed(color);
         var green = Pixel.getGreen(color);
         var blue = Pixel.getBlue(color);
-        var alpha = (double) Pixel.getAlpha(color) / (double) Pixel.OPAQUE;
+        var alpha = (double) Pixel.getAlpha(color) / (double) Pixel.UNICOLOR_MAX_VALUE;
         return Color.rgb(red, green, blue, alpha);
     }
 }

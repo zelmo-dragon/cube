@@ -4,8 +4,6 @@ import com.github.zelmothedragon.cube.core.GameContainer;
 import com.github.zelmothedragon.cube.core.entity.Entity;
 import com.github.zelmothedragon.cube.core.entity.behavior.Controllable;
 import com.github.zelmothedragon.cube.core.entity.data.Mandelbrot;
-import com.github.zelmothedragon.cube.core.entity.geometry.Point;
-import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.graphic.Pixel;
 import com.github.zelmothedragon.cube.core.graphic.Render;
 import com.github.zelmothedragon.cube.core.graphic.Sprite;
@@ -47,7 +45,6 @@ public class MandelbrotSystem extends AbstractSystem {
     public void draw(final Render g2d) {
 
         var data = mandelbrot.getComponent(Mandelbrot.class);
-        var rectangle = mandelbrot.getComponent(Rectangle.class);
         var sprite = mandelbrot.getComponent(Sprite.class);
 
         var w = sprite.getWidth();
@@ -61,8 +58,7 @@ public class MandelbrotSystem extends AbstractSystem {
             }
         }
 
-        g2d.drawImage(new Point(), sprite);
-        g2d.drawRect(rectangle, Pixel.RED);
+        g2d.drawImage(data.getPoint(), sprite);
     }
 
     private static int calculatePoint(
@@ -80,7 +76,7 @@ public class MandelbrotSystem extends AbstractSystem {
             var ny = cy + 2 * x * y;
             x = nx;
             y = ny;
-
+            
             if (x * x + y * y > 4) {
                 break;
             }

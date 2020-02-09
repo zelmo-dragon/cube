@@ -5,6 +5,7 @@ import com.github.zelmothedragon.cube.core.asset.AssetManager;
 import com.github.zelmothedragon.cube.core.entity.behavior.Controllable;
 import com.github.zelmothedragon.cube.core.entity.data.Mandelbrot;
 import com.github.zelmothedragon.cube.core.entity.debug.Clock;
+import com.github.zelmothedragon.cube.core.entity.geometry.Camera;
 import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
 import com.github.zelmothedragon.cube.core.entity.geometry.Point;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
@@ -95,12 +96,15 @@ public final class EntityFactory {
         metadata.addOffset(Orientation.DOWN, new Rectangle(0, 0, w, h));
         metadata.setOrientation(Orientation.DOWN);
 
+        var camera = Camera.INSTANCE;
+
         var entity = new Entity(Family.PLAYER);
         entity.addComponent(Controllable.INSTANCE);
         entity.addComponent(rectangle);
         entity.addComponent(vector);
         entity.addComponent(sprite);
         entity.addComponent(metadata);
+        entity.addComponent(camera);
         entities.add(entity);
         return entity;
     }
@@ -112,13 +116,11 @@ public final class EntityFactory {
 
         var vector = new Vector();
         var sprite = new Sprite(w, h);
-        var rectangle = new Rectangle(64, 32);
         var mandelbrot = new Mandelbrot(10, 10);
 
         var entity = new Entity(Family.MANDELBROT);
         entity.addComponent(Controllable.INSTANCE);
         entity.addComponent(sprite);
-        entity.addComponent(rectangle);
         entity.addComponent(vector);
         entity.addComponent(mandelbrot);
         entities.add(entity);
