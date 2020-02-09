@@ -1,11 +1,11 @@
 package com.github.zelmothedragon.cube.core.entity;
 
 import com.github.zelmothedragon.cube.core.GameContainer;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Gestionnaire d'entités. Une instance unique de cette classe est requise pour
@@ -19,131 +19,102 @@ import java.util.UUID;
 public final class EntityManager {
 
     /**
-     * Toutes les entités du jeu.
+     * Ensemble des entités.
      */
-    private final Map<Class<? extends Component>, Map<UUID, Component>> data;
+    private final Set<Entity> data;
 
     /**
-     * Constructeur. Construit un gestionnaire d'entités. Pour le bon
-     * fonctionnement du programme cette classe doit être instanciée une seul
-     * fois.
+     * Constructeur par défaut.
      */
     public EntityManager() {
-        this.data = new HashMap<>();
+        this.data = new HashSet<>();
     }
 
     /**
-     * Construire une nouvelle entité.
+     * Obtenir une entité en fonction de son identifiant.
      *
-     * @return L'identifiant unique de l'entité
+     * @param id Identifiant unique
+     * @return L'entité trouvé
      */
-    public UUID newEntity() {
-        var id = UUID.randomUUID();
-        var entities = new HashMap<UUID, Component>();
-        entities.put(id, Component.EMPTY);
-        data.put(Component.EmptyComponent.class, entities);
-        return id;
+    public Entity get(final UUID id) {
+
+        return data
+                .stream()
+                .filter(e -> Objects.equals(e.getId(), id))
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException("Entity not found for id " + id));
     }
 
     /**
-     * Ajouter un composant.
+     * Filter les entités en fonction d'un composant.
      *
-     * @param id Identifiant de l'entité
-     * @param component Composant
+     * @param type Le type du composant
+     * @return L'ensemble des entités possédant le même composant
      */
-    public void add(final UUID id, final Component component) {
-        final var type = component.getClass();
-        if (data.containsKey(type)) {
-            var entities = data.get(type);
-            entities.put(id, component);
-        } else {
-            var entities = new HashMap<UUID, Component>();
-            entities.put(id, component);
-            data.put(type, entities);
-        }
+    public Set<Entity> filter(final Class<? extends Component> type) {
+        return data
+                .stream()
+                .filter(e -> e.hasComponent(type))
+                .collect(Collectors.toSet());
     }
 
     /**
-     * Obtenir un composant.
+     * Obtenir des entités par famille.
      *
-     * @param <T> Type générique de composant
-     * @param id Identifiant de l'entité
-     * @param type Classe du composant
-     * @return Le composant recherché
+     * @param family Famille d'entité
+     * @return L'ensemble des entités de même famille
      */
-    public <T extends Component> T get(final UUID id, final Class<T> type) {
-        final T component;
-        if (data.containsKey(type)) {
-            var entities = data.get(type);
-            component = (T) entities.get(id);
-        } else {
-            component = null;
-        }
-        return component;
+    public Set<Entity> get(final Family family) {
+        return data
+                .stream()
+                .filter(e -> Objects.equals(e.getFamily(), family))
+                .collect(Collectors.toSet());
     }
 
     /**
-     * Obtenir toutes les entités par classe de composant.
+     * Ajouter une nouvelle entité dans le gestionnaire.
      *
-     * @param <T> Type générique de composant
-     * @param type Classe du composant
-     * @return L'ensemble des entités associé à ce type de composant, peut
-     * retourner la valeur <code>Collections.emptyMap()</code> si aucune entité
-     * ne correspond à ce type de composant
+     * @param entity Nouvelle entité
      */
-    public <T extends Component> Map<UUID, T> get(final Class<T> type) {
-        final Map<UUID, Component> entities;
-        if (data.containsKey(type)) {
-            entities = data.get(type);
-        } else {
-            entities = Collections.emptyMap();
-        }
-        return (Map<UUID, T>) entities;
+    public void add(final Entity entity) {
+        data.add(entity);
     }
 
     /**
-     * Supprimer un composant.
+     * Supprimer une entité.
      *
-     * @param <T> Type générique de composant
-     * @param id Identifiant de l'entité
-     * @param type Classe du composant
+     * @param id Identifiant unique
+     * @return La valeur <code>true</code> si l'entité est supprimée
      */
-    public <T extends Component> void remove(final UUID id, final Class<T> type) {
-        if (data.containsKey(type)) {
-            var entities = data.get(type);
-            entities.remove(id);
-        }
+    public boolean remove(final UUID id) {
+        return data
+                .removeIf(e -> Objects.equals(e.getId(), id));
     }
 
     /**
-     * Supprimer un composant pour toutes les entités.
+     * Supprimer une famille d'entité.
      *
-     * @param <T> Type générique de composant
-     * @param type Classe du composant
+     * @param family Famille d'entité
+     * @return La valeur <code>true</code> si la famille d'entité est supprimée
      */
-    public <T extends Component> void remove(final Class<T> type) {
-        data.remove(type);
+    public boolean remove(final Family family) {
+        return data
+                .removeIf(e -> Objects.equals(e.getFamily(), family));
     }
 
     /**
-     * Vérifier l'existence d'un composant pour une entité.
+     * Vérifier l'existence d'une entité/
      *
-     * @param <T> ype générique de composant
-     * @param id Identifiant de l'entité
-     * @param type Classe du composant
-     * @return La valeur <code>true</code> si une instance de composant existe,
-     * sinon la valeur <code>false</code>
+     * @param id Identifiant unique
+     * @return La valeur <code>true</code> si l'entité existe
      */
-    public <T extends Component> boolean contains(final UUID id, final Class<T> type) {
-        boolean contain;
-        if (data.containsKey(type)) {
-            var entities = data.get(type);
-            var component = entities.get(id);
-            contain = Objects.nonNull(component);
-        } else {
-            contain = false;
-        }
-        return contain;
+    public boolean hasEntity(final UUID id) {
+        var option = data
+                .stream()
+                .filter(e -> Objects.equals(e.getId(), id))
+                .findAny();
+
+        return option.isPresent();
     }
 
 }

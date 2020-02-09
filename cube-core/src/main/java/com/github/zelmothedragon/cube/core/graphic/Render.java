@@ -1,5 +1,7 @@
 package com.github.zelmothedragon.cube.core.graphic;
 
+import com.github.zelmothedragon.cube.core.entity.geometry.Point;
+import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import java.util.Arrays;
 
 /**
@@ -51,56 +53,48 @@ public abstract class Render {
     /**
      * Dessiner un rectangle plein unicolore.
      *
-     * @param xp Position en abcisse
-     * @param yp Position en ordonnée
-     * @param w Largeur en pixel
-     * @param h Hauteur en buffer
+     * @param rectangle rectangle
      * @param color Couleur
      */
     public void drawFillRect(
-            final int xp,
-            final int yp,
-            final int w,
-            final int h,
+            final Rectangle rectangle,
             final int color) {
 
-        for (var y = 0; y < h; y++) {
-            var ya = yp + y;
+        for (var y = 0; y < rectangle.getHeight(); y++) {
+            var ya = rectangle.getYp() + y;
 
-            for (var x = 0; x < w; x++) {
-                var xa = xp + x;
+            for (var x = 0; x < rectangle.getWidth(); x++) {
+                var xa = rectangle.getXp() + x;
                 setPixel(xa, ya, color);
             }
-
         }
     }
 
     /**
      * Dessiner un rectangle unicolore.
      *
-     * @param xp Position en abcisse
-     * @param yp Position en ordonnée
-     * @param w Largeur en pixel
-     * @param h Hauteur en buffer
+     * @param rectangle rectangle
      * @param color Couleur
      */
     public void drawRect(
-            final int xp,
-            final int yp,
-            final int w,
-            final int h,
+            final Rectangle rectangle,
             final int color) {
 
-        for (var y = 0; y < h; y++) {
-            var ya = yp + y;
+        for (var y = 0; y < rectangle.getHeight(); y++) {
+            var ya = rectangle.getYp() + y;
 
-            for (var x = 0; x < w; x++) {
-                var xa = xp + x;
-                if (x == 0 || x == w - 1 || y == 0 || y == h - 1) {
+            for (var x = 0; x < rectangle.getWidth(); x++) {
+                var xa = rectangle.getXp() + x;
+                if (x == 0
+                        || x == rectangle.getWidth() - 1
+                        || y == 0
+                        || y == rectangle.getHeight() - 1) {
+
                     setPixel(xa, ya, color);
                 }
             }
         }
+
     }
 
     /**
@@ -271,16 +265,17 @@ public abstract class Render {
     /**
      * Dessiner une image.
      *
-     * @param xp Position en abcisse
-     * @param yp Position en ordonnée
+     * @param point Position
      * @param sprite Une image
      */
-    public void drawImage(final int xp, final int yp, final Sprite sprite) {
+    public void drawImage(
+            final Point point,
+            final Sprite sprite) {
 
         for (var y = 0; y < sprite.getHeight(); y++) {
-            var ya = yp + y;
+            var ya = point.getYp() + y;
             for (var x = 0; x < sprite.getWidth(); x++) {
-                var xa = xp + x;
+                var xa = point.getXp() + x;
                 setPixel(xa, ya, sprite.getPixel(x, y));
             }
         }
@@ -289,25 +284,23 @@ public abstract class Render {
     /**
      * Dessiner un texte à partir d'une police de charactères.
      *
-     * @param xp Position en abcisse
-     * @param yp Position en ordonnée
+     * @param point Position
      * @param sprite Police de charactères
      * @param text Message à dessiner
      */
     public void drawImage(
-            final int xp,
-            final int yp,
+            final Point point,
             final FontSprite sprite,
             final String text) {
 
         var lines = text.split(FontSprite.LINE_SEPARATOR);
-        for (int y = 0; y < lines.length; y++) {
-            var ya = yp + y * sprite.getCharacterHeight();
+        for (var y = 0; y < lines.length; y++) {
+            var ya = point.getYp() + y * sprite.getCharacterHeight();
             var characters = lines[y].split(FontSprite.CHAR_SEPARATOR);
-            for (int x = 0; x < characters.length; x++) {
-                var xa = xp + x * sprite.getCharacterWidth();
-
-                drawImage(xa, ya, sprite.getCharacter(characters[x]));
+            for (var x = 0; x < characters.length; x++) {
+                var xa = point.getXp() + x * sprite.getCharacterWidth();
+                var p = new Point(xa, ya);
+                drawImage(p, sprite.getCharacter(characters[x]));
             }
         }
     }
@@ -315,21 +308,20 @@ public abstract class Render {
     /**
      * Dessiner une carte de tuile graphique.
      *
-     * @param xp Position en abcisse
-     * @param yp Position en ordonnée
+     * @param point Position
      * @param tileMap Carte de tuiles graphiques
      */
     public void drawImage(
-            final int xp,
-            final int yp,
+            final Point point,
             final TileMap tileMap) {
 
         for (var y = 0; y < tileMap.getMapHeight(); y++) {
             for (var x = 0; x < tileMap.getMapWidth(); x++) {
                 var tile = tileMap.getTile(x, y);
-                var xa = xp + x * tile.getWidth();
-                var ya = yp + y * tile.getHeight();
-                drawImage(xa, ya, tile);
+                var xa = point.getXp() + x * tile.getWidth();
+                var ya = point.getYp() + y * tile.getHeight();
+                var position = new Point(xa, ya);
+                drawImage(position, tile);
             }
         }
     }

@@ -6,13 +6,13 @@ import com.github.zelmothedragon.cube.core.entity.behavior.Controllable;
 import com.github.zelmothedragon.cube.core.entity.data.Mandelbrot;
 import com.github.zelmothedragon.cube.core.entity.debug.Clock;
 import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
+import com.github.zelmothedragon.cube.core.entity.geometry.Point;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
 import com.github.zelmothedragon.cube.core.graphic.AnimatedSprite;
 import com.github.zelmothedragon.cube.core.graphic.AnimatedSpriteMetaData;
 import com.github.zelmothedragon.cube.core.graphic.FontSprite;
 import com.github.zelmothedragon.cube.core.graphic.Sprite;
-import java.util.UUID;
 
 /**
  * Fabrique d'entités. Une instance unique de cette classe est requise pour le
@@ -55,10 +55,10 @@ public final class EntityFactory {
      *
      * @return L'entité de la famille <code>Family.DEBUG</code>
      */
-    public UUID createDebugInformation() {
+    public Entity createDebugInformation() {
 
         var clock = new Clock();
-        var rectangle = new Rectangle();
+        var point = new Point();
         var font = new FontSprite(
                 assets.loadSprite(AssetManager.DEBUG_8X8_TEXT_SHADOW),
                 assets.loadFontMap(AssetManager.DEBUG_8X8_TEXT_MAP),
@@ -66,14 +66,15 @@ public final class EntityFactory {
                 8
         );
 
-        var id = entities.newEntity();
-        entities.add(id, clock);
-        entities.add(id, rectangle);
-        entities.add(id, font);
-        return id;
+        var entity = new Entity(Family.DEBUG);
+        entity.addComponent(clock);
+        entity.addComponent(point);
+        entity.addComponent(font);
+        entities.add(entity);
+        return entity;
     }
 
-    public UUID createDebugPlayer() {
+    public Entity createDebugPlayer() {
 
         var w = 16;
         var h = 32;
@@ -94,16 +95,17 @@ public final class EntityFactory {
         metadata.addOffset(Orientation.DOWN, new Rectangle(0, 0, w, h));
         metadata.setOrientation(Orientation.DOWN);
 
-        var id = entities.newEntity();
-        entities.add(id, Controllable.INSTANCE);
-        entities.add(id, rectangle);
-        entities.add(id, vector);
-        entities.add(id, sprite);
-        entities.add(id, metadata);
-        return id;
+        var entity = new Entity(Family.PLAYER);
+        entity.addComponent(Controllable.INSTANCE);
+        entity.addComponent(rectangle);
+        entity.addComponent(vector);
+        entity.addComponent(sprite);
+        entity.addComponent(metadata);
+        entities.add(entity);
+        return entity;
     }
 
-    public UUID createMandelbrot() {
+    public Entity createMandelbrot() {
 
         var w = 320;
         var h = w / 16 * 9;
@@ -113,13 +115,14 @@ public final class EntityFactory {
         var rectangle = new Rectangle(64, 32);
         var mandelbrot = new Mandelbrot(10, 10);
 
-        var id = entities.newEntity();
-        entities.add(id, Controllable.INSTANCE);
-        entities.add(id, sprite);
-        entities.add(id, rectangle);
-        entities.add(id, vector);
-        entities.add(id, mandelbrot);
-        return id;
+        var entity = new Entity(Family.MANDELBROT);
+        entity.addComponent(Controllable.INSTANCE);
+        entity.addComponent(sprite);
+        entity.addComponent(rectangle);
+        entity.addComponent(vector);
+        entity.addComponent(mandelbrot);
+        entities.add(entity);
+        return entity;
     }
 
 }

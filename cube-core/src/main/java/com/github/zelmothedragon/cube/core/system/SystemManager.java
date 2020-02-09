@@ -2,7 +2,7 @@ package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameContainer;
 import com.github.zelmothedragon.cube.core.graphic.Render;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Gestionnaire des systèmes. Une instance unique de cette classe est requise
@@ -16,11 +16,11 @@ import java.util.List;
 public final class SystemManager {
 
     /**
-     * La liste de tous les systèmes existants. L'ensemble des systèmes
+     * L'ensemble de tous les systèmes existants. L'ensemble des systèmes
      * définissent la logique fonctionnement et le rendu graphique du jeu, en
      * somme l'écosystème du jeu.
      */
-    private final List<AbstractSystem> world;
+    private final Set<AbstractSystem> world;
 
     /**
      * Constructeur. Construit un gestionnaire de système, pour le bon
@@ -30,12 +30,9 @@ public final class SystemManager {
      * @param gc Conteneur du contexte du jeu
      */
     public SystemManager(final GameContainer gc) {
-        this.world = List.of(
-                new InputSystem(gc, 10),
-                new MoveSystem(gc, 20),
-                new RenderSpriteSystem(gc, 30),
-//                new TestSystem(gc, 0),
-                new MandelbrotSystem(gc, 40),
+        this.world = Set.of(
+                new MandelbrotSystem(gc, 100),
+                new PlayerSystem(gc, 110),
                 new DebugSystem(gc, Integer.MAX_VALUE)
         );
 

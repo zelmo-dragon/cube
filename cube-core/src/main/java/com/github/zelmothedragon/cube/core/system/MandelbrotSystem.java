@@ -1,13 +1,15 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameContainer;
+import com.github.zelmothedragon.cube.core.entity.Entity;
+import com.github.zelmothedragon.cube.core.entity.behavior.Controllable;
 import com.github.zelmothedragon.cube.core.entity.data.Mandelbrot;
+import com.github.zelmothedragon.cube.core.entity.geometry.Point;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.graphic.Pixel;
 import com.github.zelmothedragon.cube.core.graphic.Render;
 import com.github.zelmothedragon.cube.core.graphic.Sprite;
 import com.github.zelmothedragon.cube.core.input.GamePad;
-import java.util.UUID;
 
 /**
  * Ensemble de Mandelbrot.
@@ -16,7 +18,7 @@ import java.util.UUID;
  */
 public class MandelbrotSystem extends AbstractSystem {
 
-    private final UUID mandelbrot;
+    private final Entity mandelbrot;
 
     public MandelbrotSystem(final GameContainer gc, final int priority) {
         super(gc, priority);
@@ -26,37 +28,27 @@ public class MandelbrotSystem extends AbstractSystem {
     @Override
     public void update() {
 
-        var data = gc
-                .getEntities()
-                .get(mandelbrot, Mandelbrot.class);
-
-        if (gc.getInputs().isKeyPressed(GamePad.ACTION)) {
-            var scale = data.getScale();
-            scale += 1;
-            data.setScale(scale);
+        if (mandelbrot.hasComponent(Controllable.class)) {
+            var data = mandelbrot.getComponent(Mandelbrot.class);
+            if (gc.getInputs().isKeyPressed(GamePad.ACTION)) {
+                var scale = data.getScale();
+                scale += 1;
+                data.setScale(scale);
+            }
+            if (gc.getInputs().isKeyPressed(GamePad.OPTION)) {
+                var iteration = data.getIteration();
+                iteration += 1;
+                data.setIteration(iteration);
+            }
         }
-        if (gc.getInputs().isKeyPressed(GamePad.OPTION)) {
-            var iteration = data.getIteration();
-            iteration += 1;
-            data.setIteration(iteration);
-        }
-
     }
 
     @Override
     public void draw(final Render g2d) {
 
-        var rectangle = gc
-                .getEntities()
-                .get(mandelbrot, Rectangle.class);
-
-        var data = gc
-                .getEntities()
-                .get(mandelbrot, Mandelbrot.class);
-
-        var sprite = gc
-                .getEntities()
-                .get(mandelbrot, Sprite.class);
+        var data = mandelbrot.getComponent(Mandelbrot.class);
+        var rectangle = mandelbrot.getComponent(Rectangle.class);
+        var sprite = mandelbrot.getComponent(Sprite.class);
 
         var w = sprite.getWidth();
         var h = sprite.getHeight();
@@ -69,20 +61,15 @@ public class MandelbrotSystem extends AbstractSystem {
             }
         }
 
-        g2d.drawRect(
-                rectangle.getXp(),
-                rectangle.getYp(),
-                rectangle.getWidth(),
-                rectangle.getHeight(),
-                0xFFFF0000
-        );
-
+        g2d.drawImage(new Point(), sprite);
+        g2d.drawRect(rectangle, Pixel.RED);
     }
 
     private static int calculatePoint(
             final int iteration,
             final double xp,
             final double yp) {
+
         var cx = xp;
         var cy = yp;
         var x = xp;

@@ -7,13 +7,18 @@ package com.github.zelmothedragon.cube.core.entity;
  *
  * @author MOSELLE Maxime
  */
-@Deprecated
-public enum Family implements Component {
+public enum Family {
 
     /**
      * Personnage par défaut.
      */
     PLAYER,
+    
+    /**
+     * Ensemble de Mandelbrot.
+     */
+    MANDELBROT,
+    
     /**
      * Débogage.
      */

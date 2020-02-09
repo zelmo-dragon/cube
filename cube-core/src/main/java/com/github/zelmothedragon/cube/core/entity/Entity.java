@@ -13,11 +13,8 @@ import java.util.UUID;
  * attributs seront stockés dans un dictionnaire de données type
  * <code>java.util.Map</code>.
  *
- * @see Family
- *
  * @author MOSELLE Maxime
  */
-@Deprecated
 public final class Entity {
 
     /**
@@ -26,15 +23,23 @@ public final class Entity {
     private final UUID id;
 
     /**
+     * Famille d'entité.
+     */
+    private final Family family;
+
+    /**
      * Ensemble des propriétés de l'entité.
      */
     private final Map<Class<? extends Component>, Component> data;
 
     /**
-     * Constructeur. Construit une entité sans propriété.
+     * Constructeur.Construit une entité sans propriété.
+     *
+     * @param family Famille d'entité
      */
-    public Entity() {
+    public Entity(final Family family) {
         this.id = UUID.randomUUID();
+        this.family = family;
         this.data = new HashMap<>();
 
     }
@@ -67,11 +72,12 @@ public final class Entity {
 
     @Override
     public String toString() {
-
         return new StringBuilder()
                 .append("Entity{id=")
                 .append(id)
-                .append(", dataCount=")
+                .append(", family=")
+                .append(family)
+                .append(", components=")
                 .append(data.size())
                 .append("}")
                 .toString();
@@ -124,10 +130,19 @@ public final class Entity {
     /**
      * Accesseur, obtenir l'identifiant.
      *
-     * @return L'identifiant unique, ne pas jamais être nulle
+     * @return L'identifiant unique, ne doit jamais être nul
      */
     public UUID getId() {
         return id;
+    }
+
+    /**
+     * Accesseur, obtenir la famille d'entité.
+     *
+     * @return La famille d'entité, ne doit jamais être nulle
+     */
+    public Family getFamily() {
+        return family;
     }
 
 }

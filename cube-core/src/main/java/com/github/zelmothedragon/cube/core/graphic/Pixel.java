@@ -13,7 +13,7 @@ public final class Pixel {
     /**
      * Valeur de la transparence ou d'un pixel vide.
      */
-    public static final int TRANSPARENT = 0;
+    public static final int TRANSPARENT = 0x00000000;
 
     /**
      * Couleur noir, ou pixel plain.
@@ -21,7 +21,22 @@ public final class Pixel {
     public static final int BLACK = 0xFF000000;
 
     /**
-     * Valeur de l'opcaité maximale. Utilisé également pour l'extraction des
+     * Couleur rouge.
+     */
+    public static final int RED = 0xFFFF0000;
+
+    /**
+     * Couleur verte.
+     */
+    public static final int GREEN = 0xFF00FF00;
+
+    /**
+     * Couleur bleue.
+     */
+    public static final int BLUE = 0xFF0000FF;
+
+    /**
+     * Valeur de l'opacité maximale. Utilisé également pour l'extraction des
      * cannaux de couleur d'un pixel, ou calculer le ratio du canal alpha.
      */
     public static final int OPAQUE = 255;

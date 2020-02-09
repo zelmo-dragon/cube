@@ -192,6 +192,15 @@ public final class Rectangle implements Component {
     }
 
     /**
+     * Obtenir la position de ce rectangle.
+     *
+     * @return La position
+     */
+    public Point getPoint() {
+        return new Point(xp, yp);
+    }
+
+    /**
      * Accesseur, obtenir la position en abcisse.
      *
      * @return La position en abcisse
