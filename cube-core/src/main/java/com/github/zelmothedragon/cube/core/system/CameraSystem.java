@@ -13,36 +13,42 @@ import com.github.zelmothedragon.cube.core.graphic.Render;
  * @author MOSELLE Maxime
  */
 public final class CameraSystem extends AbstractSystem {
-    
+
     public CameraSystem(final GameContainer gc, final int priority) {
         super(gc, priority);
     }
-    
+
     @Override
     public void update() {
-        
+
         gc
                 .getEntities()
                 .filter(Camera.class)
                 .stream()
                 .forEach(CameraSystem::updateCamera);
-        
+
     }
-    
+
     @Override
     public void draw(final Render g2d) {
-        
+
+        // Appliquer la caméra pour le rendu.
         gc
                 .getEntities()
                 .filter(Camera.class)
                 .stream()
                 .map(e -> e.getComponent(Camera.class))
-                .forEach(c -> g2d.setOffset(c));
-        
+                .forEach(g2d::setOffset);
+
     }
-    
+
+    /**
+     * Faire suivre la caméra par rapport à une entité.
+     *
+     * @param entity Une entité possédant l'instance de la caméra
+     */
     private static void updateCamera(final Entity entity) {
-        
+
         var camera = entity.getComponent(Camera.class);
         if (entity.hasComponent(Point.class)) {
             var point = entity.getComponent(Point.class);
@@ -54,5 +60,5 @@ public final class CameraSystem extends AbstractSystem {
             // RAS
         }
     }
-    
+
 }
