@@ -3,6 +3,7 @@ package com.github.zelmothedragon.cube.core.entity;
 import com.github.zelmothedragon.cube.core.GameContainer;
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
 import com.github.zelmothedragon.cube.core.entity.behavior.Controllable;
+import com.github.zelmothedragon.cube.core.entity.data.Mandelbrot;
 import com.github.zelmothedragon.cube.core.entity.debug.Clock;
 import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
@@ -10,6 +11,7 @@ import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
 import com.github.zelmothedragon.cube.core.graphic.AnimatedSprite;
 import com.github.zelmothedragon.cube.core.graphic.AnimatedSpriteMetaData;
 import com.github.zelmothedragon.cube.core.graphic.FontSprite;
+import com.github.zelmothedragon.cube.core.graphic.Sprite;
 import java.util.UUID;
 
 /**
@@ -98,6 +100,25 @@ public final class EntityFactory {
         entities.add(id, vector);
         entities.add(id, sprite);
         entities.add(id, metadata);
+        return id;
+    }
+
+    public UUID createMandelbrot() {
+
+        var w = 320;
+        var h = w / 16 * 9;
+
+        var vector = new Vector();
+        var sprite = new Sprite(w, h);
+        var rectangle = new Rectangle(64, 32);
+        var mandelbrot = new Mandelbrot(10, 10);
+
+        var id = entities.newEntity();
+        entities.add(id, Controllable.INSTANCE);
+        entities.add(id, sprite);
+        entities.add(id, rectangle);
+        entities.add(id, vector);
+        entities.add(id, mandelbrot);
         return id;
     }
 

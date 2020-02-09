@@ -26,7 +26,6 @@ public final class RenderSpriteSystem extends AbstractSystem {
      */
     public RenderSpriteSystem(final GameContainer gc, final int priority) {
         super(gc, priority);
-        gc.getFactory().createDebugPlayer();
     }
 
     @Override

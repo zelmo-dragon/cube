@@ -129,6 +129,12 @@ public class Sprite implements Component {
         }
     }
 
+    public void setPixel(int index, int pixel) {
+        if (index > 0 && index < buffer.length) {
+            buffer[index] = pixel;
+        }
+    }
+
     /**
      * Accesseur, obtenir le nombre de pixel contenu dans la mémoire tampon.
      *

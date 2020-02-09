@@ -34,8 +34,8 @@ public final class SystemManager {
                 new InputSystem(gc, 10),
                 new MoveSystem(gc, 20),
                 new RenderSpriteSystem(gc, 30),
-//                ,
 //                new TestSystem(gc, 0),
+                new MandelbrotSystem(gc, 40),
                 new DebugSystem(gc, Integer.MAX_VALUE)
         );
 

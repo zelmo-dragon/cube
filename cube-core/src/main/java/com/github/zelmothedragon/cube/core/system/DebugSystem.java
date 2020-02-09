@@ -80,6 +80,15 @@ public final class DebugSystem extends AbstractSystem {
                 rectangle.getHeight(),
                 HIT_BOX_COLOR
         );
+        
+        
+//        g2d.drawFillRect(50, 50, 50, 50, HIT_BOX_COLOR);
+//        g2d.drawRect(100, 50, 50, 50, HIT_BOX_COLOR);
+//        g2d.drawFillCircle(150, 50, 50, HIT_BOX_COLOR);
+//        g2d.drawGradientCircle(200, 50, 50, HIT_BOX_COLOR);
+//        g2d.drawCircle(250, 50, 50, HIT_BOX_COLOR);
+//        g2d.drawLine(300, 50, 350, 100, HIT_BOX_COLOR);
+        
     }
 
     private void doRenderDebugInformation(final Render g2d) {

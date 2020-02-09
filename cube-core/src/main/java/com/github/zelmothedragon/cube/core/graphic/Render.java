@@ -254,14 +254,14 @@ public abstract class Render {
 
             setPixel(xp, yp, color);
 
-            var e2 = 2 * delta;
+            var delta2 = 2 * delta;
 
-            if (e2 > -dy) {
+            if (delta2 > -dy) {
                 delta = delta - dy;
                 xp = xp + sx;
             }
 
-            if (e2 < dx) {
+            if (delta2 < dx) {
                 delta = delta + dx;
                 yp = yp + sy;
             }
@@ -277,10 +277,9 @@ public abstract class Render {
      */
     public void drawImage(final int xp, final int yp, final Sprite sprite) {
 
-        for (var y = 0; y < sprite.height; y++) {
+        for (var y = 0; y < sprite.getHeight(); y++) {
             var ya = yp + y;
-
-            for (var x = 0; x < sprite.width; x++) {
+            for (var x = 0; x < sprite.getWidth(); x++) {
                 var xa = xp + x;
                 setPixel(xa, ya, sprite.getPixel(x, y));
             }
@@ -328,8 +327,8 @@ public abstract class Render {
         for (var y = 0; y < tileMap.getMapHeight(); y++) {
             for (var x = 0; x < tileMap.getMapWidth(); x++) {
                 var tile = tileMap.getTile(x, y);
-                var ya = yp + y * tile.height;
-                var xa = xp + x * tile.width;
+                var xa = xp + x * tile.getWidth();
+                var ya = yp + y * tile.getHeight();
                 drawImage(xa, ya, tile);
             }
         }
