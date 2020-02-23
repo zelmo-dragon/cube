@@ -27,6 +27,17 @@ public class Sprite implements Component {
     protected final int[] buffer;
 
     /**
+     * Constructeur. Construit une image vide.
+     *
+     * @param dimension Rectangle représentant la position et la dimension
+     */
+    public Sprite(final Rectangle rectangle) {
+
+        this.rectangle = rectangle;
+        this.buffer = new int[rectangle.getDimension().getWidth() * rectangle.getDimension().getHeight()];
+    }
+
+    /**
      * Constructeur. Construit une image.
      *
      * @param dimension Dimension

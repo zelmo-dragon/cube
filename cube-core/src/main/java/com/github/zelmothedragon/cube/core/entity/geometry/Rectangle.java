@@ -76,15 +76,6 @@ public final class Rectangle implements Component {
     }
 
     /**
-     * Déplacer un rectangle en fonction d'un vecteur.
-     *
-     * @param vector Vecteur de déplacement
-     */
-    public void move(final Vector vector) {
-        this.point.move(vector);
-    }
-
-    /**
      * Vérifier si un point est contenu dans ce rectangle.
      *
      * @param other Un point quelconque

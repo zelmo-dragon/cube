@@ -59,7 +59,7 @@ public final class EntityFactory {
      */
     public Entity createDebugInformation() {
 
-        var size = new Dimension(8,8);
+        var size = new Dimension(8, 8);
         var clock = new Clock();
         var point = new Point();
         var font = new FontSprite(
@@ -81,7 +81,6 @@ public final class EntityFactory {
         var w = 16;
         var h = 32;
         var dimension = new Dimension(w, h);
-        var rectangle = new Rectangle(dimension);
         var vector = new Vector();
         var sprite = new AnimatedSprite(
                 assets.loadSprite(AssetManager.DEBUG_PLAYER_IMAGE),
@@ -98,14 +97,15 @@ public final class EntityFactory {
         metadata.setOrientation(Orientation.DOWN);
 
         var camera = Camera.INSTANCE;
+        var rectangle = new Rectangle(new Point(0, 16), new Dimension(16, 12));
 
         var entity = new Entity(Family.PLAYER);
         entity.addComponent(Controllable.INSTANCE);
-        entity.addComponent(rectangle);
         entity.addComponent(vector);
         entity.addComponent(sprite);
         entity.addComponent(metadata);
         entity.addComponent(camera);
+        entity.addComponent(rectangle);
         entities.add(entity);
         return entity;
     }
@@ -119,16 +119,8 @@ public final class EntityFactory {
                 assets.loadMap(AssetManager.DEBUG_BACKGROUND_MAP_LAYER_0)
         );
 
-        var dimension = new Dimension(
-                tileMap.getMapWidthInPixel(),
-                tileMap.getMapHeightInPixel()
-        );
-        
-        var rectangle = new Rectangle(dimension);
-
         var entity = new Entity(Family.MAP_DEBUG);
         entity.addComponent(tileMap);
-        entity.addComponent(rectangle);
         entities.add(entity);
         return entity;
     }

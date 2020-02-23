@@ -61,8 +61,11 @@ public final class PlayerSystem extends AbstractSystem {
                 vector.reset();
             }
 
+            var sprite = player.getComponent(AnimatedSprite.class);
+            sprite.getRectangle().getPoint().move(vector);
+            
             var rectangle = player.getComponent(Rectangle.class);
-            rectangle.move(vector);
+            rectangle.getPoint().move(vector);
         }
 
         var orientation = metaData.getOrientation();
@@ -80,9 +83,8 @@ public final class PlayerSystem extends AbstractSystem {
     @Override
     public void draw(final Render g2d) {
 
-        var point = player.getComponent(Rectangle.class).getPoint();
-        var sprite = player.getComponent(AnimatedSprite.class).getCurrentSprite();
-        g2d.drawImage(point, sprite);
+        var sprite = player.getComponent(AnimatedSprite.class);
+        g2d.drawImage(sprite);
 
     }
 

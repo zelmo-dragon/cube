@@ -5,6 +5,7 @@ import com.github.zelmothedragon.cube.core.entity.Entity;
 import com.github.zelmothedragon.cube.core.entity.debug.Clock;
 import com.github.zelmothedragon.cube.core.entity.geometry.Point;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
+import com.github.zelmothedragon.cube.core.graphic.AnimatedSprite;
 import com.github.zelmothedragon.cube.core.graphic.FontSprite;
 import com.github.zelmothedragon.cube.core.graphic.Pixel;
 import com.github.zelmothedragon.cube.core.graphic.Render;
@@ -45,6 +46,14 @@ public final class DebugSystem extends AbstractSystem {
 
         manager
                 .getEntities()
+                .filter(AnimatedSprite.class)
+                .stream()
+                .map(e -> e.getComponent(AnimatedSprite.class))
+                .map(DebugSystem::toRectangle)
+                .forEach(r -> g2d.drawRect(r, Pixel.GREEN));
+        
+        manager
+                .getEntities()
                 .filter(Rectangle.class)
                 .stream()
                 .map(e -> e.getComponent(Rectangle.class))
@@ -57,6 +66,14 @@ public final class DebugSystem extends AbstractSystem {
         g2d.resetOffset();
         g2d.drawImage(point, font, clock.getMessage());
         clock.render();
+    }
+
+    private static Rectangle toRectangle(AnimatedSprite sprite) {
+
+        return new Rectangle(
+                sprite.getRectangle().getPoint(),
+                sprite.getCurrentSprite().getRectangle().getDimension()
+        );
     }
 
 }

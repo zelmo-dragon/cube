@@ -61,8 +61,7 @@ public final class AnimatedSprite extends Sprite {
      * @param spriteSheet Feuille d'image contenant toutes les animations
      * @param duration Delais de l'animation
      * @param count Nombre d'image composant une animation
-     * @param spriteSize Dimension en pixel d'une image composant
-     * l'animation
+     * @param spriteSize Dimension en pixel d'une image composant l'animation
      */
     public AnimatedSprite(
             final Sprite spriteSheet,
@@ -81,6 +80,7 @@ public final class AnimatedSprite extends Sprite {
         this.duration = duration;
         this.count = count;
         this.frame = 0;
+        this.currentId = -1;
         this.playing = false;
 
     }

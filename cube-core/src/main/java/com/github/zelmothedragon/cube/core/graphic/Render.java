@@ -295,6 +295,23 @@ public abstract class Render {
     }
 
     /**
+     * Dessiner une image.
+     *
+     * @param animatedSprite Une image
+     */
+    public void drawImage(final AnimatedSprite animatedSprite) {
+
+        var sprite = animatedSprite.getCurrentSprite();
+        for (var y = 0; y < sprite.getRectangle().getDimension().getHeight(); y++) {
+            var ya = animatedSprite.getRectangle().getPoint().getYp() + y;
+            for (var x = 0; x < sprite.getRectangle().getDimension().getWidth(); x++) {
+                var xa = animatedSprite.getRectangle().getPoint().getXp() + x;
+                setPixel(xa, ya, sprite.getPixel(x, y));
+            }
+        }
+    }
+
+    /**
      * Dessiner un texte à partir d'une police de charactères.
      *
      * @param point Position

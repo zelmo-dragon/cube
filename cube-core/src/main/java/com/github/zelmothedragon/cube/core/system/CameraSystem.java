@@ -34,7 +34,6 @@ public final class CameraSystem extends AbstractSystem {
                 .filter(Camera.class)
                 .stream()
                 .forEach(CameraSystem::updateCamera);
-
     }
 
     @Override
@@ -47,7 +46,6 @@ public final class CameraSystem extends AbstractSystem {
                 .stream()
                 .map(e -> e.getComponent(Camera.class))
                 .forEach(g2d::setOffset);
-
     }
 
     /**
