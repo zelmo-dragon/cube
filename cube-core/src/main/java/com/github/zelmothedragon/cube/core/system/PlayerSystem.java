@@ -71,7 +71,7 @@ public final class PlayerSystem extends AbstractSystem {
             sprite.stop();
         } else {
             var offset = metaData.getCurrentOffset();
-            sprite.setOffset(offset.getXp(), offset.getYp());
+            sprite.setOffset(offset.getPoint());
             sprite.play();
         }
         sprite.update();

@@ -1,6 +1,8 @@
 package com.github.zelmothedragon.cube.core.graphic;
 
 import com.github.zelmothedragon.cube.core.entity.Component;
+import com.github.zelmothedragon.cube.core.entity.geometry.Dimension;
+import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.util.lang.Equal;
 import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.Arrays;
@@ -14,63 +16,50 @@ import java.util.Objects;
 public class Sprite implements Component {
 
     /**
-     * Largeur de l'image.
+     * Rectangle représentant la position et la dimension.
      */
-    final int width;
-
-    /**
-     * Hauteur de l'image.
-     */
-    final int height;
+    protected final Rectangle rectangle;
 
     /**
      * Image sous forme de tableau de pixels. Ce tampon sera ensuite envoyer
      * vers l'image de destination afin d'être afficher à l'écran.
      */
-    final int[] buffer;
+    protected final int[] buffer;
 
     /**
      * Constructeur. Construit une image.
      *
-     * @param width Largeur de l'image
-     * @param height Hauteur de l'image
+     * @param dimension Dimension
      * @param buffer Image sous forme de tableau de buffer
      */
     public Sprite(
-            final int width,
-            final int height,
+            final Dimension dimension,
             final int[] buffer) {
 
-        this.width = width;
-        this.height = height;
+        this.rectangle = new Rectangle(dimension);
         this.buffer = buffer;
     }
 
     /**
      * Constructeur. Construit une image vide.
      *
-     * @param width Largeur de l'image
-     * @param height Hauteur de l'image
+     * @param dimension Dimension
      */
-    public Sprite(
-            final int width,
-            final int height) {
+    public Sprite(final Dimension dimension) {
 
-        this.width = width;
-        this.height = height;
-        this.buffer = new int[width * height];
+        this.rectangle = new Rectangle(dimension);
+        this.buffer = new int[dimension.getWidth() * dimension.getHeight()];
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(width, height, buffer);
+        return Objects.hash(rectangle, buffer);
     }
 
     @Override
     public boolean equals(Object obj) {
         return Equal
-                .with(Sprite::getWidth)
-                .thenWith(Sprite::getHeight)
+                .with(Sprite::getRectangle)
                 .thenWith(s -> s.buffer)
                 .apply(this, obj);
     }
@@ -78,8 +67,7 @@ public class Sprite implements Component {
     @Override
     public String toString() {
         return ToString
-                .with("width", Sprite::getWidth)
-                .thenWith("height", Sprite::getHeight)
+                .with("rectangle", Sprite::getRectangle)
                 .thenWith("buffer.length", Sprite::getBufferLength)
                 .apply(this);
     }
@@ -100,8 +88,10 @@ public class Sprite implements Component {
      */
     public int getPixel(final int xp, final int yp) {
         int pixel;
-        if (Pixel.isInBound(xp, width) && Pixel.isInBound(yp, height)) {
-            pixel = buffer[xp + yp * width];
+        if (Pixel.isInBound(xp, rectangle.getDimension().getWidth())
+                && Pixel.isInBound(yp, rectangle.getDimension().getHeight())) {
+
+            pixel = buffer[xp + yp * rectangle.getDimension().getWidth()];
         } else {
             pixel = 0;
         }
@@ -121,11 +111,11 @@ public class Sprite implements Component {
             final int pixel) {
 
         var alpha = Pixel.getAlpha(pixel);
-        if (Pixel.isInBound(xp, width)
-                && Pixel.isInBound(yp, height)
+        if (Pixel.isInBound(xp, rectangle.getDimension().getWidth())
+                && Pixel.isInBound(yp, rectangle.getDimension().getHeight())
                 && alpha != 0) {
 
-            buffer[xp + yp * width] = pixel;
+            buffer[xp + yp * rectangle.getDimension().getWidth()] = pixel;
         }
     }
 
@@ -145,21 +135,12 @@ public class Sprite implements Component {
     }
 
     /**
-     * Accesseur, obtenir la largeur de l'image.
+     * Accesseur, obtenir le rectangle représentant la position et la dimension.
      *
-     * @return La largeur
+     * @return Le rectange
      */
-    public int getWidth() {
-        return width;
-    }
-
-    /**
-     * Accesseur, obtenir la hauteur de l'image.
-     *
-     * @return La hauteur
-     */
-    public int getHeight() {
-        return height;
+    public Rectangle getRectangle() {
+        return rectangle;
     }
 
     /**

@@ -10,7 +10,7 @@ import java.util.Objects;
  *
  * @author MOSELLE Maxime
  */
-public class Clock implements Component {
+public final class Clock implements Component {
 
     /**
      * Conversion de la taille de la mémoire en Méga octet.

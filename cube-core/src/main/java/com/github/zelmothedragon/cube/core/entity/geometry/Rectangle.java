@@ -13,93 +13,65 @@ import java.util.Objects;
 public final class Rectangle implements Component {
 
     /**
-     * Position en abcisse.
+     * Position.
      */
-    private int xp;
+    private final Point point;
 
     /**
-     * Position en ordonnée.
+     * Dimension.
      */
-    private int yp;
-
-    /**
-     * Largeur.
-     */
-    private int width;
-
-    /**
-     * Hauteur.
-     */
-    private int height;
+    private final Dimension dimension;
 
     /**
      * Constructeur par défaut.
      */
     public Rectangle() {
-        this.xp = 0;
-        this.yp = 0;
-        this.width = 0;
-        this.height = 0;
+        this.point = new Point();
+        this.dimension = new Dimension();
     }
 
     /**
      * Constructeur. Construit un rectangle avec une taille.
      *
-     * @param width Largeur
-     * @param height Hauteur
+     * @param dimension Dimension
      */
-    public Rectangle(
-            final int width,
-            final int height) {
-
-        this.xp = 0;
-        this.yp = 0;
-        this.width = width;
-        this.height = height;
+    public Rectangle(final Dimension dimension) {
+        this.point = new Point();
+        this.dimension = dimension;
     }
 
     /**
      * Constructeur. Construit un rectangle avec une position et une taille.
      *
-     * @param xp Position en abcisse
-     * @param yp Position en ordonnée
-     * @param width Largeur
-     * @param height Hauteur
+     * @param point Position
+     * @param dimension Dimension
      */
     public Rectangle(
-            final int xp,
-            final int yp,
-            final int width,
-            final int height) {
+            final Point point,
+            final Dimension dimension) {
 
-        this.xp = xp;
-        this.yp = yp;
-        this.width = width;
-        this.height = height;
+        this.point = point;
+        this.dimension = dimension;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(xp, yp, width, height);
+        return Objects.hash(point, dimension);
     }
 
     @Override
     public boolean equals(final Object obj) {
         return Equal
-                .with(Rectangle::getXp)
-                .thenWith(Rectangle::getYp)
-                .thenWith(Rectangle::getWidth)
-                .thenWith(Rectangle::getHeight)
+                .with(Rectangle::getPoint)
+                .thenWith(Rectangle::getDimension)
                 .apply(this, obj);
     }
 
     @Override
     public String toString() {
         return ToString
-                .with("xp", Rectangle::getXp)
-                .thenWith("yp", Rectangle::getYp)
-                .thenWith("width", Rectangle::getWidth)
-                .thenWith("height", Rectangle::getHeight)
+                .with("point", Rectangle::getPoint)
+                .thenWith("dimension", Rectangle::getDimension)
                 .apply(this);
     }
 
@@ -109,42 +81,40 @@ public final class Rectangle implements Component {
      * @param vector Vecteur de déplacement
      */
     public void move(final Vector vector) {
-        this.xp += vector.getDx();
-        this.yp += vector.getDy();
+        this.point.move(vector);
     }
 
     /**
      * Vérifier si un point est contenu dans ce rectangle.
      *
-     * @param x Position en abcisse
-     * @param y Position en ordonnée
+     * @param other Un point quelconque
      * @return La valeur <code>true</code> si le point est contenu dans le
      * rectangle, sinon la valeur <code>false</code>
      */
-    public boolean contains(final int x, final int y) {
-        return x >= xp
-                && x <= xp + width
-                && y >= yp
-                && y <= yp + height;
+    public boolean contains(final Point other) {
+        return other.getXp() >= point.getXp()
+                && other.getXp() <= point.getXp() + dimension.getWidth()
+                && other.getYp() >= point.getYp()
+                && other.getYp() <= point.getYp() + dimension.getHeight();
     }
 
     /**
      * Vérifier si un rectangle est entièrement compris dans ce rectangle.
      *
-     * @param rectangle Rectangle quelconque
+     * @param other Rectangle quelconque
      * @return La valeur <code>true</code> si le rectangle passé en paramètre
      * est entièrement contenu dans ce rectangle, sinon la valeur
      * <code>false</code>
      */
-    public boolean contains(final Rectangle rectangle) {
+    public boolean contains(final Rectangle other) {
         boolean contain;
-        if (Objects.isNull(rectangle)) {
+        if (Objects.isNull(other)) {
             contain = false;
         } else {
-            contain = rectangle.xp >= xp
-                    && rectangle.yp >= yp
-                    && rectangle.xp + rectangle.width <= xp + width
-                    && rectangle.yp + rectangle.height <= yp + height;
+            contain = other.getPoint().getXp() >= point.getXp()
+                    && other.getPoint().getYp() >= point.getYp()
+                    && other.getPoint().getXp() + other.getDimension().getWidth() <= point.getXp() + dimension.getWidth()
+                    && other.getPoint().getYp() + other.getDimension().getHeight() <= point.getYp() + dimension.getHeight();
         }
         return contain;
     }
@@ -152,43 +122,21 @@ public final class Rectangle implements Component {
     /**
      * Vérifier si un rectangle est en intersection avec ce rectangle.
      *
-     * @param rectangle Rectangle quelconque
+     * @param other Rectangle quelconque
      * @return La valeur <code>true</code> si le rectangle passé en paramètre
      * est en intersection de ce rectangle, sinon la valeur <code>false</code>
      */
-    public boolean intersects(final Rectangle rectangle) {
+    public boolean intersects(final Rectangle other) {
         boolean intersect;
-        if (Objects.isNull(rectangle)) {
+        if (Objects.isNull(other)) {
             intersect = false;
         } else {
-            intersect = rectangle.xp + rectangle.width > xp
-                    && rectangle.yp + rectangle.height > yp
-                    && rectangle.xp < xp + width
-                    && rectangle.yp < yp + height;
+            intersect = other.getPoint().getXp() + other.getDimension().getWidth() > point.getXp()
+                    && other.getPoint().getYp() + other.getDimension().getHeight() > point.getYp()
+                    && other.getPoint().getXp() < point.getXp() + dimension.getWidth()
+                    && other.getPoint().getYp() < point.getYp() + dimension.getHeight();
         }
         return intersect;
-    }
-
-    /**
-     * Vérifier si un rectangle est en intersection avec ce rectangle.
-     *
-     * @param x Position en abcisse.
-     * @param y Position en ordonnée
-     * @param w Largeur
-     * @param h Hauteur
-     * @return La valeur <code>true</code> si le rectangle passé en paramètre
-     * est en intersection de ce rectangle, sinon la valeur <code>false</code>
-     */
-    public boolean intersects(
-            final int x,
-            final int y,
-            final int w,
-            final int h) {
-
-        return x < xp + width
-                && y < yp + height
-                && x + w > xp
-                && y + h > yp;
     }
 
     /**
@@ -197,79 +145,16 @@ public final class Rectangle implements Component {
      * @return La position
      */
     public Point getPoint() {
-        return new Point(xp, yp);
+        return point;
     }
 
     /**
-     * Accesseur, obtenir la position en abcisse.
+     * Obtenir la dimension de ce rectangle.
      *
-     * @return La position en abcisse
+     * @return La dimension
      */
-    public int getXp() {
-        return xp;
-    }
-
-    /**
-     * Muttateur, modifier la position en abcisse.
-     *
-     * @param xp La position en abcisse
-     */
-    public void setXp(int xp) {
-        this.xp = xp;
-    }
-
-    /**
-     * Accesseur, obtenir la position en ordonnée.
-     *
-     * @return La position en ordonnée
-     */
-    public int getYp() {
-        return yp;
-    }
-
-    /**
-     * Muttateur, modifier la position en ordonnée.
-     *
-     * @param yp La position en ordonnée
-     */
-    public void setYp(int yp) {
-        this.yp = yp;
-    }
-
-    /**
-     * Accesseur, obtenir la largeur.
-     *
-     * @return La largeur
-     */
-    public int getWidth() {
-        return width;
-    }
-
-    /**
-     * Muttateur, modifier la largeur.
-     *
-     * @param width La largeur
-     */
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    /**
-     * Accesseur, obtenir la hauteur.
-     *
-     * @return La hauteur
-     */
-    public int getHeight() {
-        return height;
-    }
-
-    /**
-     * Muttateur, modifier la hauteur.
-     *
-     * @param height La hauteur
-     */
-    public void setHeight(int height) {
-        this.height = height;
+    public Dimension getDimension() {
+        return dimension;
     }
 
 }

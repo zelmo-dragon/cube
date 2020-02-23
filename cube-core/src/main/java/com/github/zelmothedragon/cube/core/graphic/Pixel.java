@@ -1,5 +1,8 @@
 package com.github.zelmothedragon.cube.core.graphic;
 
+import com.github.zelmothedragon.cube.core.entity.geometry.Dimension;
+import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
+
 /**
  * Utilitaire pour la manipulation de pixel. Un pixel est représenté par le type
  * primitif <i>int</i>, généralement en hexadécimal sous la forme suivante:
@@ -301,8 +304,9 @@ public final class Pixel {
      */
     public static Sprite scale(final Sprite image, final int scale) {
 
-        var scaleWidth = scale * image.width;
-        var scaleHeight = scale * image.height;
+        var scaleWidth = scale * image.getRectangle().getDimension().getWidth();
+        var scaleHeight = scale * image.getRectangle().getDimension().getHeight();
+        var size = new Dimension(scaleWidth, scaleHeight);
         var buffer = new int[scaleWidth * scaleHeight];
         int ya;
         int xa;
@@ -316,7 +320,7 @@ public final class Pixel {
                 buffer[x + y * scaleWidth] = pixel;
             }
         }
-        return new Sprite(scaleWidth, scaleHeight, buffer);
+        return new Sprite(size, buffer);
     }
 
     /**
@@ -330,6 +334,21 @@ public final class Pixel {
     public static boolean isInBound(final int position, final int size) {
 
         return position >= 0 && position < size;
+    }
+
+    /**
+     * Vérifier qu'un rectangle est compris dans une taille.
+     *
+     * @param rectangle Une rectangle
+     * @return La valeur <code>true</code> si la position est comprise dans la
+     * taille sinon <code>false</code>
+     */
+    public static boolean isInBound(final Rectangle rectangle) {
+
+        return rectangle.getPoint().getXp() >= 0
+                && rectangle.getPoint().getXp() < rectangle.getDimension().getWidth()
+                && rectangle.getPoint().getYp() >= 0
+                && rectangle.getPoint().getYp() < rectangle.getDimension().getHeight();
     }
 
 }

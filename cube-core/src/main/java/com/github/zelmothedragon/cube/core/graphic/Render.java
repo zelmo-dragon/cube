@@ -73,11 +73,11 @@ public abstract class Render {
             final Rectangle rectangle,
             final int color) {
 
-        for (var y = 0; y < rectangle.getHeight(); y++) {
-            var ya = rectangle.getYp() + y;
+        for (var y = 0; y < rectangle.getDimension().getHeight(); y++) {
+            var ya = rectangle.getPoint().getYp() + y;
 
-            for (var x = 0; x < rectangle.getWidth(); x++) {
-                var xa = rectangle.getXp() + x;
+            for (var x = 0; x < rectangle.getDimension().getWidth(); x++) {
+                var xa = rectangle.getPoint().getXp() + x;
                 setPixel(xa, ya, color);
             }
         }
@@ -93,15 +93,15 @@ public abstract class Render {
             final Rectangle rectangle,
             final int color) {
 
-        for (var y = 0; y < rectangle.getHeight(); y++) {
-            var ya = rectangle.getYp() + y;
+        for (var y = 0; y < rectangle.getDimension().getHeight(); y++) {
+            var ya = rectangle.getPoint().getYp() + y;
 
-            for (var x = 0; x < rectangle.getWidth(); x++) {
-                var xa = rectangle.getXp() + x;
+            for (var x = 0; x < rectangle.getDimension().getWidth(); x++) {
+                var xa = rectangle.getPoint().getXp() + x;
                 if (x == 0
-                        || x == rectangle.getWidth() - 1
+                        || x == rectangle.getDimension().getWidth() - 1
                         || y == 0
-                        || y == rectangle.getHeight() - 1) {
+                        || y == rectangle.getDimension().getHeight() - 1) {
 
                     setPixel(xa, ya, color);
                 }
@@ -285,9 +285,9 @@ public abstract class Render {
             final Point point,
             final Sprite sprite) {
 
-        for (var y = 0; y < sprite.getHeight(); y++) {
+        for (var y = 0; y < sprite.getRectangle().getDimension().getHeight(); y++) {
             var ya = point.getYp() + y;
-            for (var x = 0; x < sprite.getWidth(); x++) {
+            for (var x = 0; x < sprite.getRectangle().getDimension().getWidth(); x++) {
                 var xa = point.getXp() + x;
                 setPixel(xa, ya, sprite.getPixel(x, y));
             }
@@ -308,10 +308,10 @@ public abstract class Render {
 
         var lines = text.split(FontSprite.LINE_SEPARATOR);
         for (var y = 0; y < lines.length; y++) {
-            var ya = point.getYp() + y * sprite.getCharacterHeight();
+            var ya = point.getYp() + y * sprite.getCharacterSize().getHeight();
             var characters = lines[y].split(FontSprite.CHAR_SEPARATOR);
             for (var x = 0; x < characters.length; x++) {
-                var xa = point.getXp() + x * sprite.getCharacterWidth();
+                var xa = point.getXp() + x * sprite.getCharacterSize().getWidth();
                 var p = new Point(xa, ya);
                 drawImage(p, sprite.getCharacter(characters[x]));
             }
@@ -331,8 +331,8 @@ public abstract class Render {
         for (var y = 0; y < tileMap.getMapHeight(); y++) {
             for (var x = 0; x < tileMap.getMapWidth(); x++) {
                 var tile = tileMap.getTile(x, y);
-                var xa = point.getXp() + x * tile.getWidth();
-                var ya = point.getYp() + y * tile.getHeight();
+                var xa = point.getXp() + x * tile.getRectangle().getDimension().getWidth();
+                var ya = point.getYp() + y * tile.getRectangle().getDimension().getHeight();
                 var position = new Point(xa, ya);
                 drawImage(position, tile);
             }
@@ -420,8 +420,8 @@ public abstract class Render {
      * @param camera Caméra
      */
     public void setOffset(final Camera camera) {
-        this.xOffset = camera.getXp() - width / 2;
-        this.yOffset = camera.getYp() - height / 2;
+        this.xOffset = camera.getPoint().getXp() - width / 2;
+        this.yOffset = camera.getPoint().getYp() - height / 2;
     }
 
     /**

@@ -1,6 +1,9 @@
 package com.github.zelmothedragon.cube.core.entity.geometry;
 
 import com.github.zelmothedragon.cube.core.entity.Component;
+import com.github.zelmothedragon.cube.core.util.lang.Equal;
+import com.github.zelmothedragon.cube.core.util.lang.ToString;
+import java.util.Objects;
 
 /**
  * Caméra.
@@ -15,21 +18,34 @@ public final class Camera implements Component {
     public static final Camera INSTANCE = new Camera();
 
     /**
-     * Position en abcisse.
+     * Position.
      */
-    private int xp;
-
-    /**
-     * Position en ordonnée.
-     */
-    private int yp;
+    private final Point point;
 
     /**
      * Constructeur interne, pas d'instanciation.
      */
     private Camera() {
-        this.xp = 0;
-        this.yp = 0;
+        this.point = new Point();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(point);
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        return Equal
+                .with(Camera::getPoint)
+                .apply(this, obj);
+    }
+
+    @Override
+    public String toString() {
+        return ToString
+                .with("point", Camera::getPoint)
+                .apply(this);
     }
 
     /**
@@ -38,8 +54,7 @@ public final class Camera implements Component {
      * @param point Un point à suivre
      */
     public void follow(final Point point) {
-        this.xp = point.getXp();
-        this.yp = point.getYp();
+        this.point.setPont(point);
     }
 
     /**
@@ -49,26 +64,19 @@ public final class Camera implements Component {
      */
     public void follow(final Rectangle rectangle) {
         // Centrer la caméra
-        this.xp = rectangle.getXp() + rectangle.getWidth() / 2;
-        this.yp = rectangle.getYp() + rectangle.getHeight() / 2;
+        var xp = rectangle.getPoint().getXp() + rectangle.getDimension().getWidth() / 2;
+        var yp = rectangle.getPoint().getYp() + rectangle.getDimension().getHeight() / 2;
+        point.setXp(xp);
+        point.setYp(yp);
     }
 
     /**
-     * Accesseur, obtenir la position en abcisse.
+     * Obtenir la position de cette caméra.
      *
-     * @return La position en abcisse
+     * @return La position
      */
-    public int getXp() {
-        return xp;
-    }
-
-    /**
-     * Accesseur, obtenir la position en ordonnée.
-     *
-     * @return La position en ordonnée
-     */
-    public int getYp() {
-        return yp;
+    public Point getPoint() {
+        return point;
     }
 
 }

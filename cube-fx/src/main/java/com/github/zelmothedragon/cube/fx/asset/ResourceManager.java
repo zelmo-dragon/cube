@@ -1,6 +1,7 @@
 package com.github.zelmothedragon.cube.fx.asset;
 
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
+import com.github.zelmothedragon.cube.core.entity.geometry.Dimension;
 import com.github.zelmothedragon.cube.core.graphic.FontSprite;
 import com.github.zelmothedragon.cube.core.graphic.Sprite;
 import com.github.zelmothedragon.cube.core.graphic.TileMap;
@@ -30,6 +31,7 @@ public final class ResourceManager implements AssetManager {
         var image = new Image(path);
         var width = (int) image.getWidth();
         var height = (int) image.getHeight();
+        var dimension = new Dimension(width, height);
         var buffer = new int[width * height];
 
         image
@@ -45,7 +47,7 @@ public final class ResourceManager implements AssetManager {
                         width
                 );
 
-        return new Sprite(width, height, buffer);
+        return new Sprite(dimension, buffer);
 
     }
 

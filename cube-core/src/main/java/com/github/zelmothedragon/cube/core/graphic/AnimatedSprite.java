@@ -1,5 +1,7 @@
 package com.github.zelmothedragon.cube.core.graphic;
 
+import com.github.zelmothedragon.cube.core.entity.geometry.Dimension;
+import com.github.zelmothedragon.cube.core.entity.geometry.Point;
 import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +19,17 @@ public final class AnimatedSprite extends Sprite {
     private final Map<Integer, Sprite> cache;
 
     /**
+     * Dimension en pixel d'une image composant l'animation.
+     */
+    private final Dimension spriteSize;
+
+    /**
+     * Décalage. Ce décalage indique à partir d'où l'image initiale doit être lu
+     * depuis la feuille d'image.
+     */
+    private final Point offset;
+
+    /**
      * Delais de l'animation.
      */
     private final int duration;
@@ -25,16 +38,6 @@ public final class AnimatedSprite extends Sprite {
      * Nombre d'image pour une animation complète.
      */
     private final int count;
-
-    /**
-     * Largeur en pixel d'une image composant l'animation.
-     */
-    private final int spriteWidth;
-
-    /**
-     * Hauteur en pixel d'une image composant l'animation.
-     */
-    private final int spriteHeight;
 
     /**
      * Index de l'image courante dans l'animation.
@@ -48,18 +51,6 @@ public final class AnimatedSprite extends Sprite {
     private int currentId;
 
     /**
-     * Décalage en abcisse. Ce décalage indique à partir d'où l'image initiale
-     * doit être lu depuis la feuille d'image.
-     */
-    private int xOffset;
-
-    /**
-     * Décalage en ordonnée. Ce décalage indique à partir d'où l'image initiale
-     * doit être lu depuis la feuille d'image.
-     */
-    private int yOffset;
-
-    /**
      * Indique si l'animastion est en cours d'exécution.
      */
     private boolean playing;
@@ -70,26 +61,26 @@ public final class AnimatedSprite extends Sprite {
      * @param spriteSheet Feuille d'image contenant toutes les animations
      * @param duration Delais de l'animation
      * @param count Nombre d'image composant une animation
-     * @param spriteWidth Largeur en pixel d'une image composant l'animation
-     * @param spriteHeight Hauteur en pixel d'une image composant l'animation
+     * @param spriteSize Dimension en pixel d'une image composant
+     * l'animation
      */
     public AnimatedSprite(
             final Sprite spriteSheet,
+            final Dimension spriteSize,
             final int duration,
-            final int count,
-            final int spriteWidth,
-            final int spriteHeight) {
+            final int count) {
 
-        super(spriteSheet.width, spriteSheet.height, spriteSheet.buffer);
+        super(
+                spriteSheet.getRectangle().getDimension(),
+                spriteSheet.buffer
+        );
 
         this.cache = new HashMap<>();
-        this.spriteWidth = spriteWidth;
-        this.spriteHeight = spriteHeight;
+        this.spriteSize = spriteSize;
+        this.offset = new Point();
         this.duration = duration;
         this.count = count;
         this.frame = 0;
-        this.xOffset = 0;
-        this.yOffset = 0;
         this.playing = false;
 
     }
@@ -97,16 +88,13 @@ public final class AnimatedSprite extends Sprite {
     @Override
     public String toString() {
         return ToString
-                .with("width", AnimatedSprite::getWidth)
-                .thenWith("height", AnimatedSprite::getHeight)
+                .with("rectangle", AnimatedSprite::getRectangle)
                 .thenWith("buffer.length", AnimatedSprite::getBufferLength)
-                .thenWith("spriteWidth", e -> e.spriteWidth)
-                .thenWith("spriteHeight", e -> e.spriteHeight)
+                .thenWith("spriteSize", e -> e.spriteSize)
+                .thenWith("offset", e -> e.offset)
                 .thenWith("duration", e -> e.duration)
                 .thenWith("count", e -> e.count)
                 .thenWith("frame", e -> e.frame)
-                .thenWith("xOffset", e -> e.xOffset)
-                .thenWith("yOffset", e -> e.yOffset)
                 .thenWith("playing", e -> e.playing)
                 .apply(this);
     }
@@ -128,20 +116,20 @@ public final class AnimatedSprite extends Sprite {
         // Calculer l'index et la position de la prochaine image.
         var frac = frame * count / duration;
         var index = Math.min((int) Math.floor(frac), count - 1);
-        var columns = width / spriteWidth;
-        var xp = (index % columns) * spriteWidth + xOffset;
-        var yp = (index / columns) * spriteHeight + yOffset;
+        var columns = rectangle.getDimension().getWidth() / spriteSize.getWidth();
+        var xp = (index % columns) * spriteSize.getWidth() + offset.getXp();
+        var yp = (index / columns) * spriteSize.getHeight() + offset.getYp();
 
         currentId = xp + yp * count;
         if (!cache.containsKey(currentId)) {
 
             // Extraire de la feuille d'image
             // l'image de l'animation courante.
-            var sprite = new Sprite(spriteWidth, spriteHeight);
-            for (var y = 0; y < spriteHeight; y++) {
+            var sprite = new Sprite(spriteSize);
+            for (var y = 0; y < spriteSize.getHeight(); y++) {
                 var ya = yp + y;
 
-                for (var x = 0; x < spriteWidth; x++) {
+                for (var x = 0; x < spriteSize.getWidth(); x++) {
                     var xa = xp + x;
                     var pixel = getPixel(xa, ya);
                     sprite.setPixel(x, y, pixel);
@@ -176,12 +164,10 @@ public final class AnimatedSprite extends Sprite {
     /**
      * Changer le décalage.
      *
-     * @param xOffset Décalage en abcisse
-     * @param yOffset Décalage en ordonnée
+     * @param offset Décalage
      */
-    public void setOffset(final int xOffset, final int yOffset) {
-        this.xOffset = xOffset;
-        this.yOffset = yOffset;
+    public void setOffset(final Point offset) {
+        this.offset.setPont(offset);
     }
 
     /**

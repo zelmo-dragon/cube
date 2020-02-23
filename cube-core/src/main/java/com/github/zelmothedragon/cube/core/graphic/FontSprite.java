@@ -1,5 +1,6 @@
 package com.github.zelmothedragon.cube.core.graphic;
 
+import com.github.zelmothedragon.cube.core.entity.geometry.Dimension;
 import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,50 +35,39 @@ public final class FontSprite extends Sprite {
     private final Map<Integer, Sprite> cache;
 
     /**
+     * Dimension d'un caractère.
+     */
+    private final Dimension characterSize;
+
+    /**
      * Cartographie de la police de caractères.
      */
     private final String fontMap;
-
-    /**
-     * Largeur d'un charactère en pixel.
-     */
-    private final int characterWidth;
-
-    /**
-     * Hauteur d'un charactère en pixel
-     */
-    private final int characterHeight;
 
     /**
      * Constructeur. Constuit une police de charactères depuis une image et une
      * carte.
      *
      * @param fontSpriteSheet Image contenant tous les caractères.
+     * @param characterSize Dimension d'un caractère
      * @param fontMap Cartographie de la police de caractères
-     * @param characterWidth Largeur d'un charactère en pixel
-     * @param characterHeight Hauteur d'un charactère en pixel
      */
     public FontSprite(
             final Sprite fontSpriteSheet,
-            final String fontMap,
-            final int characterWidth,
-            final int characterHeight) {
+            final Dimension characterSize,
+            final String fontMap) {
 
-        super(fontSpriteSheet.width, fontSpriteSheet.height, fontSpriteSheet.buffer);
+        super(fontSpriteSheet.rectangle.getDimension(), fontSpriteSheet.buffer);
         this.cache = new HashMap<>();
+        this.characterSize = characterSize;
         this.fontMap = fontMap;
-        this.characterWidth = characterWidth;
-        this.characterHeight = characterHeight;
     }
 
     @Override
     public String toString() {
         return ToString
-                .with("width", FontSprite::getWidth)
-                .thenWith("height", FontSprite::getHeight)
+                .with("characterSize", FontSprite::getCharacterSize)
                 .thenWith("buffer.length", FontSprite::getBufferLength)
-                .thenWith("characterWidth", FontSprite::getCharacterWidth)
-                .thenWith("characterHeight", FontSprite::getCharacterHeight)
                 .apply(this);
     }
 
@@ -94,16 +84,16 @@ public final class FontSprite extends Sprite {
         if (cache.containsKey(index)) {
             font = cache.get(index);
         } else {
-            font = new Sprite(characterWidth, characterHeight);
+            font = new Sprite(characterSize);
             if (index != EMPTY_CHARACTER) {
-                var columns = width / characterWidth;
-                var xp = (index % columns) * characterWidth;
-                var yp = (index / columns) * characterHeight;
+                var columns = rectangle.getDimension().getWidth() / characterSize.getWidth();
+                var xp = (index % columns) * characterSize.getWidth();
+                var yp = (index / columns) * characterSize.getHeight();
 
-                for (var y = 0; y < characterHeight; y++) {
+                for (var y = 0; y < characterSize.getHeight(); y++) {
                     var ya = yp + y;
 
-                    for (var x = 0; x < characterWidth; x++) {
+                    for (var x = 0; x < characterSize.getWidth(); x++) {
                         var xa = xp + x;
                         var pixel = getPixel(xa, ya);
                         font.setPixel(x, y, pixel);
@@ -116,21 +106,12 @@ public final class FontSprite extends Sprite {
     }
 
     /**
-     * Accesseur, obtenir la largeur d'un charactère en pixel.
+     * Accesseur, obtenir la dimension d'un caractère.
      *
-     * @return Largeur d'un charactère en pixel
+     * @return La dimension
      */
-    public int getCharacterWidth() {
-        return characterWidth;
-    }
-
-    /**
-     * Accesseur, obtenir la hauteur d'un charactère en pixel
-     *
-     * @return Hauteur d'un charactère en pixel.
-     */
-    public int getCharacterHeight() {
-        return characterHeight;
+    public Dimension getCharacterSize() {
+        return characterSize;
     }
 
 }

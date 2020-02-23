@@ -62,8 +62,8 @@ public class MandelbrotSystem extends AbstractSystem {
         var data = mandelbrot.getComponent(Mandelbrot.class);
         var sprite = mandelbrot.getComponent(Sprite.class);
 
-        var w = sprite.getWidth();
-        var h = sprite.getHeight();
+        var w = sprite.getRectangle().getDimension().getWidth();
+        var h = sprite.getRectangle().getDimension().getHeight();
         for (var y = 0; y < h; y++) {
             for (var x = 0; x < w; x++) {
                 var xp = (x - w / 2.0) / data.getScale();

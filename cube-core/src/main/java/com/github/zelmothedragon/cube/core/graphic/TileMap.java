@@ -1,5 +1,6 @@
 package com.github.zelmothedragon.cube.core.graphic;
 
+import com.github.zelmothedragon.cube.core.entity.geometry.Dimension;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,39 +32,31 @@ public class TileMap extends Sprite {
     private final Map<Integer, Sprite> cache;
 
     /**
+     * Dimension d'une tuile graphique.
+     */
+    private final Dimension tileSize;
+
+    /**
      * Carte 2D pour désigner l'emplacement des tuiles.
      */
     private final int[][] map;
-
-    /**
-     * Largeur en pixel d'une tuile graphique.
-     */
-    private final int tileWidth;
-
-    /**
-     * Hauteur en pixel d'une tuile graphique.
-     */
-    private final int tileHeight;
 
     /**
      * Constructeur. Construit une carte de tuile graphique à partir d'une
      * feuille d'image.
      *
      * @param tileSet Feuille d'image contenant toutes les tuiles graphiques
-     * @param tileWidth Largeur d'une tuile
-     * @param tileHeight Hauteur d'un tuile
+     * @param tileSize Dimension d'une tuile graphique
      * @param map Carte 2D pour désigner l'emplacement des tuiles
      */
     public TileMap(
             final Sprite tileSet,
-            final int tileWidth,
-            final int tileHeight,
+            final Dimension tileSize,
             final int[][] map) {
 
-        super(tileSet.width, tileSet.height, tileSet.buffer);
+        super(tileSet.getRectangle().getDimension(), tileSet.buffer);
         this.cache = new HashMap<>();
-        this.tileWidth = tileWidth;
-        this.tileHeight = tileHeight;
+        this.tileSize = tileSize;
         this.map = map;
     }
 
@@ -86,20 +79,20 @@ public class TileMap extends Sprite {
             if (cache.containsKey(index)) {
                 tile = cache.get(index);
             } else if (index == EMPTY_INDEX) {
-                tile = new Sprite(tileWidth, tileHeight);
+                tile = new Sprite(tileSize);
                 cache.put(index, tile);
             } else {
-                var colunms = width / tileWidth;
-                var xp = (index % colunms) * tileWidth;
-                var yp = (index / colunms) * tileHeight;
+                var colunms = rectangle.getDimension().getWidth() / tileSize.getWidth();
+                var xp = (index % colunms) * tileSize.getWidth();
+                var yp = (index / colunms) * tileSize.getHeight();
 
                 // Extraire de la feuille d'image
                 // l'image de l'animation courante.
-                tile = new Sprite(tileWidth, tileHeight);
-                for (var y = 0; y < tileHeight; y++) {
+                tile = new Sprite(tileSize);
+                for (var y = 0; y < tileSize.getHeight(); y++) {
                     var ya = yp + y;
 
-                    for (var x = 0; x < tileWidth; x++) {
+                    for (var x = 0; x < tileSize.getWidth(); x++) {
                         var xa = xp + x;
                         var pixel = getPixel(xa, ya);
                         tile.setPixel(x, y, pixel);
@@ -108,7 +101,7 @@ public class TileMap extends Sprite {
                 cache.put(index, tile);
             }
         } else {
-            tile = cache.getOrDefault(EMPTY_INDEX, new Sprite(tileWidth, tileHeight));
+            tile = cache.getOrDefault(EMPTY_INDEX, new Sprite(tileSize));
         }
         return tile;
     }
@@ -137,7 +130,7 @@ public class TileMap extends Sprite {
      * @return La largeur de la carte en pixel
      */
     public int getMapWidthInPixel() {
-        return tileWidth * getMapWidth();
+        return tileSize.getWidth() * getMapWidth();
     }
 
     /**
@@ -146,7 +139,7 @@ public class TileMap extends Sprite {
      * @return La hauteur de la carte en pixel
      */
     public int getMapHeightInPixel() {
-        return tileHeight * getMapHeight();
+        return tileSize.getHeight() * getMapHeight();
     }
 
 }

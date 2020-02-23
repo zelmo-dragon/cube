@@ -28,7 +28,6 @@ public final class Point implements Component {
     public Point() {
         this.xp = 0;
         this.yp = 0;
-
     }
 
     /**
@@ -72,6 +71,16 @@ public final class Point implements Component {
     public void move(final Vector vector) {
         this.xp += vector.getDx();
         this.yp += vector.getDy();
+    }
+
+    /**
+     * Superposer deux points.
+     *
+     * @param point Un autre point
+     */
+    public void setPont(final Point point) {
+        this.xp = point.xp;
+        this.yp = point.yp;
     }
 
     /**
