@@ -1,7 +1,7 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameManager;
-import com.github.zelmothedragon.cube.core.graphic.Render;
+import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -37,6 +37,7 @@ public final class SystemManager {
                 new CameraSystem(manager, 50),
                 new BackgroundSystem(manager, 200),
                 new MandelbrotSystem(manager, 500),
+                new CollisionSystem(manager, 501),
                 new PlayerSystem(manager, 510),
                 new DebugSystem(manager, Integer.MAX_VALUE)
         );
@@ -63,7 +64,7 @@ public final class SystemManager {
      *
      * @param g2d Gestionnaire de rendu graphique
      */
-    public void draw(final Render g2d) {
+    public void draw(final Renderer g2d) {
         world
                 .stream()
                 .filter(AbstractSystem::isEnabled)

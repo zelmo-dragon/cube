@@ -8,7 +8,7 @@ import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.graphic.AnimatedSprite;
 import com.github.zelmothedragon.cube.core.graphic.FontSprite;
 import com.github.zelmothedragon.cube.core.graphic.Pixel;
-import com.github.zelmothedragon.cube.core.graphic.Render;
+import com.github.zelmothedragon.cube.core.graphic.Renderer;
 
 /**
  * Système de déboggage.
@@ -42,7 +42,7 @@ public final class DebugSystem extends AbstractSystem {
     }
 
     @Override
-    public void draw(final Render g2d) {
+    public void draw(final Renderer g2d) {
 
         manager
                 .getEntities()

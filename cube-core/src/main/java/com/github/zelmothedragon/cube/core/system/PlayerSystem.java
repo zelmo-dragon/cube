@@ -8,7 +8,7 @@ import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
 import com.github.zelmothedragon.cube.core.graphic.AnimatedSprite;
 import com.github.zelmothedragon.cube.core.graphic.AnimatedSpriteMetaData;
-import com.github.zelmothedragon.cube.core.graphic.Render;
+import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import com.github.zelmothedragon.cube.core.input.GamePad;
 import java.util.Objects;
 
@@ -81,7 +81,7 @@ public final class PlayerSystem extends AbstractSystem {
     }
 
     @Override
-    public void draw(final Render g2d) {
+    public void draw(final Renderer g2d) {
 
         var sprite = player.getComponent(AnimatedSprite.class);
         g2d.drawImage(sprite);

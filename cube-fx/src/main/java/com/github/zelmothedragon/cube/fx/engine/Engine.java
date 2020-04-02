@@ -1,7 +1,7 @@
 package com.github.zelmothedragon.cube.fx.engine;
 
 import com.github.zelmothedragon.cube.core.GameManager;
-import com.github.zelmothedragon.cube.fx.graphic.RenderFX;
+import com.github.zelmothedragon.cube.fx.graphic.RendererFX;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -27,7 +27,7 @@ public final class Engine extends AnimationTimer {
     /**
      * Gestionnaire de rendu graphique.
      */
-    private final RenderFX render;
+    private final RendererFX render;
 
     /**
      * Gestionnaire du jeu.
@@ -55,7 +55,7 @@ public final class Engine extends AnimationTimer {
      * @param manager Conteneur du contexte du jeu
      */
     public Engine(final GraphicsContext g2d, final GameManager manager) {
-        this.render = new RenderFX(Display.WIDTH, Display.HEIGHT, g2d);
+        this.render = new RendererFX(Display.WIDTH, Display.HEIGHT, g2d);
         this.manager = manager;
         this.deltaTime = 0.0;
         this.lastTime = System.nanoTime();

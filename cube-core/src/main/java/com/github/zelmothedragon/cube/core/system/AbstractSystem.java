@@ -1,7 +1,7 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameManager;
-import com.github.zelmothedragon.cube.core.graphic.Render;
+import com.github.zelmothedragon.cube.core.graphic.Renderer;
 
 /**
  * Système générique.
@@ -53,7 +53,7 @@ public abstract class AbstractSystem implements Comparable<AbstractSystem> {
      *
      * @param g2d Gestionnaire de rendu graphique
      */
-    public abstract void draw(Render g2d);
+    public abstract void draw(Renderer g2d);
 
     /**
      * Activer le système.

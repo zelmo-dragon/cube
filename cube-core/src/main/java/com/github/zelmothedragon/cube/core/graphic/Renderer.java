@@ -11,7 +11,7 @@ import java.util.Arrays;
  *
  * @author MOSELLE Maxime
  */
-public abstract class Render {
+public abstract class Renderer {
 
     /**
      * Largeur de l'image en mémoire tampon.
@@ -47,7 +47,7 @@ public abstract class Render {
      * @param width Largeur de l'image en mémoire tampon
      * @param height Hauteur de l'image en mémoire tampn
      */
-    protected Render(final int width, final int height) {
+    protected Renderer(final int width, final int height) {
         this.width = width;
         this.height = height;
         this.buffer = new int[width * height];

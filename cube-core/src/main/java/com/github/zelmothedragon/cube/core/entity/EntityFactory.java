@@ -60,6 +60,7 @@ public final class EntityFactory {
     public Entity createDebugInformation() {
 
         var size = new Dimension(8, 8);
+        var block = new Rectangle(new Point(50, 50), new Dimension(128, 64));
         var clock = new Clock();
         var point = new Point();
         var font = new FontSprite(
@@ -68,7 +69,9 @@ public final class EntityFactory {
                 assets.loadFontMap(AssetManager.DEBUG_8X8_TEXT_MAP)
         );
 
+        
         var entity = new Entity(Family.DEBUG);
+        entity.addComponent(block);
         entity.addComponent(clock);
         entity.addComponent(point);
         entity.addComponent(font);
@@ -97,7 +100,7 @@ public final class EntityFactory {
         metadata.setOrientation(Orientation.DOWN);
 
         var camera = Camera.INSTANCE;
-        var rectangle = new Rectangle(new Point(0, 16), new Dimension(16, 12));
+        var rectangle = new Rectangle(new Point(0, 8), new Dimension(16, 18));
 
         var entity = new Entity(Family.PLAYER);
         entity.addComponent(Controllable.INSTANCE);

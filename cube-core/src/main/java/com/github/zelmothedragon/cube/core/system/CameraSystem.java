@@ -5,7 +5,7 @@ import com.github.zelmothedragon.cube.core.entity.Entity;
 import com.github.zelmothedragon.cube.core.entity.geometry.Camera;
 import com.github.zelmothedragon.cube.core.entity.geometry.Point;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
-import com.github.zelmothedragon.cube.core.graphic.Render;
+import com.github.zelmothedragon.cube.core.graphic.Renderer;
 
 /**
  * Gestion de la caméra.
@@ -37,7 +37,7 @@ public final class CameraSystem extends AbstractSystem {
     }
 
     @Override
-    public void draw(final Render g2d) {
+    public void draw(final Renderer g2d) {
 
         // Appliquer la caméra pour le rendu.
         manager

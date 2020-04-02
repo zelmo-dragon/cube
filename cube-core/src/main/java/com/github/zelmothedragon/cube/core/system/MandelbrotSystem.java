@@ -5,7 +5,7 @@ import com.github.zelmothedragon.cube.core.entity.Entity;
 import com.github.zelmothedragon.cube.core.entity.behavior.Controllable;
 import com.github.zelmothedragon.cube.core.entity.data.Mandelbrot;
 import com.github.zelmothedragon.cube.core.graphic.Pixel;
-import com.github.zelmothedragon.cube.core.graphic.Render;
+import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import com.github.zelmothedragon.cube.core.graphic.Sprite;
 import com.github.zelmothedragon.cube.core.input.GamePad;
 
@@ -57,7 +57,7 @@ public class MandelbrotSystem extends AbstractSystem {
     }
 
     @Override
-    public void draw(final Render g2d) {
+    public void draw(final Renderer g2d) {
 
         var data = mandelbrot.getComponent(Mandelbrot.class);
         var sprite = mandelbrot.getComponent(Sprite.class);

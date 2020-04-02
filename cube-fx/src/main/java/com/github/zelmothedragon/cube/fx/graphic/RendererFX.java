@@ -1,7 +1,7 @@
 package com.github.zelmothedragon.cube.fx.graphic;
 
 import com.github.zelmothedragon.cube.core.graphic.Pixel;
-import com.github.zelmothedragon.cube.core.graphic.Render;
+import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.PixelFormat;
 import javafx.scene.image.WritableImage;
@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
  *
  * @author MOSELLE Maxime
  */
-public final class RenderFX extends Render {
+public final class RendererFX extends Renderer {
 
     /**
      * Contexte graphique de JavaFX.
@@ -33,7 +33,7 @@ public final class RenderFX extends Render {
      * @param height Hauteur de l'image en mémoire tampon
      * @param g2d Contexte 2D de JavaFX.
      */
-    public RenderFX(
+    public RendererFX(
             final int width,
             final int height,
             final GraphicsContext g2d) {

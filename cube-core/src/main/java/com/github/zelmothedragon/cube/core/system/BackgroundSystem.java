@@ -3,7 +3,7 @@ package com.github.zelmothedragon.cube.core.system;
 import com.github.zelmothedragon.cube.core.GameManager;
 import com.github.zelmothedragon.cube.core.entity.Family;
 import com.github.zelmothedragon.cube.core.entity.geometry.Point;
-import com.github.zelmothedragon.cube.core.graphic.Render;
+import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import com.github.zelmothedragon.cube.core.graphic.TileMap;
 
 /**
@@ -31,14 +31,13 @@ public class BackgroundSystem extends AbstractSystem {
     }
 
     @Override
-    public void draw(final Render g2d) {
+    public void draw(final Renderer g2d) {
         manager
                 .getEntities()
                 .get(Family.MAP_DEBUG)
                 .stream()
                 .map(e -> e.getComponent(TileMap.class))
                 .forEach(t -> g2d.drawImage(new Point(), t));
-
     }
 
 }
