@@ -16,8 +16,16 @@ import javax.swing.SwingUtilities;
  */
 public final class KeyboardEvent extends KeyAdapter {
 
+    /**
+     * Gestionnaire des événements d'entrée.
+     */
     private final InputManager manager;
 
+    /**
+     * Constructeur. Constuire le gestionnaire événementielle du clavier.
+     *
+     * @param manager Gestionnaire des événements d'entrée
+     */
     public KeyboardEvent(final InputManager manager) {
         this.manager = manager;
         loadKeys(manager);

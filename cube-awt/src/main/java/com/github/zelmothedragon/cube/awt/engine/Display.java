@@ -12,22 +12,51 @@ import java.awt.Toolkit;
 import java.util.Objects;
 import javax.swing.JFrame;
 
+/**
+ * Affichage principale.
+ *
+ * @author MOSELLE Maxime
+ */
 public final class Display {
 
+    /**
+     * Coéfficient de mise à l'échelle.
+     */
     private static final int SCALE = 4;
 
+    /**
+     * Largeur initiale.
+     */
     private static final int WIDTH = 320;
 
+    /**
+     * Hauteur initiale. Calculée avec un rapport 16/9.
+     */
     private static final int HEIGHT = WIDTH / 16 * 9;
 
+    /**
+     * Fenêtre principale.
+     */
     private final JFrame window;
 
+    /**
+     * Conteneur d'affichage.
+     */
     private final Canvas canvas;
 
+    /**
+     * Gestionnaire de rendu.
+     */
     private final RendererAWT renderer;
 
+    /**
+     * Gestionnaire du jeu.
+     */
     private final GameManager manager;
 
+    /**
+     * Constructeur par défaut.
+     */
     public Display() {
         this.window = new JFrame();
         this.canvas = new Canvas();

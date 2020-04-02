@@ -11,8 +11,16 @@ import java.awt.event.MouseEvent;
  */
 public final class CursorEvent extends MouseAdapter {
 
+    /**
+     * Gestionnaire des événements d'entrée.
+     */
     private final InputManager manager;
 
+    /**
+     * Constructeur. Constuire le gestionnaire événementielle de la souris.
+     *
+     * @param manager Gestionnaire des événements d'entrée
+     */
     public CursorEvent(final InputManager manager) {
         this.manager = manager;
     }
