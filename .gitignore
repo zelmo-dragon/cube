@@ -1,6 +1,5 @@
 nbactions.xml
 nb-configuration.xml 
-/cube-core/target/
-/cube-fx/target/
+**/target/
 *.iml
 /.idea/

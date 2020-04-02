@@ -23,6 +23,7 @@
     <modules>
         <module>cube-core</module>
         <module>cube-fx</module>
+        <module>cube-awt</module>
     </modules>
     
     <dependencyManagement>
