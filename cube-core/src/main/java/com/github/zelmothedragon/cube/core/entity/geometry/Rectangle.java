@@ -13,65 +13,75 @@ import java.util.Objects;
 public final class Rectangle implements Component {
 
     /**
-     * Position.
+     * Position en abcisse.
      */
-    private final Point point;
+    private int xp;
 
     /**
-     * Dimension.
+     * Position en ordonnée.
      */
-    private final Dimension dimension;
+    private int yp;
 
     /**
-     * Constructeur par défaut.
+     * Largeur.
      */
-    public Rectangle() {
-        this.point = new Point();
-        this.dimension = new Dimension();
+    private int width;
+
+    /**
+     * Hauteur.
+     */
+    private int height;
+
+    /**
+     * Constructeur.Construit un rectangle avec une taille.
+     *
+     * @param width Largeur
+     * @param height Hauteur
+     */
+    public Rectangle(final int width, final int height) {
+        this.xp = 0;
+        this.yp = 0;
+        this.width = width;
+        this.height = height;
     }
 
     /**
-     * Constructeur. Construit un rectangle avec une taille.
+     * Constructeur.Construit un rectangle avec une position et une taille.
      *
-     * @param dimension Dimension
+     * @param xp Position en abciss
+     * @param yp Position en ordonnée
+     * @param width Largeur
+     * @param height Hauteur
      */
-    public Rectangle(final Dimension dimension) {
-        this.point = new Point();
-        this.dimension = dimension;
-    }
-
-    /**
-     * Constructeur. Construit un rectangle avec une position et une taille.
-     *
-     * @param point Position
-     * @param dimension Dimension
-     */
-    public Rectangle(
-            final Point point,
-            final Dimension dimension) {
-
-        this.point = point;
-        this.dimension = dimension;
+    public Rectangle(final int xp, final int yp, final int width, final int height) {
+        this.xp = xp;
+        this.yp = yp;
+        this.width = width;
+        this.height = height;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(point, dimension);
+        return Objects.hash(xp, yp, width, height);
     }
 
     @Override
     public boolean equals(final Object obj) {
         return Equal
-                .with(Rectangle::getPoint)
-                .thenWith(Rectangle::getDimension)
+                .with(Rectangle::getXp)
+                .thenWith(Rectangle::getYp)
+                .thenWith(Rectangle::getWidth)
+                .thenWith(Rectangle::getHeight)
                 .apply(this, obj);
     }
 
     @Override
     public String toString() {
         return ToString
-                .with("point", Rectangle::getPoint)
-                .thenWith("dimension", Rectangle::getDimension)
+                .with("xp", Rectangle::getXp)
+                .thenWith("yp", Rectangle::getYp)
+                .thenWith("width", Rectangle::getWidth)
+                .thenWith("height", Rectangle::getHeight)
                 .apply(this);
     }
 
@@ -83,10 +93,10 @@ public final class Rectangle implements Component {
      * rectangle, sinon la valeur <code>false</code>
      */
     public boolean contains(final Point other) {
-        return other.getXp() >= point.getXp()
-                && other.getXp() <= point.getXp() + dimension.getWidth()
-                && other.getYp() >= point.getYp()
-                && other.getYp() <= point.getYp() + dimension.getHeight();
+        return other.getXp() >= xp
+                && other.getXp() <= xp + width
+                && other.getYp() >= yp
+                && other.getYp() <= yp + height;
     }
 
     /**
@@ -102,10 +112,10 @@ public final class Rectangle implements Component {
         if (Objects.isNull(other)) {
             contain = false;
         } else {
-            contain = other.getPoint().getXp() >= point.getXp()
-                    && other.getPoint().getYp() >= point.getYp()
-                    && other.getPoint().getXp() + other.getDimension().getWidth() <= point.getXp() + dimension.getWidth()
-                    && other.getPoint().getYp() + other.getDimension().getHeight() <= point.getYp() + dimension.getHeight();
+            contain = other.getXp() >= xp
+                    && other.getYp() >= yp
+                    && other.getXp() + other.getWidth() <= xp + width
+                    && other.getYp() + other.getHeight() <= yp + height;
         }
         return contain;
     }
@@ -122,30 +132,94 @@ public final class Rectangle implements Component {
         if (Objects.isNull(other)) {
             intersect = false;
         } else {
-            intersect = other.getPoint().getXp() + other.getDimension().getWidth() > point.getXp()
-                    && other.getPoint().getYp() + other.getDimension().getHeight() > point.getYp()
-                    && other.getPoint().getXp() < point.getXp() + dimension.getWidth()
-                    && other.getPoint().getYp() < point.getYp() + dimension.getHeight();
+            intersect = other.getXp() + other.getWidth() > xp
+                    && other.getYp() + other.getHeight() > yp
+                    && other.getXp() < xp + width
+                    && other.getYp() < yp + height;
         }
         return intersect;
     }
 
     /**
-     * Obtenir la position de ce rectangle.
+     * Déplacer un point en fonction d'un vecteur.
      *
-     * @return La position
+     * @param vector Vecteur de déplacement
      */
-    public Point getPoint() {
-        return point;
+    public void move(final Vector vector) {
+        this.xp += vector.getDx();
+        this.yp += vector.getDy();
     }
 
     /**
-     * Obtenir la dimension de ce rectangle.
+     * Accesseur, obtenir la position en abcisse.
      *
-     * @return La dimension
+     * @return La position en abcisse
      */
-    public Dimension getDimension() {
-        return dimension;
+    public int getXp() {
+        return xp;
+    }
+
+    /**
+     * Muttateur, modifier la position en abcisse.
+     *
+     * @param xp La position en abcisse
+     */
+    public void setXp(int xp) {
+        this.xp = xp;
+    }
+
+    /**
+     * Accesseur, obtenir la position en ordonnée.
+     *
+     * @return La position en ordonnée
+     */
+    public int getYp() {
+        return yp;
+    }
+
+    /**
+     * Muttateur, modifier la position en ordonnée.
+     *
+     * @param yp La position en ordonnée
+     */
+    public void setYp(int yp) {
+        this.yp = yp;
+    }
+
+    /**
+     * Accesseur, obtenir la largeur.
+     *
+     * @return La largeur
+     */
+    public int getWidth() {
+        return width;
+    }
+
+    /**
+     * Muttateur, modifier la largeur.
+     *
+     * @param width La largeur
+     */
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    /**
+     * Accesseur, obtenir la hauteur.
+     *
+     * @return La hauteur
+     */
+    public int getHeight() {
+        return height;
+    }
+
+    /**
+     * Muttateur, modifier la hauteur.
+     *
+     * @param height La hauteur
+     */
+    public void setHeight(int height) {
+        this.height = height;
     }
 
 }

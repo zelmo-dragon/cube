@@ -2,8 +2,11 @@ package com.github.zelmothedragon.cube.pixel.entity;
 
 import com.github.zelmothedragon.cube.core.entity.image.FontImage;
 import com.github.zelmothedragon.cube.core.entity.image.Image;
+import com.github.zelmothedragon.cube.core.util.lang.Equal;
+import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class PixelArrayFontImage implements FontImage<int[]> {
 
@@ -28,6 +31,29 @@ public class PixelArrayFontImage implements FontImage<int[]> {
         this.fontMap = fontMap;
         this.imageWidth = imageWidth;
         this.imageHeight = imageHeight;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(imageWidth, imageHeight, fontMap);
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        return Equal
+                .with(PixelArrayFontImage::getImageWidth)
+                .thenWith(PixelArrayFontImage::getImageHeight)
+                .thenWith(e -> e.fontMap)
+                .apply(this, obj);
+    }
+
+    @Override
+    public String toString() {
+        return ToString
+                .with("width", PixelArrayFontImage::getImageWidth)
+                .thenWith("height", PixelArrayFontImage::getImageHeight)
+                .thenWith("fontMap", e -> e.fontMap)
+                .apply(this);
     }
 
     @Override

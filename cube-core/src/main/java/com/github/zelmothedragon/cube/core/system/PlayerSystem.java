@@ -7,7 +7,6 @@ import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
 import com.github.zelmothedragon.cube.core.entity.image.AnimatedImage;
-import com.github.zelmothedragon.cube.core.entity.image.AnimatedImageMetaData;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import com.github.zelmothedragon.cube.core.input.GamePad;
 import java.util.Objects;
@@ -41,38 +40,37 @@ public final class PlayerSystem extends AbstractSystem {
     @Override
     public void update() {
 
-        var metaData = player.getComponent(AnimatedImageMetaData.class);
+        var image = player.getComponent(AnimatedImage.class);
         if (player.hasComponent(Controllable.class)) {
             var vector = player.getComponent(Vector.class);
             if (manager.getInputs().isKeyPressed(GamePad.LEFT)) {
-                metaData.setOrientation(Orientation.LEFT);
+                image.setOrientation(Orientation.LEFT);
                 vector.set(-1, 0);
             } else if (manager.getInputs().isKeyPressed(GamePad.RIGHT)) {
-                metaData.setOrientation(Orientation.RIGHT);
+                image.setOrientation(Orientation.RIGHT);
                 vector.set(1, 0);
             } else if (manager.getInputs().isKeyPressed(GamePad.UP)) {
-                metaData.setOrientation(Orientation.UP);
+                image.setOrientation(Orientation.UP);
                 vector.set(0, -1);
             } else if (manager.getInputs().isKeyPressed(GamePad.DOWN)) {
-                metaData.setOrientation(Orientation.DOWN);
+                image.setOrientation(Orientation.DOWN);
                 vector.set(0, 1);
             } else {
-                metaData.setOrientation(Orientation.EMPTY);
+                image.setOrientation(Orientation.EMPTY);
                 vector.reset();
             }
 
             var rectangle = player.getComponent(Rectangle.class);
-            rectangle.getPoint().move(vector);
+            rectangle.move(vector);
         }
 
-        var orientation = metaData.getOrientation();
-        var image = player.getComponent(AnimatedImage.class);
-                
+        var orientation = image.getOrientation();
+
         if (Objects.equals(orientation, Orientation.EMPTY)) {
             image.stop();
         } else {
-            var offset = metaData.getCurrentOffset();
-            image.setOffset(offset.getPoint().getXp(), offset.getPoint().getYp());
+            var offset = image.getCurrentOffset();
+            image.setOffset(offset.getXp(), offset.getYp());
             image.play();
         }
         image.update();
@@ -84,11 +82,10 @@ public final class PlayerSystem extends AbstractSystem {
         var rectangle = player.getComponent(Rectangle.class);
         var image = player.getComponent(AnimatedImage.class);
         renderer.drawImage(
-                rectangle.getPoint().getXp(),
-                rectangle.getPoint().getYp(),
+                rectangle.getXp(),
+                rectangle.getYp(),
                 image
         );
-
     }
 
 }

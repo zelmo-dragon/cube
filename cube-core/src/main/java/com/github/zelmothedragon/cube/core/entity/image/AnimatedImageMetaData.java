@@ -11,6 +11,7 @@ import java.util.Map;
  *
  * @author MOSELLE Maxime
  */
+@Deprecated
 public final class AnimatedImageMetaData implements Component {
 
     /**

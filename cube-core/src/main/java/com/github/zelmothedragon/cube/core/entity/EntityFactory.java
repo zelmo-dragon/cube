@@ -5,13 +5,11 @@ import com.github.zelmothedragon.cube.core.entity.behavior.Controllable;
 import com.github.zelmothedragon.cube.core.entity.data.Mandelbrot;
 import com.github.zelmothedragon.cube.core.entity.debug.Clock;
 import com.github.zelmothedragon.cube.core.entity.geometry.Camera;
-import com.github.zelmothedragon.cube.core.entity.geometry.Dimension;
 import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
 import com.github.zelmothedragon.cube.core.entity.geometry.Point;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
 import com.github.zelmothedragon.cube.core.entity.image.AnimatedImage;
-import com.github.zelmothedragon.cube.core.entity.image.AnimatedImageMetaData;
 import com.github.zelmothedragon.cube.core.entity.image.FontImage;
 import com.github.zelmothedragon.cube.core.entity.image.Image;
 import com.github.zelmothedragon.cube.core.entity.image.ImageMap;
@@ -80,7 +78,6 @@ public final class EntityFactory {
 
         var w = 16;
         var h = 32;
-        var dimension = new Dimension(w, h);
         var vector = new Vector();
         var animation = assets.loadAnimatedImage(
                 AssetManager.DEBUG_PLAYER_IMAGE,
@@ -90,20 +87,18 @@ public final class EntityFactory {
                 4
         );
 
-        var metadata = new AnimatedImageMetaData();
-        metadata.addOffset(Orientation.LEFT, new Rectangle(new Point(0, 96), dimension));
-        metadata.addOffset(Orientation.RIGHT, new Rectangle(new Point(0, 32), dimension));
-        metadata.addOffset(Orientation.UP, new Rectangle(new Point(0, 64), dimension));
-        metadata.addOffset(Orientation.DOWN, new Rectangle(new Point(0, 0), dimension));
-        metadata.setOrientation(Orientation.DOWN);
+        animation.addOffset(Orientation.DOWN, new Rectangle(0, 0, w, h));
+        animation.addOffset(Orientation.RIGHT, new Rectangle(0, 32, w, h));
+        animation.addOffset(Orientation.UP, new Rectangle(0, 64, w, h));
+        animation.addOffset(Orientation.LEFT, new Rectangle(0, 96, w, h));
+        animation.setOrientation(Orientation.DOWN);
 
-        var rectangle = new Rectangle(new Point(0, 8), dimension);
+        var rectangle = new Rectangle(0, 0, w, h);
 
         var entity = new Entity(Family.PLAYER);
         entity.addComponent(Controllable.INSTANCE);
         entity.addComponent(Camera.INSTANCE);
         entity.addComponent(vector);
-        entity.addComponent(metadata);
         entity.addComponent(rectangle);
         entity.addComponent(AnimatedImage.class, animation);
         entities.add(entity);
@@ -132,7 +127,7 @@ public final class EntityFactory {
         var w = 800;
         var h = w / 16 * 9;
         var vector = new Vector();
-        var rectangle = new Rectangle(new Dimension(w, h));
+        var rectangle = new Rectangle(w, h);
         var image = assets.loadImage(w, h);
         var mandelbrot = new Mandelbrot(10, 10);
 

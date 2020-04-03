@@ -65,8 +65,8 @@ public class MandelbrotSystem extends AbstractSystem {
         var image = mandelbrot.getComponent(Image.class);
         var buffer = (int[]) image.getRawData();
 
-        var w = rectangle.getDimension().getWidth();
-        var h = rectangle.getDimension().getHeight();
+        var w = rectangle.getWidth();
+        var h = rectangle.getHeight();
         for (var y = 0; y < h; y++) {
             for (var x = 0; x < w; x++) {
                 var xp = (x - w / 2.0) / data.getScale();

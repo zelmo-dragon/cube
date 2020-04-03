@@ -2,8 +2,11 @@ package com.github.zelmothedragon.cube.pixel.entity;
 
 import com.github.zelmothedragon.cube.core.entity.image.Image;
 import com.github.zelmothedragon.cube.core.entity.image.ImageMap;
+import com.github.zelmothedragon.cube.core.util.lang.Equal;
+import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class PixelArrayImageMap implements ImageMap<int[]> {
 
@@ -28,6 +31,31 @@ public class PixelArrayImageMap implements ImageMap<int[]> {
         this.map = map;
         this.imageWidth = imageWidth;
         this.imageHeight = imageHeight;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(imageWidth, imageHeight, getMapWidth(), getImageHeight());
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        return Equal
+                .with(PixelArrayImageMap::getImageWidth)
+                .thenWith(PixelArrayImageMap::getImageHeight)
+                .thenWith(PixelArrayImageMap::getMapWidth)
+                .thenWith(PixelArrayImageMap::getMapHeight)
+                .apply(this, obj);
+    }
+
+    @Override
+    public String toString() {
+        return ToString
+                .with("width", PixelArrayImageMap::getImageWidth)
+                .thenWith("height", PixelArrayImageMap::getImageHeight)
+                .thenWith("mapHeight", PixelArrayImageMap::getMapWidth)
+                .thenWith("mapWidth", PixelArrayImageMap::getMapHeight)
+                .apply(this);
     }
 
     @Override

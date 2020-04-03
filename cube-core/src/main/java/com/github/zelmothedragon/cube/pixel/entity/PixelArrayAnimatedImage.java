@@ -1,7 +1,10 @@
 package com.github.zelmothedragon.cube.pixel.entity;
 
+import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
+import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.entity.image.AnimatedImage;
 import com.github.zelmothedragon.cube.core.entity.image.Image;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,8 +12,10 @@ public class PixelArrayAnimatedImage implements AnimatedImage<int[]> {
 
     private final Map<Integer, PixelArrayImage> cache;
 
+    private final Map<Orientation, Rectangle> orientations;
+
     private final PixelArrayImage sheet;
-    
+
     private final int imageWidth;
 
     private final int imageHeight;
@@ -18,6 +23,10 @@ public class PixelArrayAnimatedImage implements AnimatedImage<int[]> {
     private final int duration;
 
     private final int count;
+
+    private Orientation orientation;
+
+    private Rectangle currentOffset;
 
     private int xOffset;
 
@@ -37,6 +46,7 @@ public class PixelArrayAnimatedImage implements AnimatedImage<int[]> {
             final int count) {
 
         this.cache = new HashMap<>();
+        this.orientations = new EnumMap<>(Orientation.class);
         this.sheet = sheet;
         this.imageWidth = imageWidth;
         this.imageHeight = imageHeight;
@@ -44,6 +54,32 @@ public class PixelArrayAnimatedImage implements AnimatedImage<int[]> {
         this.count = count;
         this.frame = 0;
         this.currentImageIndex = 0;
+    }
+
+    @Override
+    public void addOffset(final Orientation orientation, Rectangle rectangle) {
+        this.orientations.put(orientation, rectangle);
+    }
+
+    @Override
+    public Rectangle getOffset(final Orientation orientation) {
+        return orientations.get(orientation);
+    }
+
+    @Override
+    public void setOrientation(Orientation orientation) {
+        this.orientation = orientation;
+        this.currentOffset = orientations.get(orientation);
+    }
+
+    @Override
+    public Orientation getOrientation() {
+        return orientation;
+    }
+
+    @Override
+    public Rectangle getCurrentOffset() {
+        return currentOffset;
     }
 
     @Override
@@ -64,7 +100,7 @@ public class PixelArrayAnimatedImage implements AnimatedImage<int[]> {
         var xp = (index % columns) * imageWidth + xOffset;
         var yp = (index / columns) * imageHeight + yOffset;
 
-        currentImageIndex = xp + yp * count;
+        currentImageIndex = xp + yp * imageWidth;
         if (!cache.containsKey(currentImageIndex)) {
 
             // Extraire de la feuille d'image

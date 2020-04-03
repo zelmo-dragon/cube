@@ -41,8 +41,8 @@ public final class CameraSystem extends AbstractSystem {
 
         // Appliquer la caméra pour le rendu.
         renderer.setOffset(
-                Camera.INSTANCE.getPoint().getXp(),
-                Camera.INSTANCE.getPoint().getYp()
+                Camera.INSTANCE.getXp(),
+                Camera.INSTANCE.getYp()
         );
 
     }
@@ -57,10 +57,12 @@ public final class CameraSystem extends AbstractSystem {
         var camera = Camera.INSTANCE;
         if (entity.hasComponent(Point.class)) {
             var point = entity.getComponent(Point.class);
-            camera.follow(point);
+            camera.setXp(point.getXp());
+            camera.setYp(point.getYp());
         } else if (entity.hasComponent(Rectangle.class)) {
             var rectangle = entity.getComponent(Rectangle.class);
-            camera.follow(rectangle);
+            camera.setXp(rectangle.getXp());
+            camera.setYp(rectangle.getYp());
         } else {
             // RAS
         }

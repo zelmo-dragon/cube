@@ -2,12 +2,11 @@ package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameManager;
 import com.github.zelmothedragon.cube.core.entity.Entity;
+import com.github.zelmothedragon.cube.core.entity.Family;
 import com.github.zelmothedragon.cube.core.entity.debug.Clock;
 import com.github.zelmothedragon.cube.core.entity.geometry.Point;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
-import com.github.zelmothedragon.cube.core.entity.image.AnimatedImage;
 import com.github.zelmothedragon.cube.core.entity.image.FontImage;
-import com.github.zelmothedragon.cube.core.entity.image.Image;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import com.github.zelmothedragon.cube.pixel.graphic.Pixels;
 
@@ -45,20 +44,24 @@ public final class DebugSystem extends AbstractSystem {
     @Override
     public void draw(final Renderer<?> renderer) {
 
-        manager
+        var entities = manager
                 .getEntities()
-                .filter(AnimatedImage.class)
-                .stream()
-                .map(e -> e.getComponent(Rectangle.class))
-                .forEach(r -> drawRectangle(r, renderer));
+                .get(Family.PLAYER);
 
-        manager
-                .getEntities()
-                .filter(Image.class)
-                .stream()
-                .map(e -> e.getComponent(Rectangle.class))
-                .forEach(r -> drawRectangle(r, renderer));
+        if (!entities.isEmpty()) {
+            var play = entities.stream().findFirst().get();
+            var r = play.getComponent(Rectangle.class);
 
+            System.out.println("RECT: " + r);
+            
+            renderer.drawRectangle(
+                    r.getXp(),
+                    r.getYp(),
+                    r.getWidth(),
+                    r.getHeight(),
+                    Pixels.COLOR_GREEN
+            );
+        }
 
         renderer.drawRectangle(0, 0, 50, 50, Pixels.COLOR_RED);
         renderer.drawFillRectangle(50, 0, 50, 50, Pixels.COLOR_RED);
@@ -70,20 +73,10 @@ public final class DebugSystem extends AbstractSystem {
         var clock = debug.getComponent(Clock.class);
         var point = debug.getComponent(Point.class);
         var image = debug.getComponent(FontImage.class);
-        
+
         renderer.resetOffset();
         renderer.drawImage(point.getXp(), point.getYp(), image, clock.getMessage());
         clock.render();
-    }
-
-    private static void drawRectangle(final Rectangle rectangle, final Renderer<?> renderer) {
-        renderer.drawRectangle(
-                rectangle.getPoint().getXp(),
-                rectangle.getPoint().getYp(),
-                rectangle.getDimension().getWidth(),
-                rectangle.getDimension().getHeight(),
-                Pixels.COLOR_GREEN
-        );
     }
 
 }

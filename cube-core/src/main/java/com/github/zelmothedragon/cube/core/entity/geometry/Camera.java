@@ -18,65 +18,78 @@ public final class Camera implements Component {
     public static final Camera INSTANCE = new Camera();
 
     /**
-     * Position.
+     * Position en abcisse.
      */
-    private final Point point;
+    private int xp;
+
+    /**
+     * Position en ordonnée.
+     */
+    private int yp;
 
     /**
      * Constructeur interne, pas d'instanciation.
      */
     private Camera() {
-        this.point = new Point();
+        this.xp = 0;
+        this.yp = 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(point);
+        return Objects.hash(xp, yp);
     }
 
     @Override
     public boolean equals(final Object obj) {
         return Equal
-                .with(Camera::getPoint)
+                .with(Camera::getXp)
+                .thenWith(Camera::getYp)
                 .apply(this, obj);
     }
 
     @Override
     public String toString() {
         return ToString
-                .with("point", Camera::getPoint)
+                .with("xp", Camera::getXp)
+                .thenWith("yp", Camera::getYp)
                 .apply(this);
     }
 
     /**
-     * Suivre un point avec cette caméra.
+     * Accesseur, obtenir la position en abcisse.
      *
-     * @param point Un point à suivre
+     * @return La position en abcisse
      */
-    public void follow(final Point point) {
-        this.point.setPoint(point);
+    public int getXp() {
+        return xp;
     }
 
     /**
-     * Suivre un rectangle avec cette caméra.
+     * Muttateur, modifier la position en abcisse.
      *
-     * @param rectangle Un rectangle
+     * @param xp La position en abcisse
      */
-    public void follow(final Rectangle rectangle) {
-        // Centrer la caméra
-        var xp = rectangle.getPoint().getXp() + rectangle.getDimension().getWidth() / 2;
-        var yp = rectangle.getPoint().getYp() + rectangle.getDimension().getHeight() / 2;
-        point.setXp(xp);
-        point.setYp(yp);
+    public void setXp(int xp) {
+        this.xp = xp;
     }
 
     /**
-     * Obtenir la position de cette caméra.
+     * Accesseur, obtenir la position en ordonnée.
      *
-     * @return La position
+     * @return La position en ordonnée
      */
-    public Point getPoint() {
-        return point;
+    public int getYp() {
+        return yp;
+    }
+
+    /**
+     * Muttateur, modifier la position en ordonnée.
+     *
+     * @param yp La position en ordonnée
+     */
+    public void setYp(int yp) {
+        this.yp = yp;
     }
 
 }

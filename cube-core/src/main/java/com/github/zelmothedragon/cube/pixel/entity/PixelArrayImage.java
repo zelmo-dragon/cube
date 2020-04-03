@@ -1,8 +1,11 @@
 package com.github.zelmothedragon.cube.pixel.entity;
 
 import com.github.zelmothedragon.cube.core.entity.image.Image;
+import com.github.zelmothedragon.cube.core.util.lang.Equal;
+import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import com.github.zelmothedragon.cube.pixel.graphic.Pixels;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class PixelArrayImage implements Image<int[]> {
 
@@ -36,6 +39,29 @@ public class PixelArrayImage implements Image<int[]> {
 
     public PixelArrayImage(final int width, final int height) {
         this(new int[width * height], width, height, EMPTY_INDEX);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(width, height, index);
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        return Equal
+                .with(PixelArrayImage::getWidth)
+                .thenWith(PixelArrayImage::getHeight)
+                .thenWith(PixelArrayImage::getIndex)
+                .apply(this, obj);
+    }
+
+    @Override
+    public String toString() {
+        return ToString
+                .with("width", PixelArrayImage::getWidth)
+                .thenWith("height", PixelArrayImage::getHeight)
+                .thenWith("index", PixelArrayImage::getIndex)
+                .apply(this);
     }
 
     public void clear() {

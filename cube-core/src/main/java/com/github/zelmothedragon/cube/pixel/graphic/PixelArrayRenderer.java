@@ -61,7 +61,7 @@ public class PixelArrayRenderer implements Renderer<int[]> {
     @Override
     public void drawCircle(final int x, final int y, final int radius, final int color) {
         // Algorithme de tracé de cercle d'Andres
-        
+
         var xa = radius + x;
         var ya = radius + y;
         var xp = 0;
@@ -256,7 +256,9 @@ public class PixelArrayRenderer implements Renderer<int[]> {
         var xo = x - xOffset;
         var yo = y - yOffset;
         var i = xo + yo * width;
+
         if (Pixels.isInBound(xo, width) && Pixels.isInBound(yo, height)) {
+
             buffer[i] = color;
         }
     }

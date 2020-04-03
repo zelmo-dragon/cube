@@ -1,8 +1,10 @@
 package com.github.zelmothedragon.cube.core.entity.image;
 
 import com.github.zelmothedragon.cube.core.entity.Component;
+import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
+import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 
-public interface AnimatedImage<T> extends Component{
+public interface AnimatedImage<T> extends Component {
 
     void update();
 
@@ -19,6 +21,16 @@ public interface AnimatedImage<T> extends Component{
     int getDuration();
 
     int getCount();
-    
+
     void setOffset(int xOffset, int yOffset);
+
+    void addOffset(final Orientation orientation, Rectangle rectangle);
+
+    Rectangle getOffset(final Orientation orientation);
+
+    void setOrientation(Orientation orientation);
+
+    Orientation getOrientation();
+
+    Rectangle getCurrentOffset();
 }
