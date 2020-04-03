@@ -79,7 +79,7 @@ public final class DebugSystem extends AbstractSystem {
         renderer.drawFillRectangle(50, 0, 50, 50, Pixels.COLOR_CYAN);
         renderer.drawCircle(100, 0, 25, Pixels.COLOR_CYAN);
         renderer.drawFillCircle(150, 0, 25, Pixels.COLOR_CYAN);
-        renderer.drawGradientCircle(200, 0, 25, Pixels.COLOR_CYAN);
+        renderer.drawGradientCircle(200, 0, 25, Pixels.COLOR_WHITE);
         renderer.drawLine(250, 0, 300, 50, Pixels.COLOR_CYAN);
 
         var clock = debug.getComponent(Clock.class);

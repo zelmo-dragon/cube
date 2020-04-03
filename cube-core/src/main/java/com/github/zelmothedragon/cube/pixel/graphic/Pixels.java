@@ -6,6 +6,8 @@ public final class Pixels {
 
     public static final int COLOR_BLACK = 0xFF000000;
 
+    public static final int COLOR_WHITE = 0xFFFFFFFF;
+    
     public static final int COLOR_RED = 0xFFFF0000;
 
     public static final int COLOR_GREEN = 0xFF00FF00;
