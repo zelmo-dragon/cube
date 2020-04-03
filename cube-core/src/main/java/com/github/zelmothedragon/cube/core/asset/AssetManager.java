@@ -9,10 +9,11 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 /**
- * Gestionnaire de ressources externe. Une instance unique de cette classe est
+ * Gestionnaire de ressources externe.Une instance unique de cette classe est
  * requise pour le fonctionnement de l'application. Le gestionnaire doit être
  * accessible depuis le conteneur du jeu.
  *
+ * @param <T> Type du format d'image
  * @author MOSELLE Maxime
  */
 public interface AssetManager<T> {
