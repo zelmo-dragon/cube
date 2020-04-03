@@ -10,11 +10,11 @@ import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
 import com.github.zelmothedragon.cube.core.entity.geometry.Point;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
-import com.github.zelmothedragon.cube.core.graphic.AnimatedSprite;
-import com.github.zelmothedragon.cube.core.graphic.AnimatedSpriteMetaData;
-import com.github.zelmothedragon.cube.core.graphic.FontSprite;
-import com.github.zelmothedragon.cube.core.graphic.Sprite;
-import com.github.zelmothedragon.cube.core.graphic.TileMap;
+import com.github.zelmothedragon.cube.core.entity.image.AnimatedImage;
+import com.github.zelmothedragon.cube.core.entity.image.AnimatedImageMetaData;
+import com.github.zelmothedragon.cube.core.entity.image.FontImage;
+import com.github.zelmothedragon.cube.core.entity.image.Image;
+import com.github.zelmothedragon.cube.core.entity.image.ImageMap;
 
 /**
  * Fabrique d'entités. Une instance unique de cette classe est requise pour le
@@ -35,7 +35,7 @@ public final class EntityFactory {
     /**
      * Gestionnaire des ressources numériques.
      */
-    private final AssetManager assets;
+    private final AssetManager<?> assets;
 
     /**
      * Constructeur.Construit une fabrique d'entités. Pour le bon fonctionnement
@@ -46,7 +46,7 @@ public final class EntityFactory {
      */
     public EntityFactory(
             final EntityManager entities,
-            final AssetManager assets) {
+            final AssetManager<?> assets) {
 
         this.entities = entities;
         this.assets = assets;
@@ -59,22 +59,19 @@ public final class EntityFactory {
      */
     public Entity createDebugInformation() {
 
-        var size = new Dimension(8, 8);
-        var block = new Rectangle(new Point(50, 50), new Dimension(128, 64));
         var clock = new Clock();
         var point = new Point();
-        var font = new FontSprite(
-                assets.loadSprite(AssetManager.DEBUG_8X8_TEXT_SHADOW),
-                size,
-                assets.loadFontMap(AssetManager.DEBUG_8X8_TEXT_MAP)
+        var font = assets.loadFontImagge(
+                AssetManager.DEBUG_8X8_TEXT_SHADOW,
+                AssetManager.DEBUG_8X8_TEXT_MAP,
+                8,
+                8
         );
 
-        
         var entity = new Entity(Family.DEBUG);
-        entity.addComponent(block);
         entity.addComponent(clock);
         entity.addComponent(point);
-        entity.addComponent(font);
+        entity.addComponent(FontImage.class, font);
         entities.add(entity);
         return entity;
     }
@@ -85,63 +82,66 @@ public final class EntityFactory {
         var h = 32;
         var dimension = new Dimension(w, h);
         var vector = new Vector();
-        var sprite = new AnimatedSprite(
-                assets.loadSprite(AssetManager.DEBUG_PLAYER_IMAGE),
-                dimension,
+        var animation = assets.loadAnimatedImage(
+                AssetManager.DEBUG_PLAYER_IMAGE,
+                w,
+                h,
                 75,
                 4
         );
 
-        var metadata = new AnimatedSpriteMetaData();
+        var metadata = new AnimatedImageMetaData();
         metadata.addOffset(Orientation.LEFT, new Rectangle(new Point(0, 96), dimension));
         metadata.addOffset(Orientation.RIGHT, new Rectangle(new Point(0, 32), dimension));
         metadata.addOffset(Orientation.UP, new Rectangle(new Point(0, 64), dimension));
         metadata.addOffset(Orientation.DOWN, new Rectangle(new Point(0, 0), dimension));
         metadata.setOrientation(Orientation.DOWN);
 
-        var camera = Camera.INSTANCE;
-        var rectangle = new Rectangle(new Point(0, 8), new Dimension(16, 18));
+        var rectangle = new Rectangle(new Point(0, 8), dimension);
 
         var entity = new Entity(Family.PLAYER);
         entity.addComponent(Controllable.INSTANCE);
+        entity.addComponent(Camera.INSTANCE);
         entity.addComponent(vector);
-        entity.addComponent(sprite);
         entity.addComponent(metadata);
-        entity.addComponent(camera);
         entity.addComponent(rectangle);
+        entity.addComponent(AnimatedImage.class, animation);
         entities.add(entity);
         return entity;
     }
 
     public Entity createMapDebug() {
 
-        var size = new Dimension(16, 16);
-        var tileMap = new TileMap(
-                assets.loadSprite(AssetManager.DEBUG_BACKGROUND_IMAGE),
-                size,
-                assets.loadMap(AssetManager.DEBUG_BACKGROUND_MAP_LAYER_0)
+        var point = new Point();
+        var image = assets.loadImageMap(
+                AssetManager.DEBUG_BACKGROUND_IMAGE,
+                AssetManager.DEBUG_BACKGROUND_MAP_LAYER_0,
+                16,
+                16
         );
 
         var entity = new Entity(Family.MAP_DEBUG);
-        entity.addComponent(tileMap);
+        entity.addComponent(point);
+        entity.addComponent(ImageMap.class, image);
         entities.add(entity);
         return entity;
     }
 
     public Entity createMandelbrot() {
 
-        var w = 320;
+        var w = 800;
         var h = w / 16 * 9;
-        var dimension = new Dimension(w, h);
         var vector = new Vector();
-        var sprite = new Sprite(dimension);
+        var rectangle = new Rectangle(new Dimension(w, h));
+        var image = assets.loadImage(w, h);
         var mandelbrot = new Mandelbrot(10, 10);
 
         var entity = new Entity(Family.MANDELBROT);
         entity.addComponent(Controllable.INSTANCE);
-        entity.addComponent(sprite);
         entity.addComponent(vector);
+        entity.addComponent(rectangle);
         entity.addComponent(mandelbrot);
+        entity.addComponent(Image.class, image);
         entities.add(entity);
         return entity;
     }

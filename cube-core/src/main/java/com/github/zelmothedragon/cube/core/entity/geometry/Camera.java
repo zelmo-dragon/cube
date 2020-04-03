@@ -54,7 +54,7 @@ public final class Camera implements Component {
      * @param point Un point à suivre
      */
     public void follow(final Point point) {
-        this.point.setPont(point);
+        this.point.setPoint(point);
     }
 
     /**

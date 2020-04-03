@@ -1,6 +1,6 @@
 package com.github.zelmothedragon.cube.awt.graphic;
 
-import com.github.zelmothedragon.cube.core.graphic.Renderer;
+import com.github.zelmothedragon.cube.pixel.graphic.PixelArrayRenderer;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -11,7 +11,7 @@ import java.awt.image.DataBufferInt;
  *
  * @author MOSELLE Maxime
  */
-public final class RendererAWT extends Renderer {
+public final class RendererAWT extends PixelArrayRenderer {
 
     /**
      * Image mémoire.

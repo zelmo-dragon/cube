@@ -1,10 +1,11 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameManager;
+import com.github.zelmothedragon.cube.core.entity.Entity;
 import com.github.zelmothedragon.cube.core.entity.Family;
 import com.github.zelmothedragon.cube.core.entity.geometry.Point;
+import com.github.zelmothedragon.cube.core.entity.image.ImageMap;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
-import com.github.zelmothedragon.cube.core.graphic.TileMap;
 
 /**
  * Système de gestion du décor en arrière plan.
@@ -31,13 +32,19 @@ public class BackgroundSystem extends AbstractSystem {
     }
 
     @Override
-    public void draw(final Renderer g2d) {
-        manager
+    public void draw(final Renderer<?> renderer) {
+        var entities = manager
                 .getEntities()
-                .get(Family.MAP_DEBUG)
-                .stream()
-                .map(e -> e.getComponent(TileMap.class))
-                .forEach(t -> g2d.drawImage(new Point(), t));
+                .get(Family.MAP_DEBUG);
+
+        entities.forEach(e -> drawImage(e, renderer));
+
+    }
+
+    private static void drawImage(final Entity entity, final Renderer<?> renderer) {
+        var point = entity.getComponent(Point.class);
+        var image = entity.getComponent(ImageMap.class);
+        renderer.drawImage(point.getXp(), point.getYp(), image);
     }
 
 }

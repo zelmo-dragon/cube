@@ -6,8 +6,8 @@ import com.github.zelmothedragon.cube.core.entity.behavior.Controllable;
 import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
-import com.github.zelmothedragon.cube.core.graphic.AnimatedSprite;
-import com.github.zelmothedragon.cube.core.graphic.AnimatedSpriteMetaData;
+import com.github.zelmothedragon.cube.core.entity.image.AnimatedImage;
+import com.github.zelmothedragon.cube.core.entity.image.AnimatedImageMetaData;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import com.github.zelmothedragon.cube.core.input.GamePad;
 import java.util.Objects;
@@ -41,7 +41,7 @@ public final class PlayerSystem extends AbstractSystem {
     @Override
     public void update() {
 
-        var metaData = player.getComponent(AnimatedSpriteMetaData.class);
+        var metaData = player.getComponent(AnimatedImageMetaData.class);
         if (player.hasComponent(Controllable.class)) {
             var vector = player.getComponent(Vector.class);
             if (manager.getInputs().isKeyPressed(GamePad.LEFT)) {
@@ -61,30 +61,33 @@ public final class PlayerSystem extends AbstractSystem {
                 vector.reset();
             }
 
-            var sprite = player.getComponent(AnimatedSprite.class);
-            sprite.getRectangle().getPoint().move(vector);
-            
             var rectangle = player.getComponent(Rectangle.class);
             rectangle.getPoint().move(vector);
         }
 
         var orientation = metaData.getOrientation();
-        var sprite = player.getComponent(AnimatedSprite.class);
+        var image = player.getComponent(AnimatedImage.class);
+                
         if (Objects.equals(orientation, Orientation.EMPTY)) {
-            sprite.stop();
+            image.stop();
         } else {
             var offset = metaData.getCurrentOffset();
-            sprite.setOffset(offset.getPoint());
-            sprite.play();
+            image.setOffset(offset.getPoint().getXp(), offset.getPoint().getYp());
+            image.play();
         }
-        sprite.update();
+        image.update();
     }
 
     @Override
-    public void draw(final Renderer g2d) {
+    public void draw(final Renderer<?> renderer) {
 
-        var sprite = player.getComponent(AnimatedSprite.class);
-        g2d.drawImage(sprite);
+        var rectangle = player.getComponent(Rectangle.class);
+        var image = player.getComponent(AnimatedImage.class);
+        renderer.drawImage(
+                rectangle.getPoint().getXp(),
+                rectangle.getPoint().getYp(),
+                image
+        );
 
     }
 

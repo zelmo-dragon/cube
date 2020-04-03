@@ -4,10 +4,11 @@ import com.github.zelmothedragon.cube.core.GameManager;
 import com.github.zelmothedragon.cube.core.entity.Entity;
 import com.github.zelmothedragon.cube.core.entity.behavior.Controllable;
 import com.github.zelmothedragon.cube.core.entity.data.Mandelbrot;
-import com.github.zelmothedragon.cube.core.graphic.Pixel;
+import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
+import com.github.zelmothedragon.cube.core.entity.image.Image;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
-import com.github.zelmothedragon.cube.core.graphic.Sprite;
 import com.github.zelmothedragon.cube.core.input.GamePad;
+import com.github.zelmothedragon.cube.pixel.graphic.Pixels;
 
 /**
  * Ensemble de Mandelbrot.
@@ -57,23 +58,24 @@ public class MandelbrotSystem extends AbstractSystem {
     }
 
     @Override
-    public void draw(final Renderer g2d) {
+    public void draw(final Renderer<?> renderer) {
 
         var data = mandelbrot.getComponent(Mandelbrot.class);
-        var sprite = mandelbrot.getComponent(Sprite.class);
+        var rectangle = mandelbrot.getComponent(Rectangle.class);
+        var image = mandelbrot.getComponent(Image.class);
+        var buffer = (int[]) image.getRawData();
 
-        var w = sprite.getRectangle().getDimension().getWidth();
-        var h = sprite.getRectangle().getDimension().getHeight();
+        var w = rectangle.getDimension().getWidth();
+        var h = rectangle.getDimension().getHeight();
         for (var y = 0; y < h; y++) {
             for (var x = 0; x < w; x++) {
                 var xp = (x - w / 2.0) / data.getScale();
                 var yp = (y - h / 2.0) / data.getScale();
                 var color = calculatePoint(data.getIteration(), xp, yp);
-                sprite.setPixel(x, y, color);
+                buffer[x + y * w] = color;
             }
         }
-
-        g2d.drawImage(data.getPoint(), sprite);
+        renderer.drawImage(0, 0, image);
     }
 
     private static int calculatePoint(
@@ -99,10 +101,10 @@ public class MandelbrotSystem extends AbstractSystem {
         }
         int color;
         if (n == iteration) {
-            color = Pixel.BLACK;
+            color = Pixels.COLOR_BLACK;
         } else {
             var hue = n / (float) iteration;
-            color = Pixel.convertHSB(hue, 0.5f, 1);
+            color = Pixels.convertHSB(hue, 0.5f, 1);
         }
         return color;
     }

@@ -1,7 +1,6 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameManager;
-import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 
 /**
@@ -17,15 +16,10 @@ public final class CollisionSystem extends AbstractSystem {
 
     @Override
     public void update() {
-
-        var rectengles = manager
-                .getEntities()
-                .filter(Rectangle.class);
-
     }
 
     @Override
-    public void draw(Renderer g2d) {
+    public void draw(Renderer<?> renderer) {
     }
 
 }

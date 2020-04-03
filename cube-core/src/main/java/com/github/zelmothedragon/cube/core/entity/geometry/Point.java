@@ -78,7 +78,7 @@ public final class Point implements Component {
      *
      * @param point Un autre point
      */
-    public void setPont(final Point point) {
+    public void setPoint(final Point point) {
         this.xp = point.xp;
         this.yp = point.yp;
     }

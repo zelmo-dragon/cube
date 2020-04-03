@@ -5,10 +5,11 @@ import com.github.zelmothedragon.cube.core.entity.Entity;
 import com.github.zelmothedragon.cube.core.entity.debug.Clock;
 import com.github.zelmothedragon.cube.core.entity.geometry.Point;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
-import com.github.zelmothedragon.cube.core.graphic.AnimatedSprite;
-import com.github.zelmothedragon.cube.core.graphic.FontSprite;
-import com.github.zelmothedragon.cube.core.graphic.Pixel;
+import com.github.zelmothedragon.cube.core.entity.image.AnimatedImage;
+import com.github.zelmothedragon.cube.core.entity.image.FontImage;
+import com.github.zelmothedragon.cube.core.entity.image.Image;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
+import com.github.zelmothedragon.cube.pixel.graphic.Pixels;
 
 /**
  * Système de déboggage.
@@ -42,37 +43,46 @@ public final class DebugSystem extends AbstractSystem {
     }
 
     @Override
-    public void draw(final Renderer g2d) {
+    public void draw(final Renderer<?> renderer) {
 
         manager
                 .getEntities()
-                .filter(AnimatedSprite.class)
-                .stream()
-                .map(e -> e.getComponent(AnimatedSprite.class))
-                .map(DebugSystem::toRectangle)
-                .forEach(r -> g2d.drawRect(r, Pixel.GREEN));
-        
-        manager
-                .getEntities()
-                .filter(Rectangle.class)
+                .filter(AnimatedImage.class)
                 .stream()
                 .map(e -> e.getComponent(Rectangle.class))
-                .forEach(r -> g2d.drawRect(r, Pixel.RED));
+                .forEach(r -> drawRectangle(r, renderer));
+
+        manager
+                .getEntities()
+                .filter(Image.class)
+                .stream()
+                .map(e -> e.getComponent(Rectangle.class))
+                .forEach(r -> drawRectangle(r, renderer));
+
+
+        renderer.drawRectangle(0, 0, 50, 50, Pixels.COLOR_RED);
+        renderer.drawFillRectangle(50, 0, 50, 50, Pixels.COLOR_RED);
+        renderer.drawCircle(100, 0, 25, Pixels.COLOR_RED);
+        renderer.drawFillCircle(150, 0, 25, Pixels.COLOR_RED);
+        renderer.drawGradientCircle(200, 0, 25, Pixels.COLOR_RED);
+        renderer.drawLine(250, 0, 300, 50, Pixels.COLOR_RED);
 
         var clock = debug.getComponent(Clock.class);
         var point = debug.getComponent(Point.class);
-        var font = debug.getComponent(FontSprite.class);
-
-        g2d.resetOffset();
-        g2d.drawImage(point, font, clock.getMessage());
+        var image = debug.getComponent(FontImage.class);
+        
+        renderer.resetOffset();
+        renderer.drawImage(point.getXp(), point.getYp(), image, clock.getMessage());
         clock.render();
     }
 
-    private static Rectangle toRectangle(AnimatedSprite sprite) {
-
-        return new Rectangle(
-                sprite.getRectangle().getPoint(),
-                sprite.getCurrentSprite().getRectangle().getDimension()
+    private static void drawRectangle(final Rectangle rectangle, final Renderer<?> renderer) {
+        renderer.drawRectangle(
+                rectangle.getPoint().getXp(),
+                rectangle.getPoint().getYp(),
+                rectangle.getDimension().getWidth(),
+                rectangle.getDimension().getHeight(),
+                Pixels.COLOR_GREEN
         );
     }
 

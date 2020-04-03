@@ -1,20 +1,17 @@
-package com.github.zelmothedragon.cube.core.graphic;
+package com.github.zelmothedragon.cube.core.entity.image;
 
 import com.github.zelmothedragon.cube.core.entity.Component;
 import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
-import com.github.zelmothedragon.cube.core.util.lang.Equal;
-import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.EnumMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Méta-données d'une image animée.
  *
  * @author MOSELLE Maxime
  */
-public final class AnimatedSpriteMetaData implements Component {
+public final class AnimatedImageMetaData implements Component {
 
     /**
      * Orientations possibles.
@@ -37,29 +34,8 @@ public final class AnimatedSpriteMetaData implements Component {
     /**
      * Constructeur par défaut.
      */
-    public AnimatedSpriteMetaData() {
+    public AnimatedImageMetaData() {
         this.orientations = new EnumMap<>(Orientation.class);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(orientation, currentOffset);
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-        return Equal
-                .with(AnimatedSpriteMetaData::getOrientation)
-                .thenWith(AnimatedSpriteMetaData::getCurrentOffset)
-                .apply(this, obj);
-    }
-
-    @Override
-    public String toString() {
-        return ToString
-                .with("orientation", AnimatedSpriteMetaData::getOrientation)
-                .thenWith("currentOffset", AnimatedSpriteMetaData::getCurrentOffset)
-                .apply(this);
     }
 
     /**

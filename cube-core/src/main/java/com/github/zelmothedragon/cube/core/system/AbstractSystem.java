@@ -51,9 +51,9 @@ public abstract class AbstractSystem implements Comparable<AbstractSystem> {
     /**
      * Mettre à jour le rendu graphique du jeu.
      *
-     * @param g2d Gestionnaire de rendu graphique
+     * @param renderer Gestionnaire de rendu graphique
      */
-    public abstract void draw(Renderer g2d);
+    public abstract void draw(Renderer<?> renderer);
 
     /**
      * Activer le système.

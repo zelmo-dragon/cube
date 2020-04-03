@@ -1,13 +1,15 @@
 package com.github.zelmothedragon.cube.fx.asset;
 
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
-import com.github.zelmothedragon.cube.core.entity.geometry.Dimension;
-import com.github.zelmothedragon.cube.core.graphic.FontSprite;
-import com.github.zelmothedragon.cube.core.graphic.Sprite;
-import com.github.zelmothedragon.cube.core.graphic.TileMap;
+import com.github.zelmothedragon.cube.core.entity.image.AnimatedImage;
+import com.github.zelmothedragon.cube.core.entity.image.FontImage;
+import com.github.zelmothedragon.cube.core.entity.image.Image;
+import com.github.zelmothedragon.cube.core.entity.image.ImageMap;
+import com.github.zelmothedragon.cube.pixel.entity.PixelArrayAnimatedImage;
+import com.github.zelmothedragon.cube.pixel.entity.PixelArrayFontImage;
+import com.github.zelmothedragon.cube.pixel.entity.PixelArrayImage;
+import com.github.zelmothedragon.cube.pixel.entity.PixelArrayImageMap;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import javafx.scene.image.Image;
 import javafx.scene.image.PixelFormat;
 
 /**
@@ -16,7 +18,7 @@ import javafx.scene.image.PixelFormat;
  *
  * @author MOSELLE Maxime
  */
-public final class ResourceManager implements AssetManager {
+public final class ResourceManager implements AssetManager<int[]> {
 
     /**
      * Constructeur. Construit le gestionnaire des ressources numériques.
@@ -26,70 +28,61 @@ public final class ResourceManager implements AssetManager {
     }
 
     @Override
-    public Sprite loadSprite(final String path) {
-
-        var image = new Image(path);
-        var width = (int) image.getWidth();
-        var height = (int) image.getHeight();
-        var dimension = new Dimension(width, height);
-        var buffer = new int[width * height];
-
-        image
-                .getPixelReader()
-                .getPixels(
-                        0,
-                        0,
-                        width,
-                        height,
-                        PixelFormat.getIntArgbPreInstance(),
-                        buffer,
-                        0,
-                        width
-                );
-
-        return new Sprite(dimension, buffer);
-
+    public Image<int[]> loadImage(final int w, final int h) {
+        return new PixelArrayImage(w, h);
     }
 
     @Override
-    public String loadFontMap(final String path) {
-        String font;
-        try (var stream = getClass().getResourceAsStream(path)) {
-            var data = stream.readAllBytes();
-            font = new String(data, StandardCharsets.UTF_8);
-            font = font.replaceAll(FontSprite.LINE_SEPARATOR, FontSprite.CHAR_SEPARATOR);
+    public Image<int[]> loadImage(final String imagePath) {
+
+        PixelArrayImage image;
+        try (var stream = AssetManager.loadResource(imagePath)) {
+
+            var imageFX = new javafx.scene.image.Image(stream);
+            var width = (int) imageFX.getWidth();
+            var height = (int) imageFX.getHeight();
+            var buffer = new int[width * height];
+
+            imageFX
+                    .getPixelReader()
+                    .getPixels(
+                            0,
+                            0,
+                            width,
+                            height,
+                            PixelFormat.getIntArgbPreInstance(),
+                            buffer,
+                            0,
+                            width
+                    );
+
+            image = new PixelArrayImage(buffer, width, height);
+
         } catch (IOException ex) {
-            font = null;
             ex.printStackTrace();
+            image = null;
         }
-        return font;
+        return image;
     }
 
     @Override
-    public int[][] loadMap(final String path) {
+    public AnimatedImage<int[]> loadAnimatedImage(final String imagePath, final int w, final int h, final int duration, final int count) {
+        PixelArrayImage sheet = (PixelArrayImage) loadImage(imagePath);
+        return new PixelArrayAnimatedImage(sheet, w, h, duration, count);
+    }
 
-        int[][] map;
-        try (var stream = getClass().getResourceAsStream(path)) {
+    @Override
+    public FontImage<int[]> loadFontImagge(final String imagePath, final String mapPath, final int w, final int h) {
+        var sheet = (PixelArrayImage) loadImage(imagePath);
+        var fontMap = AssetManager.loadFontMap(mapPath);
+        return new PixelArrayFontImage(sheet, fontMap, w, h);
+    }
 
-            var data = stream.readAllBytes();
-            var text = new String(data, StandardCharsets.UTF_8);
-            var lines = text.split(TileMap.CSV_LINE_SEPARATOR);
-            var height = lines.length;
-            var width = lines[0].split(TileMap.CSV_CELL_SEPARATOR).length;
-            map = new int[height][width];
-
-            for (var y = 0; y < map.length; y++) {
-                var line = lines[y];
-                var cells = line.split(TileMap.CSV_CELL_SEPARATOR);
-                for (var x = 0; x < map[0].length; x++) {
-                    map[y][x] = Integer.valueOf(cells[x]);
-                }
-            }
-        } catch (IOException ex) {
-            map = new int[0][0];
-            ex.printStackTrace();
-        }
-        return map;
+    @Override
+    public ImageMap<int[]> loadImageMap(final String imagePath, final String mapPath, final int w, final int h) {
+        var sheet = (PixelArrayImage) loadImage(imagePath);
+        var imageMap = AssetManager.loadMap(mapPath);
+        return new PixelArrayImageMap(sheet, imageMap, w, h);
     }
 
 }

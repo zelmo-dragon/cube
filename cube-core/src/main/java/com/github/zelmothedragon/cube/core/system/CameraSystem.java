@@ -37,15 +37,14 @@ public final class CameraSystem extends AbstractSystem {
     }
 
     @Override
-    public void draw(final Renderer g2d) {
+    public void draw(final Renderer<?> renderer) {
 
         // Appliquer la caméra pour le rendu.
-        manager
-                .getEntities()
-                .filter(Camera.class)
-                .stream()
-                .map(e -> e.getComponent(Camera.class))
-                .forEach(g2d::setOffset);
+        renderer.setOffset(
+                Camera.INSTANCE.getPoint().getXp(),
+                Camera.INSTANCE.getPoint().getYp()
+        );
+
     }
 
     /**
@@ -55,7 +54,7 @@ public final class CameraSystem extends AbstractSystem {
      */
     private static void updateCamera(final Entity entity) {
 
-        var camera = entity.getComponent(Camera.class);
+        var camera = Camera.INSTANCE;
         if (entity.hasComponent(Point.class)) {
             var point = entity.getComponent(Point.class);
             camera.follow(point);

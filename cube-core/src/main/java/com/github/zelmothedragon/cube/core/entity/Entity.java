@@ -87,10 +87,21 @@ public final class Entity {
      * Ajouter un composant à cette entité. Une entité ne peut possède deux fois
      * le même composant.
      *
-     * @param component Nouveau composant.
+     * @param component Nouveau composant
      */
     public void addComponent(final Component component) {
         data.put(component.getClass(), component);
+    }
+
+    /**
+     * Ajouter un composant à cette entité.Une entité ne peut possède deux fois
+     * le même composant.
+     *
+     * @param type Type du composant
+     * @param component Nouveau composant
+     */
+    public void addComponent(final Class<? extends Component> type, final Component component) {
+        data.put(type, component);
     }
 
     /**
