@@ -12,6 +12,12 @@ public final class Pixels {
 
     public static final int COLOR_BLUE = 0xFF0000FF;
 
+    public static final int COLOR_MAGENTA = 0xFFFF00FF;
+
+    public static final int COLOR_YELLOW = 0xFFFFFF00;
+
+    public static final int COLOR_CYAN = 0xFF00FFFF;
+
     private static final int CHANNEL_ALPHA = 24;
 
     private static final int CHANNEL_RED = 16;

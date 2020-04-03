@@ -4,8 +4,10 @@ import com.github.zelmothedragon.cube.core.GameManager;
 import com.github.zelmothedragon.cube.core.entity.Entity;
 import com.github.zelmothedragon.cube.core.entity.Family;
 import com.github.zelmothedragon.cube.core.entity.debug.Clock;
+import com.github.zelmothedragon.cube.core.entity.geometry.Camera;
 import com.github.zelmothedragon.cube.core.entity.geometry.Point;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
+import com.github.zelmothedragon.cube.core.entity.image.AnimatedImage;
 import com.github.zelmothedragon.cube.core.entity.image.FontImage;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import com.github.zelmothedragon.cube.pixel.graphic.Pixels;
@@ -44,16 +46,18 @@ public final class DebugSystem extends AbstractSystem {
     @Override
     public void draw(final Renderer<?> renderer) {
 
+        var camera = Camera.INSTANCE;
+        renderer.drawFillRectangle(camera.getXp() - 2, camera.getYp() - 2, 5, 5, Pixels.COLOR_YELLOW);
+
         var entities = manager
                 .getEntities()
                 .get(Family.PLAYER);
 
         if (!entities.isEmpty()) {
-            var play = entities.stream().findFirst().get();
-            var r = play.getComponent(Rectangle.class);
+            var player = entities.stream().findFirst().get();
+            var r = player.getComponent(Rectangle.class);
+            var i = player.getComponent(AnimatedImage.class);
 
-            System.out.println("RECT: " + r);
-            
             renderer.drawRectangle(
                     r.getXp(),
                     r.getYp(),
@@ -61,14 +65,22 @@ public final class DebugSystem extends AbstractSystem {
                     r.getHeight(),
                     Pixels.COLOR_GREEN
             );
+
+            renderer.drawRectangle(
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+            );
         }
 
-        renderer.drawRectangle(0, 0, 50, 50, Pixels.COLOR_RED);
-        renderer.drawFillRectangle(50, 0, 50, 50, Pixels.COLOR_RED);
-        renderer.drawCircle(100, 0, 25, Pixels.COLOR_RED);
-        renderer.drawFillCircle(150, 0, 25, Pixels.COLOR_RED);
-        renderer.drawGradientCircle(200, 0, 25, Pixels.COLOR_RED);
-        renderer.drawLine(250, 0, 300, 50, Pixels.COLOR_RED);
+        renderer.drawRectangle(0, 0, 50, 50, Pixels.COLOR_CYAN);
+        renderer.drawFillRectangle(50, 0, 50, 50, Pixels.COLOR_CYAN);
+        renderer.drawCircle(100, 0, 25, Pixels.COLOR_CYAN);
+        renderer.drawFillCircle(150, 0, 25, Pixels.COLOR_CYAN);
+        renderer.drawGradientCircle(200, 0, 25, Pixels.COLOR_CYAN);
+        renderer.drawLine(250, 0, 300, 50, Pixels.COLOR_CYAN);
 
         var clock = debug.getComponent(Clock.class);
         var point = debug.getComponent(Point.class);
