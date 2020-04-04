@@ -7,6 +7,7 @@ import com.github.zelmothedragon.cube.core.component.Movable;
 import com.github.zelmothedragon.cube.core.entity.Entity;
 import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
+import com.github.zelmothedragon.cube.core.util.geometry.Rectangle;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -46,15 +47,21 @@ public final class CollisionSystem extends AbstractSystem {
         
         var vector = entity.getComponent(Vector.class);
         var box = entity.getComponent(BoundedBox.class);
-        var bound = box.getBound();
+        var aabb = box.getCollision();
         
         solidBlocks
                 .stream()
                 .filter(b -> !Objects.equals(b, box))
-                .map(b -> b.getBound())
-                .filter(b -> b.intersects(bound))
-                .map(b -> b.createIntersection(bound))
-                .forEach(r -> bound.move(r.getWidth() * -vector.getDx(), r.getHeight() * -vector.getDy()));
+                .map(b -> b.getCollision())
+                .filter(b -> b.intersects(aabb))
+                .map(b -> b.createIntersection(aabb))
+                .forEach(r -> adjustOffset(box, r, vector));
+    }
+    
+    private static void adjustOffset(final BoundedBox box, final Rectangle offset, final Vector vector) {
+        var xOffset = offset.getWidth() * -vector.getDx();
+        var yOffset = offset.getHeight() * -vector.getDy();
+        box.move(xOffset, yOffset);
     }
     
 }

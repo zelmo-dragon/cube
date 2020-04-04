@@ -86,8 +86,24 @@ public final class DebugSystem extends AbstractSystem {
                 .stream()
                 .map(e -> e.getComponent(BoundedBox.class))
                 .filter(b -> (Objects.equals(b.getBlock(), Block.SOLID)))
-                .map(b -> b.getBound())
-                .forEach(b -> renderer.drawRectangle(b.getXp(), b.getYp(), b.getWidth(), b.getHeight(), Pixels.COLOR_RED));
+                .forEach(b -> drawBox(renderer, b));
+    }
+
+    private static void drawBox(final Renderer<?> renderer, final BoundedBox box) {
+        renderer.drawRectangle(
+                box.getBound().getXp(),
+                box.getBound().getYp(),
+                box.getBound().getWidth(),
+                box.getBound().getHeight(),
+                Pixels.COLOR_GREEN
+        );
+        renderer.drawRectangle(
+                box.getCollision().getXp(),
+                box.getCollision().getYp(),
+                box.getCollision().getWidth(),
+                box.getCollision().getHeight(),
+                Pixels.COLOR_RED
+        );
     }
 
     private static void drawCollision(final Renderer<?> renderer, final List<BoundedBox> solidBlocks, final Entity entity) {
@@ -99,6 +115,12 @@ public final class DebugSystem extends AbstractSystem {
                 .filter(b -> !Objects.equals(b, box))
                 .filter(b -> b.getBound().intersects(box.getBound()))
                 .map(b -> b.getBound().createIntersection(box.getBound()))
+                .forEach(b -> renderer.drawFillRectangle(b.getXp(), b.getYp(), b.getWidth(), b.getHeight(), Pixels.COLOR_GREEN));
+        solidBlocks
+                .stream()
+                .filter(b -> !Objects.equals(b, box))
+                .filter(b -> b.getCollision().intersects(box.getCollision()))
+                .map(b -> b.getCollision().createIntersection(box.getCollision()))
                 .forEach(b -> renderer.drawFillRectangle(b.getXp(), b.getYp(), b.getWidth(), b.getHeight(), Pixels.COLOR_RED));
     }
 

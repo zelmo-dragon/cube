@@ -98,6 +98,7 @@ public final class EntityFactory {
 
         var box = new BoundedBox(
                 new Rectangle(0, 0, w, h),
+                new Rectangle(0, 8, 16, 18),
                 Block.SOLID
         );
 
@@ -134,6 +135,7 @@ public final class EntityFactory {
         var size = 16;
         var image = assets.loadImage(AssetManager.DEBUG_WOOD_IMAGE);
         var box = new BoundedBox(
+                new Rectangle(64, 64, size, size),
                 new Rectangle(64, 64, size, size),
                 Block.SOLID
         );

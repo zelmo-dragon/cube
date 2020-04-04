@@ -60,7 +60,7 @@ public final class PlayerSystem extends AbstractSystem {
             }
             
             var box = player.getComponent(BoundedBox.class);            
-            box.getBound().move(vector.getDx(), vector.getDy());
+            box.move(vector.getDx(), vector.getDy());
         }
     }
     
