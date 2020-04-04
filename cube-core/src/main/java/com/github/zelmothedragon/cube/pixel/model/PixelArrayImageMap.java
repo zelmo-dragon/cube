@@ -20,7 +20,7 @@ public class PixelArrayImageMap implements ImageMap<int[]> {
 
     private final PixelArrayImage sheet;
 
-    private final int[][] map;
+    private final Map<Integer, int[][]> maps;
 
     private final int imageWidth;
 
@@ -28,20 +28,25 @@ public class PixelArrayImageMap implements ImageMap<int[]> {
 
     public PixelArrayImageMap(
             final PixelArrayImage sheet,
-            final int[][] map,
+            final Map<Integer, int[][]> maps,
             final int imageWidth,
             final int imageHeight) {
 
         this.cache = new HashMap<>();
         this.sheet = sheet;
-        this.map = map;
+        this.maps = maps;
         this.imageWidth = imageWidth;
         this.imageHeight = imageHeight;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(imageWidth, imageHeight, getMapWidth(), getImageHeight());
+        return Objects.hash(
+                imageWidth,
+                imageHeight,
+                getMapWidth(),
+                getImageHeight()
+        );
     }
 
     @Override
@@ -65,13 +70,13 @@ public class PixelArrayImageMap implements ImageMap<int[]> {
     }
 
     @Override
-    public Image<int[]> getImage(int xIndex, int yIndex) {
+    public Image<int[]> getImage(int xIndex, int yIndex, int layout) {
 
         PixelArrayImage image;
 
         if (xIndex >= 0 && xIndex <= getMapWidth() && yIndex >= 0 && yIndex <= getMapHeight()) {
 
-            var index = map[yIndex][xIndex];
+            var index = maps.get(layout)[yIndex][xIndex];
             if (cache.containsKey(index)) {
                 image = cache.get(index);
             } else if (index == Image.EMPTY_INDEX) {
@@ -103,12 +108,17 @@ public class PixelArrayImageMap implements ImageMap<int[]> {
 
     @Override
     public int getMapWidth() {
-        return map[0].length;
+        return maps.get(0)[0].length;
     }
 
     @Override
     public int getMapHeight() {
-        return map.length;
+        return maps.get(0).length;
+    }
+
+    @Override
+    public int getLayoutCount() {
+        return maps.size();
     }
 
 }

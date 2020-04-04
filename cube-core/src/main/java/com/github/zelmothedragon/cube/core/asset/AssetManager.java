@@ -7,6 +7,8 @@ import com.github.zelmothedragon.cube.core.model.ImageMap;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Gestionnaire de ressources externe. Une instance unique de cette classe est
@@ -18,13 +20,17 @@ import java.nio.charset.StandardCharsets;
  */
 public interface AssetManager<T> {
 
-    String DEBUG_BACKGROUND_IMAGE = "/assets/images/overworld.png";
+    String DEBUG_BACKGROUND_IMAGE_SET = "/assets/images/overworld.png";
 
-    String DEBUG_BACKGROUND_MAP_LAYER_0 = "/assets/maps/debug.csv";
+    String DEBUG_BACKGROUND_MAP_LAYER_0 = "/assets/maps/debug_layer_0.csv";
+
+    String DEBUG_BACKGROUND_MAP_LAYER_1 = "/assets/maps/debug_layer_1.csv";
+
+    String DEBUG_BACKGROUND_MAP_LAYER_2 = "/assets/maps/debug_layer_2.csv";
 
     String DEBUG_WOOD_IMAGE = "/assets/images/wood.png";
 
-    String DEBUG_PLAYER_IMAGE = "/assets/images/npc_test.png";
+    String DEBUG_PLAYER_IMAGE_SET = "/assets/images/npc_test.png";
 
     String DEBUG_8X8_TEXT_NO_SHADOW = "/assets/fonts/8x8_text_white_no_shadow.png";
 
@@ -81,7 +87,7 @@ public interface AssetManager<T> {
      * @param h Hauteur d'une tuile graphique
      * @return Une feuille d'image
      */
-    ImageMap<T> loadImageMap(String imagePath, String mapPath, int w, int h);
+    ImageMap<T> loadImageMap(String imagePath, Map<Integer, String> mapPath, int w, int h);
 
     /**
      * Charger une ressource.
@@ -118,7 +124,19 @@ public interface AssetManager<T> {
      * @param mapPath Chemin de la cartographie de la feuille
      * @return La cartographie
      */
-    public static int[][] loadMap(final String mapPath) {
+    public static Map<Integer, int[][]> loadMap(final Map<Integer, String> mapPath) {
+        var maps = new HashMap<Integer, int[][]>(mapPath.size());
+        mapPath.forEach((k, v) -> maps.put(k, loadMap(v)));
+        return maps;
+    }
+
+    /**
+     * Charger la cartographie pour la génération de carte.
+     *
+     * @param mapPath Chemin de la cartographie de la feuille
+     * @return La cartographie
+     */
+    private static int[][] loadMap(final String mapPath) {
         int[][] map;
         try (var stream = loadResource(mapPath)) {
 

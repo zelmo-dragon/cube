@@ -3,6 +3,7 @@ package com.github.zelmothedragon.cube.core.model;
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
 import com.github.zelmothedragon.cube.core.util.geometry.Dimension;
 import com.github.zelmothedragon.cube.core.util.geometry.Rectangle;
+import java.util.Map;
 
 /**
  * Fabrique d'entités. Une instance unique de cette classe est requise pour le
@@ -69,8 +70,7 @@ public final class EntityFactory {
         var w = 16;
         var h = 32;
         var vector = new Vector();
-        var animation = assets.loadAnimatedImage(
-                AssetManager.DEBUG_PLAYER_IMAGE,
+        var animation = assets.loadAnimatedImage(AssetManager.DEBUG_PLAYER_IMAGE_SET,
                 w,
                 h,
                 50,
@@ -103,9 +103,18 @@ public final class EntityFactory {
     public Entity createMapDebug() {
 
         var box = new BoundedBox();
-        var image = assets.loadImageMap(
-                AssetManager.DEBUG_BACKGROUND_IMAGE,
+        var map = Map.of(
+                0,
                 AssetManager.DEBUG_BACKGROUND_MAP_LAYER_0,
+                1,
+                AssetManager.DEBUG_BACKGROUND_MAP_LAYER_1,
+                2,
+                AssetManager.DEBUG_BACKGROUND_MAP_LAYER_2
+        );
+
+        var image = assets.loadImageMap(
+                AssetManager.DEBUG_BACKGROUND_IMAGE_SET,
+                map,
                 16,
                 16
         );

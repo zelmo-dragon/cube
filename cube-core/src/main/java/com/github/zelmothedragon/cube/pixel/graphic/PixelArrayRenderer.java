@@ -1,10 +1,10 @@
 package com.github.zelmothedragon.cube.pixel.graphic;
 
+import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import com.github.zelmothedragon.cube.core.model.AnimatedImage;
 import com.github.zelmothedragon.cube.core.model.FontImage;
 import com.github.zelmothedragon.cube.core.model.Image;
 import com.github.zelmothedragon.cube.core.model.ImageMap;
-import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import java.util.Arrays;
 
 /**
@@ -190,13 +190,17 @@ public class PixelArrayRenderer implements Renderer<int[]> {
 
     @Override
     public void drawImage(final int x, final int y, final ImageMap<int[]> image) {
-        for (var yp = 0; yp < image.getMapHeight(); yp++) {
-            var ya = y + yp * image.getImageHeight();
 
-            for (var xp = 0; xp < image.getMapWidth(); xp++) {
-                var xa = x + xp * image.getImageWidth();
-                var subImage = image.getImage(xp, yp);
-                drawImage(xa, ya, subImage);
+        for (int i = 0; i < image.getLayoutCount(); i++) {
+            
+            for (var yp = 0; yp < image.getMapHeight(); yp++) {
+                var ya = y + yp * image.getImageHeight();
+
+                for (var xp = 0; xp < image.getMapWidth(); xp++) {
+                    var xa = x + xp * image.getImageWidth();
+                    var subImage = image.getImage(xp, yp, i);
+                    drawImage(xa, ya, subImage);
+                }
             }
         }
     }

@@ -7,7 +7,6 @@ public final class TestSystem extends AbstractSystem {
 
     TestSystem(final GameManager manager, final int priority) {
         super(manager, priority);
-        manager.getFactory().createDebugBlock();
     }
 
     @Override

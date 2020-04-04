@@ -24,9 +24,10 @@ public interface ImageMap<T> extends Component {
      *
      * @param x Coordonné en abcisse
      * @param y Coordonné en ordonnée
+     * @param layout Indice de profondeur
      * @return L'image
      */
-    Image<T> getImage(int x, int y);
+    Image<T> getImage(int x, int y, int layout);
 
     /**
      * Accesseur, obtenir la largeur de l'image en pixel.
@@ -55,4 +56,11 @@ public interface ImageMap<T> extends Component {
      * @return La hauteur
      */
     int getMapHeight();
+
+    /**
+     * Accesseur, obtenir le nombre d'indice de profondeur.
+     *
+     * @return Le nombre d'indice de profondeur
+     */
+    int getLayoutCount();
 }
