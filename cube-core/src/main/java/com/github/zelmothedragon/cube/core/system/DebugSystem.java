@@ -7,7 +7,6 @@ import com.github.zelmothedragon.cube.core.entity.debug.Clock;
 import com.github.zelmothedragon.cube.core.entity.geometry.Camera;
 import com.github.zelmothedragon.cube.core.entity.geometry.Point;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
-import com.github.zelmothedragon.cube.core.entity.image.AnimatedImage;
 import com.github.zelmothedragon.cube.core.entity.image.FontImage;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import com.github.zelmothedragon.cube.pixel.graphic.Pixels;
@@ -47,7 +46,13 @@ public final class DebugSystem extends AbstractSystem {
     public void draw(final Renderer<?> renderer) {
 
         var camera = Camera.INSTANCE;
-        renderer.drawFillRectangle(camera.getXp() - 2, camera.getYp() - 2, 5, 5, Pixels.COLOR_YELLOW);
+        renderer.drawFillRectangle(
+                camera.getXp() - 2,
+                camera.getYp() - 2,
+                5,
+                5,
+                Pixels.COLOR_YELLOW
+        );
 
         var entities = manager
                 .getEntities()
@@ -56,22 +61,12 @@ public final class DebugSystem extends AbstractSystem {
         if (!entities.isEmpty()) {
             var player = entities.stream().findFirst().get();
             var r = player.getComponent(Rectangle.class);
-            var i = player.getComponent(AnimatedImage.class);
-
             renderer.drawRectangle(
                     r.getXp(),
                     r.getYp(),
                     r.getWidth(),
                     r.getHeight(),
                     Pixels.COLOR_GREEN
-            );
-
-            renderer.drawRectangle(
-                    0,
-                    0,
-                    0,
-                    0,
-                    0
             );
         }
 
@@ -84,10 +79,10 @@ public final class DebugSystem extends AbstractSystem {
 
         var clock = debug.getComponent(Clock.class);
         var point = debug.getComponent(Point.class);
-        var image = debug.getComponent(FontImage.class);
+        var font = debug.getComponent(FontImage.class);
 
         renderer.resetOffset();
-        renderer.drawImage(point.getXp(), point.getYp(), image, clock.getMessage());
+        renderer.drawImage(point.getXp(), point.getYp(), font, clock.getMessage());
         clock.render();
     }
 

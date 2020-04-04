@@ -51,8 +51,8 @@ public class PixelArrayImageMap implements ImageMap<int[]> {
     @Override
     public String toString() {
         return ToString
-                .with("width", PixelArrayImageMap::getImageWidth)
-                .thenWith("height", PixelArrayImageMap::getImageHeight)
+                .with("imageWidth", PixelArrayImageMap::getImageWidth)
+                .thenWith("imageHeight", PixelArrayImageMap::getImageHeight)
                 .thenWith("mapHeight", PixelArrayImageMap::getMapWidth)
                 .thenWith("mapWidth", PixelArrayImageMap::getMapHeight)
                 .apply(this);

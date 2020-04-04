@@ -4,9 +4,12 @@ import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.entity.image.AnimatedImage;
 import com.github.zelmothedragon.cube.core.entity.image.Image;
+import com.github.zelmothedragon.cube.core.util.lang.Equal;
+import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class PixelArrayAnimatedImage implements AnimatedImage<int[]> {
 
@@ -57,6 +60,31 @@ public class PixelArrayAnimatedImage implements AnimatedImage<int[]> {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(imageWidth, imageHeight, duration, count);
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        return Equal
+                .with(PixelArrayAnimatedImage::getImageWidth)
+                .thenWith(PixelArrayAnimatedImage::getImageHeight)
+                .thenWith(PixelArrayAnimatedImage::getDuration)
+                .thenWith(PixelArrayAnimatedImage::getCount)
+                .apply(this, obj);
+    }
+
+    @Override
+    public String toString() {
+        return ToString
+                .with("imageWidth", PixelArrayAnimatedImage::getImageWidth)
+                .thenWith("imageHeight", PixelArrayAnimatedImage::getImageHeight)
+                .thenWith("duration", PixelArrayAnimatedImage::getDuration)
+                .thenWith("count", PixelArrayAnimatedImage::getCount)
+                .apply(this);
+    }
+
+    @Override
     public void addOffset(final Orientation orientation, Rectangle rectangle) {
         this.orientations.put(orientation, rectangle);
     }
@@ -95,14 +123,13 @@ public class PixelArrayAnimatedImage implements AnimatedImage<int[]> {
 
         // Calculer l'index et la position de la prochaine image.
         var frac = frame * count / duration;
-        var index = Math.min((int) Math.floor(frac), count - 1);
+        var index = Math.min(frac, count - 1);
         var columns = sheet.getWidth() / imageWidth;
         var xp = (index % columns) * imageWidth + xOffset;
         var yp = (index / columns) * imageHeight + yOffset;
 
         currentImageIndex = xp + yp * imageWidth;
         if (!cache.containsKey(currentImageIndex)) {
-
             // Extraire de la feuille d'image
             // l'image de l'animation courante.
             var image = sheet.extract(xp, yp, imageWidth, imageHeight);
@@ -137,6 +164,16 @@ public class PixelArrayAnimatedImage implements AnimatedImage<int[]> {
     }
 
     @Override
+    public int getImageWidth() {
+        return imageWidth;
+    }
+
+    @Override
+    public int getImageHeight() {
+        return imageHeight;
+    }
+
+    @Override
     public int getDuration() {
         return duration;
     }
@@ -151,5 +188,4 @@ public class PixelArrayAnimatedImage implements AnimatedImage<int[]> {
         this.xOffset = xOffset;
         this.yOffset = yOffset;
     }
-
 }

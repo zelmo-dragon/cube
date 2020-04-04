@@ -50,8 +50,8 @@ public class PixelArrayFontImage implements FontImage<int[]> {
     @Override
     public String toString() {
         return ToString
-                .with("width", PixelArrayFontImage::getImageWidth)
-                .thenWith("height", PixelArrayFontImage::getImageHeight)
+                .with("imageWidth", PixelArrayFontImage::getImageWidth)
+                .thenWith("imageHeight", PixelArrayFontImage::getImageHeight)
                 .thenWith("fontMap", e -> e.fontMap)
                 .apply(this);
     }

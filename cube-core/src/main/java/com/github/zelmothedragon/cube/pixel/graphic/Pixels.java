@@ -7,7 +7,7 @@ public final class Pixels {
     public static final int COLOR_BLACK = 0xFF000000;
 
     public static final int COLOR_WHITE = 0xFFFFFFFF;
-    
+
     public static final int COLOR_RED = 0xFFFF0000;
 
     public static final int COLOR_GREEN = 0xFF00FF00;
@@ -79,6 +79,24 @@ public final class Pixels {
         var green = getGreen(color) * power;
         var blue = getBlue(color) * power;
         return toColor((int) red, (int) green, (int) blue);
+    }
+
+    public static int[] scale(final int w, final int h, final int[] image, final int scale) {
+
+        var scaledWidth = scale * w;
+        var scaledHeight = scale * h;
+        var buffer = new int[scaledWidth * scaledHeight];
+
+        for (var y = 0; y < scaledHeight; y++) {
+            var ya = y / scale;
+
+            for (var x = 0; x < scaledWidth; x++) {
+                var xa = x / scale;
+                var color = image[xa + ya * w];
+                buffer[x + y * scaledWidth] = color;
+            }
+        }
+        return buffer;
     }
 
     public static int convertHSB(

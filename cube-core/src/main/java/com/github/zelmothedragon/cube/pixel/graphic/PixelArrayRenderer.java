@@ -29,7 +29,7 @@ public class PixelArrayRenderer implements Renderer<int[]> {
 
     @Override
     public void clear() {
-        Arrays.fill(buffer, Pixels.COLOR_BLACK);
+        Arrays.fill(buffer, Pixels.COLOR_TRANSPARENT);
     }
 
     @Override
@@ -197,15 +197,8 @@ public class PixelArrayRenderer implements Renderer<int[]> {
 
     @Override
     public void drawImage(final int x, final int y, final AnimatedImage<int[]> image) {
-        var currentImage = image.getCurrentImage();
-        for (int yp = 0; yp < currentImage.getHeight(); yp++) {
-            var ya = y + yp;
-
-            for (int xp = 0; xp < currentImage.getWidth(); xp++) {
-                var xa = x + xp;
-                drawImage(xa, ya, currentImage);
-            }
-        }
+        var subImage = image.getCurrentImage();
+        drawImage(x, y, subImage);
     }
 
     @Override
@@ -258,8 +251,9 @@ public class PixelArrayRenderer implements Renderer<int[]> {
         var i = xo + yo * width;
 
         if (Pixels.isInBound(xo, width) && Pixels.isInBound(yo, height)) {
-
-            buffer[i] = color;
+            if (color != Pixels.COLOR_TRANSPARENT) {
+                buffer[i] = color;
+            }
         }
     }
 

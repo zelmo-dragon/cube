@@ -27,7 +27,7 @@ public class PixelArrayAssetManager implements AssetManager<int[]> {
 
     @Override
     public AnimatedImage<int[]> loadAnimatedImage(final String imagePath, final int w, final int h, final int duration, final int count) {
-        PixelArrayImage sheet = (PixelArrayImage) loadImage(imagePath);
+        var sheet = (PixelArrayImage) loadImage(imagePath);
         return new PixelArrayAnimatedImage(sheet, w, h, duration, count);
     }
 

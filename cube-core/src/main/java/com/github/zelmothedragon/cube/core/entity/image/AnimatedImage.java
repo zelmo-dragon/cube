@@ -18,17 +18,21 @@ public interface AnimatedImage<T> extends Component {
 
     Image<T> getCurrentImage();
 
+    int getImageWidth();
+
+    int getImageHeight();
+
     int getDuration();
 
     int getCount();
-
-    void setOffset(int xOffset, int yOffset);
 
     void addOffset(final Orientation orientation, Rectangle rectangle);
 
     Rectangle getOffset(final Orientation orientation);
 
     void setOrientation(Orientation orientation);
+
+    void setOffset(final int xOffset, final int yOffset);
 
     Orientation getOrientation();
 

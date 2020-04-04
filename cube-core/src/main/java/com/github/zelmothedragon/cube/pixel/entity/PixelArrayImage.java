@@ -65,7 +65,7 @@ public class PixelArrayImage implements Image<int[]> {
     }
 
     public void clear() {
-        Arrays.fill(buffer, Pixels.COLOR_BLACK);
+        Arrays.fill(buffer, Pixels.COLOR_TRANSPARENT);
     }
 
     public int getPixel(final int x, final int y) {
@@ -74,7 +74,7 @@ public class PixelArrayImage implements Image<int[]> {
             var i = x + y * width;
             color = buffer[i];
         } else {
-            color = Pixels.COLOR_BLACK;
+            color = Pixels.COLOR_TRANSPARENT;
         }
         return color;
     }
