@@ -53,6 +53,10 @@ public final class Pixels {
         return position >= 0 && position < size;
     }
 
+    public static boolean isInBound(final int x, final int y, final int w, final int h) {
+        return x >= 0 && x < w && y >= 0 && y < h;
+    }
+
     public static int toColor(final int red, final int green, final int blue) {
         return UNICOLOR_MAX_VALUE << CHANNEL_ALPHA | red << CHANNEL_RED | green << CHANNEL_GREEN | blue;
     }

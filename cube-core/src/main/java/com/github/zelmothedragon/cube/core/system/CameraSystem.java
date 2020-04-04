@@ -1,10 +1,9 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameManager;
+import com.github.zelmothedragon.cube.core.component.BoundedBox;
 import com.github.zelmothedragon.cube.core.entity.Entity;
 import com.github.zelmothedragon.cube.core.component.Camera;
-import com.github.zelmothedragon.cube.core.entity.geometry.Point;
-import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 
 /**
@@ -55,16 +54,10 @@ public final class CameraSystem extends AbstractSystem {
     private static void updateCamera(final Entity entity) {
 
         var camera = Camera.INSTANCE;
-        if (entity.hasComponent(Point.class)) {
-            var point = entity.getComponent(Point.class);
-            camera.setXp(point.getXp());
-            camera.setYp(point.getYp());
-        } else if (entity.hasComponent(Rectangle.class)) {
-            var rectangle = entity.getComponent(Rectangle.class);
-            camera.setXp(rectangle.getXp());
-            camera.setYp(rectangle.getYp());
-        } else {
-            // RAS
+        if (entity.hasComponent(BoundedBox.class)) {
+            var box = entity.getComponent(BoundedBox.class);
+            camera.setXp(box.getBound().getXp());
+            camera.setYp(box.getBound().getYp());
         }
     }
 

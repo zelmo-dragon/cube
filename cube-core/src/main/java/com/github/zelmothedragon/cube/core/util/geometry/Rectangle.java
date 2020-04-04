@@ -150,6 +150,17 @@ public final class Rectangle {
     }
 
     /**
+     * Déplacer un point en fonction d'un vecteur.
+     *
+     * @param dx Vecteur de déplacement sur abcisse
+     * @param dy Vecteur de déplacement sur ordonnée
+     */
+    public void move(final int dx, final int dy) {
+        this.xp += dx;
+        this.yp += dy;
+    }
+
+    /**
      * Accesseur, obtenir la position en abcisse.
      *
      * @return La position en abcisse

@@ -1,10 +1,10 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameManager;
+import com.github.zelmothedragon.cube.core.component.BoundedBox;
+import com.github.zelmothedragon.cube.core.component.ImageMap;
 import com.github.zelmothedragon.cube.core.entity.Entity;
 import com.github.zelmothedragon.cube.core.entity.Family;
-import com.github.zelmothedragon.cube.core.entity.geometry.Point;
-import com.github.zelmothedragon.cube.core.component.ImageMap;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 
 /**
@@ -42,9 +42,13 @@ public class BackgroundSystem extends AbstractSystem {
     }
 
     private static void drawImage(final Entity entity, final Renderer<?> renderer) {
-        var point = entity.getComponent(Point.class);
+        var box = entity.getComponent(BoundedBox.class);
         var image = entity.getComponent(ImageMap.class);
-        renderer.drawImage(point.getXp(), point.getYp(), image);
+        renderer.drawImage(
+                box.getBound().getXp(),
+                box.getBound().getYp(),
+                image
+        );
     }
 
 }

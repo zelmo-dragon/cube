@@ -1,6 +1,6 @@
 package com.github.zelmothedragon.cube.core.component;
 
-import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
+import com.github.zelmothedragon.cube.core.util.geometry.Rectangle;
 
 /**
  * Image animée.

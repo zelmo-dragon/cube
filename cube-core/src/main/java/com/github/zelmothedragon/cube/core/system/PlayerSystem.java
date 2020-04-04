@@ -1,12 +1,12 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameManager;
-import com.github.zelmothedragon.cube.core.entity.Entity;
+import com.github.zelmothedragon.cube.core.component.AnimatedImage;
+import com.github.zelmothedragon.cube.core.component.BoundedBox;
 import com.github.zelmothedragon.cube.core.component.Controllable;
 import com.github.zelmothedragon.cube.core.component.Orientation;
-import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
+import com.github.zelmothedragon.cube.core.entity.Entity;
 import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
-import com.github.zelmothedragon.cube.core.component.AnimatedImage;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import com.github.zelmothedragon.cube.core.input.GamePad;
 
@@ -59,8 +59,8 @@ public final class PlayerSystem extends AbstractSystem {
                 vector.reset();
             }
 
-            var rectangle = player.getComponent(Rectangle.class);
-            rectangle.move(vector);
+            var box = player.getComponent(BoundedBox.class);
+            box.getBound().move(vector.getDx(), vector.getDy());
         }
         image.update();
     }
@@ -68,11 +68,11 @@ public final class PlayerSystem extends AbstractSystem {
     @Override
     public void draw(final Renderer<?> renderer) {
 
-        var rectangle = player.getComponent(Rectangle.class);
+        var box = player.getComponent(BoundedBox.class);
         var image = player.getComponent(AnimatedImage.class);
         renderer.drawImage(
-                rectangle.getXp(),
-                rectangle.getYp(),
+                box.getBound().getXp(),
+                box.getBound().getYp(),
                 image
         );
     }

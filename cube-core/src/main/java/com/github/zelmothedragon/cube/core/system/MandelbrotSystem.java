@@ -1,11 +1,11 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameManager;
-import com.github.zelmothedragon.cube.core.entity.Entity;
+import com.github.zelmothedragon.cube.core.component.BoundedBox;
 import com.github.zelmothedragon.cube.core.component.Controllable;
-import com.github.zelmothedragon.cube.core.component.Mandelbrot;
-import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.component.Image;
+import com.github.zelmothedragon.cube.core.component.Mandelbrot;
+import com.github.zelmothedragon.cube.core.entity.Entity;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import com.github.zelmothedragon.cube.core.input.GamePad;
 import com.github.zelmothedragon.cube.pixel.graphic.Pixels;
@@ -61,12 +61,14 @@ public class MandelbrotSystem extends AbstractSystem {
     public void draw(final Renderer<?> renderer) {
 
         var data = mandelbrot.getComponent(Mandelbrot.class);
-        var rectangle = mandelbrot.getComponent(Rectangle.class);
+        var box = mandelbrot.getComponent(BoundedBox.class);
         var image = mandelbrot.getComponent(Image.class);
+
+        // /!\ Implémentation spécifique du type Image !
         var buffer = (int[]) image.getRawData();
 
-        var w = rectangle.getWidth();
-        var h = rectangle.getHeight();
+        var w = box.getBound().getWidth();
+        var h = box.getBound().getHeight();
         for (var y = 0; y < h; y++) {
             for (var x = 0; x < w; x++) {
                 var xp = (x - w / 2.0) / data.getScale();
@@ -75,7 +77,11 @@ public class MandelbrotSystem extends AbstractSystem {
                 buffer[x + y * w] = color;
             }
         }
-        renderer.drawImage(0, 0, image);
+        renderer.drawImage(
+                box.getBound().getXp(),
+                box.getBound().getYp(),
+                image
+        );
     }
 
     private static int calculatePoint(

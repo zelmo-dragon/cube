@@ -8,8 +8,8 @@ import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import java.util.Arrays;
 
 /**
- * Implémentation interne du gestionnaire de rendu basé sur la manipulation de tableau
- * de pixels.
+ * Implémentation interne du gestionnaire de rendu basé sur la manipulation de
+ * tableau de pixels.
  *
  * @author MOSELLE Maxime
  */
@@ -237,15 +237,26 @@ public class PixelArrayRenderer implements Renderer<int[]> {
         this.yOffset = 0;
     }
 
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
     private int getPixel(final int xp, final int yp) {
+
         int pixel;
         var xo = xp - xOffset;
         var yo = yp - yOffset;
-        var i = xo + yo * width;
-        if (Pixels.isInBound(xo, width) && Pixels.isInBound(yo, height)) {
-            pixel = buffer[i];
+
+        if (Pixels.isInBound(xo, yo, width, height)) {
+            pixel = buffer[xo + yo * width];
         } else {
-            pixel = Pixels.COLOR_BLACK;
+            pixel = Pixels.COLOR_TRANSPARENT;
         }
         return pixel;
     }
@@ -254,11 +265,10 @@ public class PixelArrayRenderer implements Renderer<int[]> {
 
         var xo = x - xOffset;
         var yo = y - yOffset;
-        var i = xo + yo * width;
 
-        if (Pixels.isInBound(xo, width) && Pixels.isInBound(yo, height)) {
+        if (Pixels.isInBound(xo, yo, width, height)) {
             if (color != Pixels.COLOR_TRANSPARENT) {
-                buffer[i] = color;
+                buffer[xo + yo * width] = color;
             }
         }
     }

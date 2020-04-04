@@ -76,7 +76,7 @@ public class PixelArrayImage implements Image<int[]> {
 
     public int getPixel(final int x, final int y) {
         int color;
-        if (Pixels.isInBound(x, width) && Pixels.isInBound(y, height)) {
+        if (Pixels.isInBound(x, y, width, height)) {
             var i = x + y * width;
             color = buffer[i];
         } else {
@@ -86,7 +86,7 @@ public class PixelArrayImage implements Image<int[]> {
     }
 
     public void setPixel(final int x, final int y, final int color) {
-        if (Pixels.isInBound(x, width) && Pixels.isInBound(y, height)) {
+        if (Pixels.isInBound(x, y, width, height)) {
             var i = x + y * width;
             buffer[i] = color;
         }

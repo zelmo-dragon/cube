@@ -4,7 +4,7 @@ package com.github.zelmothedragon.cube.core.component;
  *
  * @author MOSELLE Maxime
  */
-public enum Block implements Component {
+public enum Block {
 
     SOLID,
     

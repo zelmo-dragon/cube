@@ -34,11 +34,12 @@ public final class SystemManager {
      */
     public SystemManager(final GameManager manager) {
         world = Arrays.asList(
-                new CameraSystem(manager, 50),
-                new BackgroundSystem(manager, 200),
+                new CameraSystem(manager, 100),
+                new BackgroundSystem(manager, 201),
                 //new MandelbrotSystem(manager, 500),
                 new CollisionSystem(manager, 501),
                 new PlayerSystem(manager, 510),
+                new TestSystem(manager, 900),
                 new DebugSystem(manager, Integer.MAX_VALUE)
         );
 
@@ -62,13 +63,13 @@ public final class SystemManager {
      * Mettre à jour le rendu graphique du jeu.Uniquement pour les systèmes
      * actifs.
      *
-     * @param g2d Gestionnaire de rendu graphique
+     * @param renderer Gestionnaire de rendu graphique
      */
-    public void draw(final Renderer g2d) {
+    public void draw(final Renderer<?> renderer) {
         world
                 .stream()
                 .filter(AbstractSystem::isEnabled)
-                .forEach(s -> s.draw(g2d));
+                .forEach(s -> s.draw(renderer));
     }
 
     /**

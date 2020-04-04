@@ -132,4 +132,17 @@ public interface Renderer<T> {
      */
     void resetOffset();
 
+    /**
+     * Accesseur, obtenir la largeur de l'affichage en pixel.
+     *
+     * @return La largeur
+     */
+    int getWidth();
+
+    /**
+     * Accesseur, obtenir la hauteur de l'affichage en pixel.
+     *
+     * @return La hauteur
+     */
+    int getHeight();
 }
