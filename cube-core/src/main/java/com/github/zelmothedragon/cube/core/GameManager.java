@@ -16,7 +16,7 @@ public final class GameManager {
     /**
      * Gestionnaire des ressources numériques unique.
      */
-    private final AssetManager assets;
+    private final AssetManager<?> assets;
 
     /**
      * Gestionnaire de système unique.
@@ -44,7 +44,7 @@ public final class GameManager {
      *
      * @param assets Gestionnaire des ressources numériques
      */
-    public GameManager(final AssetManager assets) {
+    public GameManager(final AssetManager<?> assets) {
         this.assets = assets;
         this.inputs = new InputManager();
         this.entities = new EntityManager();
@@ -60,7 +60,7 @@ public final class GameManager {
      *
      * @return Le gestionnaire des ressources numériques unique.
      */
-    public AssetManager getAssets() {
+    public AssetManager<?> getAssets() {
         return assets;
     }
 
