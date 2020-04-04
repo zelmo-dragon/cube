@@ -11,6 +11,7 @@ import com.github.zelmothedragon.cube.core.component.FontImage;
 import com.github.zelmothedragon.cube.core.component.Image;
 import com.github.zelmothedragon.cube.core.component.ImageMap;
 import com.github.zelmothedragon.cube.core.component.Mandelbrot;
+import com.github.zelmothedragon.cube.core.component.Movable;
 import com.github.zelmothedragon.cube.core.component.Orientation;
 import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
 import com.github.zelmothedragon.cube.core.util.geometry.Dimension;
@@ -102,6 +103,7 @@ public final class EntityFactory {
 
         var entity = new Entity(Family.PLAYER);
         entity.addComponent(Controllable.INSTANCE);
+        entity.addComponent(Movable.INSTANCE);
         entity.addComponent(Camera.INSTANCE);
         entity.addComponent(vector);
         entity.addComponent(box);

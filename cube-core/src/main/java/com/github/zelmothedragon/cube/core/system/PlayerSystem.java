@@ -32,13 +32,13 @@ public final class PlayerSystem extends AbstractSystem {
      */
     PlayerSystem(final GameManager manager, final int priority) {
         super(manager, priority);
-
+        
         this.player = manager.getFactory().createDebugPlayer();
     }
-
+    
     @Override
     public void update() {
-
+        
         var image = player.getComponent(AnimatedImage.class);
         if (player.hasComponent(Controllable.class)) {
             var vector = player.getComponent(Vector.class);
@@ -58,15 +58,15 @@ public final class PlayerSystem extends AbstractSystem {
                 image.setOrientation(Orientation.EMPTY);
                 vector.reset();
             }
-
-            var box = player.getComponent(BoundedBox.class);
+            
+            var box = player.getComponent(BoundedBox.class);            
             box.getBound().move(vector.getDx(), vector.getDy());
         }
     }
-
+    
     @Override
     public void draw(final Renderer<?> renderer) {
-
+        
     }
-
+    
 }

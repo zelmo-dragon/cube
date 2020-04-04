@@ -5,6 +5,7 @@ import com.github.zelmothedragon.cube.core.component.Block;
 import com.github.zelmothedragon.cube.core.component.BoundedBox;
 import com.github.zelmothedragon.cube.core.component.Clock;
 import com.github.zelmothedragon.cube.core.component.FontImage;
+import com.github.zelmothedragon.cube.core.component.Movable;
 import com.github.zelmothedragon.cube.core.entity.Entity;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import com.github.zelmothedragon.cube.pixel.graphic.Pixels;
@@ -48,6 +49,19 @@ public final class DebugSystem extends AbstractSystem {
         var entities = manager.getEntities().filter(BoundedBox.class);
         drawBox(renderer, entities);
 
+        var solidBlocks = manager
+                .getEntities()
+                .filter(BoundedBox.class)
+                .stream()
+                .map(e -> e.getComponent(BoundedBox.class))
+                .filter(e -> Objects.equals(e.getBlock(), Block.SOLID))
+                .collect(Collectors.toList());
+
+        manager
+                .getEntities()
+                .filter(Movable.class)
+                .forEach(e -> drawCollision(renderer, solidBlocks, e));
+
         renderer.resetOffset();
         //drawGrid(renderer);
         drawClock(debug, renderer);
@@ -68,22 +82,24 @@ public final class DebugSystem extends AbstractSystem {
 
     private static void drawBox(final Renderer<?> renderer, final Set<Entity> entities) {
 
-        List<BoundedBox> boxes = entities
+        entities
                 .stream()
                 .map(e -> e.getComponent(BoundedBox.class))
-                .collect(Collectors.toList());
+                .filter(b -> (Objects.equals(b.getBlock(), Block.SOLID)))
+                .map(b -> b.getBound())
+                .forEach(b -> renderer.drawRectangle(b.getXp(), b.getYp(), b.getWidth(), b.getHeight(), Pixels.COLOR_RED));
+    }
 
-        for (BoundedBox box : boxes) {
-            if (Objects.equals(box.getBlock(), Block.SOLID)) {
-                renderer.drawRectangle(
-                        box.getBound().getXp(),
-                        box.getBound().getYp(),
-                        box.getBound().getWidth(),
-                        box.getBound().getHeight(),
-                        Pixels.COLOR_RED
-                );
-            }
-        }
+    private static void drawCollision(final Renderer<?> renderer, final List<BoundedBox> solidBlocks, final Entity entity) {
+
+        var box = entity.getComponent(BoundedBox.class);
+
+        solidBlocks
+                .stream()
+                .filter(b -> !Objects.equals(b, box))
+                .filter(b -> b.getBound().intersects(box.getBound()))
+                .map(b -> b.getBound().createIntersection(box.getBound()))
+                .forEach(b -> renderer.drawFillRectangle(b.getXp(), b.getYp(), b.getWidth(), b.getHeight(), Pixels.COLOR_RED));
     }
 
     private static void drawClock(final Entity debug, final Renderer<?> renderer) {

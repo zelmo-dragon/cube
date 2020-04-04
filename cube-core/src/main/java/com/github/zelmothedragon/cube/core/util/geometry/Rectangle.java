@@ -139,6 +139,14 @@ public final class Rectangle {
         return intersect;
     }
 
+    public Rectangle createIntersection(final Rectangle other) {
+        var x0 = Math.max(xp, other.getXp());
+        var y0 = Math.max(yp, other.getYp());
+        var x1 = Math.min(xp + width, other.getXp() + other.getWidth());
+        var y1 = Math.min(yp + height, other.getYp() + other.getHeight());
+        return new Rectangle(x0, y0, x1 - x0, y1 - y0);
+    }
+
     /**
      * Déplacer un point en fonction d'un vecteur.
      *
