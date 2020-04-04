@@ -127,6 +127,22 @@ public final class EntityFactory {
         return entity;
     }
 
+    public Entity createDebugBlock() {
+
+        var size = 16;
+        var image = assets.loadImage(AssetManager.DEBUG_WOOD_IMAGE);
+        var box = new BoundedBox(
+                new Rectangle(64, 64, size, size),
+                Block.SOLID
+        );
+
+        var entity = new Entity(Family.EMPTY);
+        entity.addComponent(box);
+        entity.addComponent(Image.class, image);
+        entities.add(entity);
+        return entity;
+    }
+
     public Entity createMandelbrot() {
 
         var w = 800;

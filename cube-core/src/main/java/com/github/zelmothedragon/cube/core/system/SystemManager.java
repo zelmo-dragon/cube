@@ -38,7 +38,8 @@ public final class SystemManager {
                 new CollisionSystem(manager, 201),
                 new PlayerSystem(manager, 202),
                 new ImageMapSystem(manager, 301),
-                new AnimatedImageSystem(manager, 302),
+                new ImageSystem(manager, 302),
+                new AnimatedImageSystem(manager, 303),
                 new TestSystem(manager, 900),
                 //new MandelbrotSystem(manager, 500),
                 new DebugSystem(manager, Integer.MAX_VALUE)
