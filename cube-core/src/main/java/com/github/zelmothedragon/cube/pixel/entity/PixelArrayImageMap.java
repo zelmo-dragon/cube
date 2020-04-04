@@ -75,7 +75,8 @@ public class PixelArrayImageMap implements ImageMap<int[]> {
                 var colunms = sheet.getWidth() / imageWidth;
                 var xp = (index % colunms) * imageWidth;
                 var yp = (index / colunms) * imageHeight;
-                image = sheet.extract(xp, yp, imageWidth, imageHeight);
+                var pixels = sheet.getPixel(xp, yp, imageWidth, imageHeight);
+                image = new PixelArrayImage(pixels, imageWidth, imageHeight, index);
                 cache.put(index, image);
             }
         } else {

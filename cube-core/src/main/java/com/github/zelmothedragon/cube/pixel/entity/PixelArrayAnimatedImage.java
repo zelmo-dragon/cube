@@ -132,7 +132,8 @@ public class PixelArrayAnimatedImage implements AnimatedImage<int[]> {
         if (!cache.containsKey(currentImageIndex)) {
             // Extraire de la feuille d'image
             // l'image de l'animation courante.
-            var image = sheet.extract(xp, yp, imageWidth, imageHeight);
+            var pixels = sheet.getPixel(xp, yp, imageWidth, imageHeight);
+            var image = new PixelArrayImage(pixels, imageWidth, imageHeight, currentImageIndex);
             cache.put(currentImageIndex, image);
         }
     }

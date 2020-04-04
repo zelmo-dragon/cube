@@ -86,9 +86,8 @@ public class PixelArrayImage implements Image<int[]> {
         }
     }
 
-    public PixelArrayImage extract(final int x, final int y, final int w, final int h) {
-        var pixels = new int[w * h];
-
+    public int[] getPixel(final int x, final int y, final int w, final int h) {
+        int[] pixels = new int[w * h];
         for (var yp = 0; yp < h; yp++) {
             var ya = yp + y;
 
@@ -97,7 +96,19 @@ public class PixelArrayImage implements Image<int[]> {
                 pixels[xp + yp * w] = getPixel(xa, ya);
             }
         }
-        return new PixelArrayImage(pixels, w, h);
+        return pixels;
+    }
+
+    public void setPixel(final int x, final int y, final int w, final int h, final int[] pixels) {
+        for (var yp = 0; yp < h; yp++) {
+            var ya = yp + y;
+
+            for (var xp = 0; xp < w; xp++) {
+                var xa = xp + x;
+                var color = pixels[xp + yp * w];
+                setPixel(xa, ya, color);
+            }
+        }
     }
 
     @Override

@@ -68,7 +68,8 @@ public class PixelArrayFontImage implements FontImage<int[]> {
                 var columns = sheet.getWidth() / imageWidth;
                 var xp = (index % columns) * imageWidth;
                 var yp = (index / columns) * imageHeight;
-                image = sheet.extract(xp, yp, imageWidth, imageHeight);
+                var pixels = sheet.getPixel(xp, yp, imageWidth, imageHeight);
+                image = new PixelArrayImage(pixels, imageWidth, imageHeight, index);
             } else {
                 image = new PixelArrayImage(imageWidth, imageHeight);
             }
