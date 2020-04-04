@@ -63,6 +63,11 @@ public interface AnimatedImage<T> extends Component {
      */
     void setOrientation(Orientation orientation);
 
+    /**
+     * Accesseur, obtenir l'orientation.
+     *
+     * @return L'orientation
+     */
     Orientation getOrientation();
 
     /**

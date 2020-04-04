@@ -1,5 +1,7 @@
 package com.github.zelmothedragon.cube.core.model;
 
+import com.github.zelmothedragon.cube.core.util.lang.Equal;
+import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -48,39 +50,26 @@ public final class Entity {
     public int hashCode() {
         // Pourquoi laissez-vous les IDE générer cette méthode
         // alors que Java possède déjà la solution ?
-        return Objects.hash(id);
+        return Objects.hash(id, family);
     }
 
     @Override
     public boolean equals(final Object obj) {
+        // Approche fonctionnelle
         // Parce qu'une méthode ne doit avoir q'un seul 'return'.
-        final boolean eq;
-        if (this == obj) {
-            eq = true;
-        } else if (Objects.isNull(obj)) {
-            eq = false;
-        } else {
-            if (!Objects.equals(getClass(), obj.getClass())) {
-                eq = false;
-            } else {
-                Entity other = (Entity) obj;
-                eq = Objects.equals(id, other.id);
-            }
-        }
-        return eq;
+        return Equal
+                .with(Entity::getId)
+                .thenWith(Entity::getFamily)
+                .apply(this, obj);
     }
 
     @Override
     public String toString() {
-        return new StringBuilder()
-                .append("Entity{id=")
-                .append(id)
-                .append(", family=")
-                .append(family)
-                .append(", components=")
-                .append(data.size())
-                .append("}")
-                .toString();
+        return ToString
+                .with("id", Entity::getId)
+                .thenWith("family", Entity::getFamily)
+                .thenWith("components", e -> e.data.size())
+                .apply(this);
     }
 
     /**

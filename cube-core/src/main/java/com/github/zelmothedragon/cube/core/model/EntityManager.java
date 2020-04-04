@@ -36,7 +36,6 @@ public final class EntityManager {
      * @return L'entité trouvé
      */
     public Entity get(final UUID id) {
-
         return data
                 .stream()
                 .filter(e -> Objects.equals(e.getId(), id))
@@ -108,12 +107,11 @@ public final class EntityManager {
      * @return La valeur <code>true</code> si l'entité existe
      */
     public boolean hasEntity(final UUID id) {
-        var option = data
+        return data
                 .stream()
                 .filter(e -> Objects.equals(e.getId(), id))
-                .findAny();
-
-        return option.isPresent();
+                .findAny()
+                .isPresent();
     }
 
 }
