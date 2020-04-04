@@ -5,7 +5,7 @@ import com.github.zelmothedragon.cube.core.graphic.Renderer;
 
 public final class TestSystem extends AbstractSystem {
 
-    public TestSystem(final GameManager manager, final int priority) {
+    TestSystem(final GameManager manager, final int priority) {
         super(manager, priority);
     }
 

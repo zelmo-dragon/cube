@@ -4,7 +4,6 @@ import com.github.zelmothedragon.cube.core.GameManager;
 import com.github.zelmothedragon.cube.core.component.BoundedBox;
 import com.github.zelmothedragon.cube.core.component.ImageMap;
 import com.github.zelmothedragon.cube.core.entity.Entity;
-import com.github.zelmothedragon.cube.core.entity.Family;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 
 /**
@@ -12,7 +11,7 @@ import com.github.zelmothedragon.cube.core.graphic.Renderer;
  *
  * @author MOSELLE Maxime
  */
-public class BackgroundSystem extends AbstractSystem {
+public class ImageMapSystem extends AbstractSystem {
 
     /**
      * Constructeur. Constuire un système, une seule instance est nécessaire
@@ -22,7 +21,7 @@ public class BackgroundSystem extends AbstractSystem {
      * @param manager Gestionnaire du jeu
      * @param priority Priorié d'exécuter du système
      */
-    BackgroundSystem(final GameManager manager, final int priority) {
+    ImageMapSystem(final GameManager manager, final int priority) {
         super(manager, priority);
         manager.getFactory().createMapDebug();
     }
@@ -33,15 +32,14 @@ public class BackgroundSystem extends AbstractSystem {
 
     @Override
     public void draw(final Renderer<?> renderer) {
-        var entities = manager
+        manager
                 .getEntities()
-                .get(Family.MAP_DEBUG);
-
-        entities.forEach(e -> drawImage(e, renderer));
+                .filter(ImageMap.class)
+                .forEach(e -> drawImage(renderer, e));
 
     }
 
-    private static void drawImage(final Entity entity, final Renderer<?> renderer) {
+    private static void drawImage(final Renderer<?> renderer, final Entity entity) {
         var box = entity.getComponent(BoundedBox.class);
         var image = entity.getComponent(ImageMap.class);
         renderer.drawImage(

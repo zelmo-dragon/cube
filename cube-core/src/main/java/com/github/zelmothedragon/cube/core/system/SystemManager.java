@@ -35,11 +35,12 @@ public final class SystemManager {
     public SystemManager(final GameManager manager) {
         world = Arrays.asList(
                 new CameraSystem(manager, 100),
-                new BackgroundSystem(manager, 201),
-                //new MandelbrotSystem(manager, 500),
-                new CollisionSystem(manager, 501),
-                new PlayerSystem(manager, 510),
+                new CollisionSystem(manager, 201),
+                new PlayerSystem(manager, 202),
+                new ImageMapSystem(manager, 301),
+                new AnimatedImageSystem(manager, 302),
                 new TestSystem(manager, 900),
+                //new MandelbrotSystem(manager, 500),
                 new DebugSystem(manager, Integer.MAX_VALUE)
         );
 
