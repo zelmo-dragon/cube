@@ -82,5 +82,6 @@ public final class KeyboardEvent extends KeyAdapter {
         manager.assign(GamePad.BACK, KeyEvent.VK_Z);
         manager.assign(GamePad.START, KeyEvent.VK_ENTER);
         manager.assign(GamePad.SELECT, KeyEvent.VK_BACK_SPACE);
+        manager.assign(GamePad.DEBUG, KeyEvent.VK_F12);
     }
 }

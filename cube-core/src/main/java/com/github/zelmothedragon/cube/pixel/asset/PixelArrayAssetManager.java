@@ -5,10 +5,10 @@ import com.github.zelmothedragon.cube.core.component.AnimatedImage;
 import com.github.zelmothedragon.cube.core.component.FontImage;
 import com.github.zelmothedragon.cube.core.component.Image;
 import com.github.zelmothedragon.cube.core.component.ImageMap;
-import com.github.zelmothedragon.cube.pixel.entity.PixelArrayAnimatedImage;
-import com.github.zelmothedragon.cube.pixel.entity.PixelArrayFontImage;
-import com.github.zelmothedragon.cube.pixel.entity.PixelArrayImage;
-import com.github.zelmothedragon.cube.pixel.entity.PixelArrayImageMap;
+import com.github.zelmothedragon.cube.pixel.component.PixelArrayAnimatedImage;
+import com.github.zelmothedragon.cube.pixel.component.PixelArrayFontImage;
+import com.github.zelmothedragon.cube.pixel.component.PixelArrayImage;
+import com.github.zelmothedragon.cube.pixel.component.PixelArrayImageMap;
 
 /**
  * Implémentation interne du gestionnaire des ressouces numériques. Basé sur la

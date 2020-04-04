@@ -64,7 +64,7 @@ public final class EntityManager {
      * @param family Famille d'entité
      * @return L'ensemble des entités de même famille
      */
-    public Set<Entity> get(final Family family) {
+    public Set<Entity> filter(final Family family) {
         return data
                 .stream()
                 .filter(e -> Objects.equals(e.getFamily(), family))

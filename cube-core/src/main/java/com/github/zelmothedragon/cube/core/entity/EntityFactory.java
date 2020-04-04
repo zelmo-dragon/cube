@@ -86,7 +86,7 @@ public final class EntityFactory {
                 AssetManager.DEBUG_PLAYER_IMAGE,
                 w,
                 h,
-                75,
+                50,
                 4
         );
 

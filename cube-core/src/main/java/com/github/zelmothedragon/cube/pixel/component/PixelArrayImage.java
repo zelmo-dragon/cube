@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.cube.pixel.entity;
+package com.github.zelmothedragon.cube.pixel.component;
 
 import com.github.zelmothedragon.cube.core.component.Image;
 import com.github.zelmothedragon.cube.core.util.lang.Equal;
@@ -67,6 +67,7 @@ public class PixelArrayImage implements Image<int[]> {
                 .with("width", PixelArrayImage::getWidth)
                 .thenWith("height", PixelArrayImage::getHeight)
                 .thenWith("index", PixelArrayImage::getIndex)
+                .thenWith("pixels", e -> e.buffer.length)
                 .apply(this);
     }
 

@@ -34,20 +34,23 @@ public final class SystemManager {
      */
     public SystemManager(final GameManager manager) {
         world = Arrays.asList(
-                new CameraSystem(manager, 100),
+                new MenuSystem(manager, 100),
+                new CameraSystem(manager, 200),
                 new CollisionSystem(manager, 201),
                 new PlayerSystem(manager, 202),
                 new ImageMapSystem(manager, 301),
                 new ImageSystem(manager, 302),
                 new AnimatedImageSystem(manager, 303),
-                new TestSystem(manager, 900),
-                //new MandelbrotSystem(manager, 500),
+                new MandelbrotSystem(manager, 800),
+                new TestSystem(manager, 901),
                 new DebugSystem(manager, Integer.MAX_VALUE)
         );
 
         // Ce type de liste est immuable, mais supporte le tri.
         Collections.sort(world);
-        world.forEach(AbstractSystem::enable);
+        
+        disable(MandelbrotSystem.class);
+        disable(DebugSystem.class);
     }
 
     /**
@@ -98,6 +101,22 @@ public final class SystemManager {
                 .filter(s -> Objects.equals(s.getClass(), system))
                 .findAny()
                 .ifPresent(AbstractSystem::disable);
+    }
+
+    /**
+     * Indiquer si un système est actif ou non.
+     *
+     * @param system Type de système
+     * @return La valeur <code>true</code> si le système est actif, sinon la
+     * valeur <code>false</code> est retournée dans tous les autres cas
+     */
+    public boolean isEnabled(final Class<? extends AbstractSystem> system) {
+        return world
+                .stream()
+                .filter(s -> Objects.equals(s.getClass(), system))
+                .map(AbstractSystem::isEnabled)
+                .findAny()
+                .orElse(Boolean.FALSE);
     }
 
 }

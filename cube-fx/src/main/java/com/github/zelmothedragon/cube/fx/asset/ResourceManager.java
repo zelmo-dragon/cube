@@ -3,7 +3,7 @@ package com.github.zelmothedragon.cube.fx.asset;
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
 import com.github.zelmothedragon.cube.core.component.Image;
 import com.github.zelmothedragon.cube.pixel.asset.PixelArrayAssetManager;
-import com.github.zelmothedragon.cube.pixel.entity.PixelArrayImage;
+import com.github.zelmothedragon.cube.pixel.component.PixelArrayImage;
 import java.io.IOException;
 import javafx.scene.image.PixelFormat;
 

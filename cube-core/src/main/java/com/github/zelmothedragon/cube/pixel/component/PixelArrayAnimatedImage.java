@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.cube.pixel.entity;
+package com.github.zelmothedragon.cube.pixel.component;
 
 import com.github.zelmothedragon.cube.core.component.AnimatedImage;
 import com.github.zelmothedragon.cube.core.component.Image;

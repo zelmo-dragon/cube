@@ -35,7 +35,7 @@ public abstract class AbstractSystem implements Comparable<AbstractSystem> {
     protected AbstractSystem(final GameManager manager, final int priority) {
         this.manager = manager;
         this.priority = priority;
-        this.enabled = false;
+        this.enabled = true;
     }
 
     @Override

@@ -44,41 +44,41 @@ public final class Display extends Application {
     public Display() {
         // RAS
     }
-
+    
     @Override
     public void start(final Stage primaryStage) throws Exception {
-
+        
         var canvas = new Canvas(SCALE * WIDTH, SCALE * HEIGHT);
         canvas.setCache(false);
         canvas.setCacheHint(CacheHint.SPEED);
-
+        
         var g2d = canvas.getGraphicsContext2D();
         g2d.setImageSmoothing(false);
-
+        
         var group = new Group();
         group.getChildren().add(canvas);
-
+        
         var resourceManager = new ResourceManager();
         var manager = new GameManager(resourceManager);
         loadKeys(manager.getInputs());
-
+        
         var engine = new Engine(g2d, manager);
         engine.start();
-
+        
         var scene = new Scene(group, Color.BLACK);
         scene.setCursor(Cursor.NONE);
-
+        
         scene.setOnKeyPressed(e -> {
             toggleScreen(primaryStage, e);
             manager.getInputs().keyPressed(e.getCode().getCode());
             e.consume();
         });
-
+        
         scene.setOnKeyReleased(e -> {
             manager.getInputs().keyReleased(e.getCode().getCode());
             e.consume();
         });
-
+        
         scene.setOnMouseMoved(e -> {
             // TODO: calculer la position exacte du curseur.
             var x = (e.getSceneX());
@@ -86,15 +86,15 @@ public final class Display extends Application {
             manager.getInputs().cursorMoved(x, y);
             // System.out.printf("X:%s Y=%s%n", x, y);
         });
-
+        
         primaryStage.widthProperty().addListener((e, o, n) -> {
             canvas.setWidth(n.doubleValue());
         });
-
+        
         primaryStage.heightProperty().addListener((e, o, n) -> {
             canvas.setHeight(n.doubleValue());
         });
-
+        
         primaryStage.setTitle("Cube");
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
@@ -134,6 +134,7 @@ public final class Display extends Application {
         manager.assign(GamePad.BACK, KeyCode.Z.getCode());
         manager.assign(GamePad.START, KeyCode.ENTER.getCode());
         manager.assign(GamePad.SELECT, KeyCode.BACK_SPACE.getCode());
+        manager.assign(GamePad.DEBUG, KeyCode.F12.getCode());
     }
-
+    
 }

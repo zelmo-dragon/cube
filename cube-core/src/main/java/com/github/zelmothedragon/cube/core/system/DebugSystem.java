@@ -41,7 +41,6 @@ public final class DebugSystem extends AbstractSystem {
         // Calculer la fréquence de la boucle de mise à jour
         var clock = debug.getComponent(Clock.class);
         clock.update();
-
     }
 
     @Override

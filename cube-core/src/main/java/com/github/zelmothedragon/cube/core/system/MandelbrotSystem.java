@@ -6,6 +6,7 @@ import com.github.zelmothedragon.cube.core.component.Controllable;
 import com.github.zelmothedragon.cube.core.component.Image;
 import com.github.zelmothedragon.cube.core.component.Mandelbrot;
 import com.github.zelmothedragon.cube.core.entity.Entity;
+import com.github.zelmothedragon.cube.core.entity.Family;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import com.github.zelmothedragon.cube.core.input.GamePad;
 import com.github.zelmothedragon.cube.pixel.graphic.Pixels;
@@ -18,11 +19,6 @@ import com.github.zelmothedragon.cube.pixel.graphic.Pixels;
 public class MandelbrotSystem extends AbstractSystem {
 
     /**
-     * Entité de Mandelbrot.
-     */
-    private final Entity mandelbrot;
-
-    /**
      * Constructeur. Constuire un système, une seule instance est nécessaire
      * pour le fonctionnemenr global de l'application. Le système doit être
      * instancier dans le gestionnaire de système.
@@ -32,14 +28,27 @@ public class MandelbrotSystem extends AbstractSystem {
      */
     MandelbrotSystem(final GameManager manager, final int priority) {
         super(manager, priority);
-        this.mandelbrot = manager.getFactory().createMandelbrot();
     }
 
     @Override
     public void update() {
+        manager
+                .getEntities()
+                .filter(Family.MANDELBROT)
+                .forEach(this::updateAction);
+    }
 
-        if (mandelbrot.hasComponent(Controllable.class)) {
-            var data = mandelbrot.getComponent(Mandelbrot.class);
+    @Override
+    public void draw(final Renderer<?> renderer) {
+        manager
+                .getEntities()
+                .filter(Family.MANDELBROT)
+                .forEach(MandelbrotSystem::createImage);
+    }
+
+    private void updateAction(final Entity entity) {
+        if (entity.hasComponent(Controllable.class)) {
+            var data = entity.getComponent(Mandelbrot.class);
             if (manager.getInputs().isKeyPressed(GamePad.ACTION)) {
                 var scale = data.getScale();
                 scale += 1;
@@ -51,20 +60,15 @@ public class MandelbrotSystem extends AbstractSystem {
                 data.setIteration(iteration);
             }
         }
-
-        if (manager.getInputs().isKeyPressed(GamePad.BACK)) {
-            this.disable();
-        }
     }
 
-    @Override
-    public void draw(final Renderer<?> renderer) {
-
-        var data = mandelbrot.getComponent(Mandelbrot.class);
-        var box = mandelbrot.getComponent(BoundedBox.class);
-        var image = mandelbrot.getComponent(Image.class);
+    private static void createImage(final Entity entity) {
+        var data = entity.getComponent(Mandelbrot.class);
+        var box = entity.getComponent(BoundedBox.class);
+        var image = entity.getComponent(Image.class);
 
         // /!\ Implémentation spécifique du type Image !
+        // /!\ Ecriture par référence !
         var buffer = (int[]) image.getRawData();
 
         var w = box.getBound().getWidth();
@@ -77,11 +81,6 @@ public class MandelbrotSystem extends AbstractSystem {
                 buffer[x + y * w] = color;
             }
         }
-        renderer.drawImage(
-                box.getBound().getXp(),
-                box.getBound().getYp(),
-                image
-        );
     }
 
     private static int calculatePoint(
