@@ -70,11 +70,18 @@
     <build>
         <pluginManagement>
             <plugins>
-                <!-- EXTENSION JAVA FX -->
+                <!-- EXTENSION POUR cube-fx -->
                 <plugin>
                     <groupId>org.openjfx</groupId>
                     <artifactId>javafx-maven-plugin</artifactId>
                     <version>0.0.4</version>
+                </plugin>
+                
+                <!-- EXTENSION POUR cube-awt -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>1.6.0</version>
                 </plugin>
                 
                 <!-- EXTENSION MAVEN PAR DÉFAUT -->

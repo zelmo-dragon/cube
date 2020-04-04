@@ -38,7 +38,7 @@ public final class Engine implements Runnable {
      * les traitements.
      */
     public Engine() {
-        this.loop = new Thread(this, "java-game-awt");
+        this.loop = new Thread(this, "cube-awt");
         this.display = new Display();
         this.running = false;
     }

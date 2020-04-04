@@ -77,7 +77,7 @@ public final class Display {
         this.window.add(canvas);
         this.window.pack();
 
-        this.window.setTitle("Java AWT");
+        this.window.setTitle("Cube");
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.window.setLocationRelativeTo(null);
         this.window.setResizable(false);

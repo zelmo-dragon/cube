@@ -45,11 +45,22 @@ Il utilise l'outil **Maven** en version 3.6.2.
 
 ### Exécution
 
+Récupération du projet:
 ~~~
     git clone https://github.com/ZelmoTheDragon/cube.git
     mvn install
+~~~
+
+Exécution avec le moteur JavaFX
+~~~
     cd cube-fx
     mvn javafx:run
+~~~
+
+Exécution avec le moteur Java AWT
+~~~
+    cd cube-awt
+    mvn exec:java
 ~~~
 
 > Il n'est pas encore possible d'empaqueter le projet sous forme de binaire Java exécutable avec *jlink*.
