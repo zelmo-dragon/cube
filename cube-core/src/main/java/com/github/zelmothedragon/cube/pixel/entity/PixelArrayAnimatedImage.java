@@ -29,11 +29,7 @@ public class PixelArrayAnimatedImage implements AnimatedImage<int[]> {
 
     private Orientation orientation;
 
-    private Rectangle currentOffset;
-
-    private int xOffset;
-
-    private int yOffset;
+    private Rectangle offset;
 
     private int frame;
 
@@ -97,7 +93,7 @@ public class PixelArrayAnimatedImage implements AnimatedImage<int[]> {
     @Override
     public void setOrientation(Orientation orientation) {
         this.orientation = orientation;
-        this.currentOffset = orientations.get(orientation);
+        this.offset = orientations.getOrDefault(orientation, offset);
     }
 
     @Override
@@ -107,7 +103,7 @@ public class PixelArrayAnimatedImage implements AnimatedImage<int[]> {
 
     @Override
     public Rectangle getCurrentOffset() {
-        return currentOffset;
+        return offset;
     }
 
     @Override
@@ -120,13 +116,18 @@ public class PixelArrayAnimatedImage implements AnimatedImage<int[]> {
                 frame = 0;
             }
         }
+        if (Objects.equals(orientation, Orientation.EMPTY)) {
+            stop();
+        } else {
+            play();
+        }
 
         // Calculer l'index et la position de la prochaine image.
         var frac = frame * count / duration;
         var index = Math.min(frac, count - 1);
         var columns = sheet.getWidth() / imageWidth;
-        var xp = (index % columns) * imageWidth + xOffset;
-        var yp = (index / columns) * imageHeight + yOffset;
+        var xp = (index % columns) * imageWidth + offset.getXp();
+        var yp = (index / columns) * imageHeight + offset.getYp();
 
         currentImageIndex = xp + yp * imageWidth;
         if (!cache.containsKey(currentImageIndex)) {
@@ -182,11 +183,5 @@ public class PixelArrayAnimatedImage implements AnimatedImage<int[]> {
     @Override
     public int getCount() {
         return count;
-    }
-
-    @Override
-    public void setOffset(final int xOffset, final int yOffset) {
-        this.xOffset = xOffset;
-        this.yOffset = yOffset;
     }
 }

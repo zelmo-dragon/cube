@@ -32,8 +32,6 @@ public interface AnimatedImage<T> extends Component {
 
     void setOrientation(Orientation orientation);
 
-    void setOffset(final int xOffset, final int yOffset);
-
     Orientation getOrientation();
 
     Rectangle getCurrentOffset();

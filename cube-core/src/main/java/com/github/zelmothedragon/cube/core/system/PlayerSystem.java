@@ -9,7 +9,6 @@ import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
 import com.github.zelmothedragon.cube.core.entity.image.AnimatedImage;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import com.github.zelmothedragon.cube.core.input.GamePad;
-import java.util.Objects;
 
 /**
  * Système de gestion du personnage principal.
@@ -62,16 +61,6 @@ public final class PlayerSystem extends AbstractSystem {
 
             var rectangle = player.getComponent(Rectangle.class);
             rectangle.move(vector);
-        }
-
-        var orientation = image.getOrientation();
-
-        if (Objects.equals(orientation, Orientation.EMPTY)) {
-            image.stop();
-        } else {
-            var offset = image.getCurrentOffset();
-            image.setOffset(offset.getXp(), offset.getYp());
-            image.play();
         }
         image.update();
     }
