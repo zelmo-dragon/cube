@@ -1,19 +1,6 @@
-package com.github.zelmothedragon.cube.core.entity;
+package com.github.zelmothedragon.cube.core.model;
 
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
-import com.github.zelmothedragon.cube.core.component.AnimatedImage;
-import com.github.zelmothedragon.cube.core.component.Block;
-import com.github.zelmothedragon.cube.core.component.BoundedBox;
-import com.github.zelmothedragon.cube.core.component.Camera;
-import com.github.zelmothedragon.cube.core.component.Clock;
-import com.github.zelmothedragon.cube.core.component.Controllable;
-import com.github.zelmothedragon.cube.core.component.FontImage;
-import com.github.zelmothedragon.cube.core.component.Image;
-import com.github.zelmothedragon.cube.core.component.ImageMap;
-import com.github.zelmothedragon.cube.core.component.Mandelbrot;
-import com.github.zelmothedragon.cube.core.component.Movable;
-import com.github.zelmothedragon.cube.core.component.Orientation;
-import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
 import com.github.zelmothedragon.cube.core.util.geometry.Dimension;
 import com.github.zelmothedragon.cube.core.util.geometry.Rectangle;
 

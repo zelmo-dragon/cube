@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.cube.core.component;
+package com.github.zelmothedragon.cube.core.model;
 
 /**
  * Composant marqueur qui indique qu'une entité est contrôlable.

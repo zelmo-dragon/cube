@@ -1,6 +1,5 @@
-package com.github.zelmothedragon.cube.core.component;
+package com.github.zelmothedragon.cube.core.model;
 
-import com.github.zelmothedragon.cube.core.entity.geometry.Point;
 import com.github.zelmothedragon.cube.core.util.lang.Equal;
 import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.Objects;
@@ -20,12 +19,9 @@ public final class Mandelbrot implements Component {
 
     private float scale;
 
-    private Point point;
-
     public Mandelbrot(int iteration, float scale) {
         this.iteration = iteration;
         this.scale = scale;
-        this.point = new Point();
     }
 
     public Mandelbrot() {
@@ -34,7 +30,7 @@ public final class Mandelbrot implements Component {
 
     @Override
     public int hashCode() {
-        return Objects.hash(iteration, scale, point);
+        return Objects.hash(iteration, scale);
     }
 
     @Override
@@ -42,7 +38,6 @@ public final class Mandelbrot implements Component {
         return Equal
                 .with(Mandelbrot::getIteration)
                 .thenWith(Mandelbrot::getScale)
-                .thenWith(Mandelbrot::getPoint)
                 .apply(this, obj);
     }
 
@@ -51,7 +46,6 @@ public final class Mandelbrot implements Component {
         return ToString
                 .with("iteration", Mandelbrot::getIteration)
                 .thenWith("scale", Mandelbrot::getScale)
-                .thenWith("point", Mandelbrot::getPoint)
                 .apply(this);
     }
 
@@ -69,14 +63,6 @@ public final class Mandelbrot implements Component {
 
     public void setScale(float scale) {
         this.scale = scale;
-    }
-
-    public Point getPoint() {
-        return point;
-    }
-
-    public void setPoint(Point point) {
-        this.point = point;
     }
 
 }

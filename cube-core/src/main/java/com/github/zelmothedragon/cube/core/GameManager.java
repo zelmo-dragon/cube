@@ -1,8 +1,8 @@
 package com.github.zelmothedragon.cube.core;
 
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
-import com.github.zelmothedragon.cube.core.entity.EntityFactory;
-import com.github.zelmothedragon.cube.core.entity.EntityManager;
+import com.github.zelmothedragon.cube.core.model.EntityFactory;
+import com.github.zelmothedragon.cube.core.model.EntityManager;
 import com.github.zelmothedragon.cube.core.input.InputManager;
 import com.github.zelmothedragon.cube.core.system.SystemManager;
 

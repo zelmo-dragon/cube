@@ -1,7 +1,7 @@
-package com.github.zelmothedragon.cube.pixel.component;
+package com.github.zelmothedragon.cube.pixel.model;
 
-import com.github.zelmothedragon.cube.core.component.Image;
-import com.github.zelmothedragon.cube.core.component.ImageMap;
+import com.github.zelmothedragon.cube.core.model.Image;
+import com.github.zelmothedragon.cube.core.model.ImageMap;
 import com.github.zelmothedragon.cube.core.util.lang.Equal;
 import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.HashMap;

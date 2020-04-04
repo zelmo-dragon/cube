@@ -1,12 +1,12 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameManager;
-import com.github.zelmothedragon.cube.core.component.Block;
-import com.github.zelmothedragon.cube.core.component.BoundedBox;
-import com.github.zelmothedragon.cube.core.component.Clock;
-import com.github.zelmothedragon.cube.core.component.FontImage;
-import com.github.zelmothedragon.cube.core.component.Movable;
-import com.github.zelmothedragon.cube.core.entity.Entity;
+import com.github.zelmothedragon.cube.core.model.Block;
+import com.github.zelmothedragon.cube.core.model.BoundedBox;
+import com.github.zelmothedragon.cube.core.model.Clock;
+import com.github.zelmothedragon.cube.core.model.FontImage;
+import com.github.zelmothedragon.cube.core.model.Movable;
+import com.github.zelmothedragon.cube.core.model.Entity;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import com.github.zelmothedragon.cube.pixel.graphic.Pixels;
 import java.util.List;

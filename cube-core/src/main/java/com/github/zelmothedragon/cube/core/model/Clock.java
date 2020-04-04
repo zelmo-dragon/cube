@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.cube.core.component;
+package com.github.zelmothedragon.cube.core.model;
 
 import com.github.zelmothedragon.cube.core.util.lang.Equal;
 import com.github.zelmothedragon.cube.core.util.lang.ToString;

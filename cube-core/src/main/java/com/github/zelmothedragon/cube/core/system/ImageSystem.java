@@ -1,9 +1,9 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameManager;
-import com.github.zelmothedragon.cube.core.component.BoundedBox;
-import com.github.zelmothedragon.cube.core.component.Image;
-import com.github.zelmothedragon.cube.core.entity.Entity;
+import com.github.zelmothedragon.cube.core.model.BoundedBox;
+import com.github.zelmothedragon.cube.core.model.Image;
+import com.github.zelmothedragon.cube.core.model.Entity;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 
 /**

@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.cube.core.entity;
+package com.github.zelmothedragon.cube.core.model;
 
 /**
  * Famille d'entité. A la différence ou chaque entité possède un identifiant

@@ -1,9 +1,9 @@
 package com.github.zelmothedragon.cube.core.graphic;
 
-import com.github.zelmothedragon.cube.core.component.AnimatedImage;
-import com.github.zelmothedragon.cube.core.component.FontImage;
-import com.github.zelmothedragon.cube.core.component.Image;
-import com.github.zelmothedragon.cube.core.component.ImageMap;
+import com.github.zelmothedragon.cube.core.model.AnimatedImage;
+import com.github.zelmothedragon.cube.core.model.FontImage;
+import com.github.zelmothedragon.cube.core.model.Image;
+import com.github.zelmothedragon.cube.core.model.ImageMap;
 
 /**
  * Gestionnaire de rendu graphique.

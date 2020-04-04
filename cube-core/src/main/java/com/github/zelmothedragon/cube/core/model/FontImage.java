@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.cube.core.component;
+package com.github.zelmothedragon.cube.core.model;
 
 /**
  * Image de police de caractère.

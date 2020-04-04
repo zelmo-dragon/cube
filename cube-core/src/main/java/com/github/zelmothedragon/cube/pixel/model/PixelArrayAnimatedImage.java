@@ -1,8 +1,8 @@
-package com.github.zelmothedragon.cube.pixel.component;
+package com.github.zelmothedragon.cube.pixel.model;
 
-import com.github.zelmothedragon.cube.core.component.AnimatedImage;
-import com.github.zelmothedragon.cube.core.component.Image;
-import com.github.zelmothedragon.cube.core.component.Orientation;
+import com.github.zelmothedragon.cube.core.model.AnimatedImage;
+import com.github.zelmothedragon.cube.core.model.Image;
+import com.github.zelmothedragon.cube.core.model.Orientation;
 import com.github.zelmothedragon.cube.core.util.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.util.lang.Equal;
 import com.github.zelmothedragon.cube.core.util.lang.ToString;

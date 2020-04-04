@@ -1,14 +1,14 @@
 package com.github.zelmothedragon.cube.pixel.asset;
 
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
-import com.github.zelmothedragon.cube.core.component.AnimatedImage;
-import com.github.zelmothedragon.cube.core.component.FontImage;
-import com.github.zelmothedragon.cube.core.component.Image;
-import com.github.zelmothedragon.cube.core.component.ImageMap;
-import com.github.zelmothedragon.cube.pixel.component.PixelArrayAnimatedImage;
-import com.github.zelmothedragon.cube.pixel.component.PixelArrayFontImage;
-import com.github.zelmothedragon.cube.pixel.component.PixelArrayImage;
-import com.github.zelmothedragon.cube.pixel.component.PixelArrayImageMap;
+import com.github.zelmothedragon.cube.core.model.AnimatedImage;
+import com.github.zelmothedragon.cube.core.model.FontImage;
+import com.github.zelmothedragon.cube.core.model.Image;
+import com.github.zelmothedragon.cube.core.model.ImageMap;
+import com.github.zelmothedragon.cube.pixel.model.PixelArrayAnimatedImage;
+import com.github.zelmothedragon.cube.pixel.model.PixelArrayFontImage;
+import com.github.zelmothedragon.cube.pixel.model.PixelArrayImage;
+import com.github.zelmothedragon.cube.pixel.model.PixelArrayImageMap;
 
 /**
  * Implémentation interne du gestionnaire des ressouces numériques. Basé sur la

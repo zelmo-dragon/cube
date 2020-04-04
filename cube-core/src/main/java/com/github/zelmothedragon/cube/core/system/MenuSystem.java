@@ -1,7 +1,7 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameManager;
-import com.github.zelmothedragon.cube.core.entity.Family;
+import com.github.zelmothedragon.cube.core.model.Family;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import com.github.zelmothedragon.cube.core.input.GamePad;
 

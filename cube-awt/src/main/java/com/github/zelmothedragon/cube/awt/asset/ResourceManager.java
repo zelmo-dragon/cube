@@ -1,9 +1,9 @@
 package com.github.zelmothedragon.cube.awt.asset;
 
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
-import com.github.zelmothedragon.cube.core.component.Image;
+import com.github.zelmothedragon.cube.core.model.Image;
 import com.github.zelmothedragon.cube.pixel.asset.PixelArrayAssetManager;
-import com.github.zelmothedragon.cube.pixel.component.PixelArrayImage;
+import com.github.zelmothedragon.cube.pixel.model.PixelArrayImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 

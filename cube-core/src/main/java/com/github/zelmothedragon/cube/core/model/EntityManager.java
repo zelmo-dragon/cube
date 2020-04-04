@@ -1,6 +1,5 @@
-package com.github.zelmothedragon.cube.core.entity;
+package com.github.zelmothedragon.cube.core.model;
 
-import com.github.zelmothedragon.cube.core.component.Component;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
