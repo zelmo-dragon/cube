@@ -8,6 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Implémentation interne d'une police de caractère basé sur la manipulation de
+ * tableau de pixels.
+ *
+ * @author MOSELLE Maxime
+ */
 public class PixelArrayFontImage implements FontImage<int[]> {
 
     private final Map<Integer, PixelArrayImage> cache;

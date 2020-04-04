@@ -9,7 +9,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 /**
- * Gestionnaire de ressources externe.Une instance unique de cette classe est
+ * Gestionnaire de ressources externe. Une instance unique de cette classe est
  * requise pour le fonctionnement de l'application. Le gestionnaire doit être
  * accessible depuis le conteneur du jeu.
  *
@@ -32,20 +32,73 @@ public interface AssetManager<T> {
 
     String DEBUG_8X8_TEXT_MAP = "/assets/fonts/8x8_text.txt";
 
+    /**
+     * Charger une image vide.
+     *
+     * @param w Largeur
+     * @param h Hauteur
+     * @return Une nouvelle image vide
+     */
     Image<T> loadImage(int w, int h);
 
+    /**
+     * Charger une image simple.
+     *
+     * @param imagePath Chemin de l'image
+     * @return Une image
+     */
     Image<T> loadImage(String imagePath);
 
+    /**
+     * Charger une feuille d'image pour l'animation.
+     *
+     * @param imagePath Chemin de l'image
+     * @param w Largeur
+     * @param h Hauteur
+     * @param duration Délai de l'animation
+     * @param count Nombre d'image pour une séquence d'animation
+     * @return Une feuille d'image
+     */
     AnimatedImage<T> loadAnimatedImage(String imagePath, int w, int h, int duration, int count);
 
+    /**
+     * Charger une feuille d'image de police de caractère.
+     *
+     * @param imagePath Chemin de l'image
+     * @param mapPath Chemin de la cartographie de la feuille d'image
+     * @param w Largeur d'un caractère
+     * @param h Hauteur d'un caractère
+     * @return Une feuille d'image
+     */
     FontImage<T> loadFontImagge(String imagePath, String mapPath, int w, int h);
 
+    /**
+     * Charger une feuille d'image pour la génération de carte.
+     *
+     * @param imagePath Chemin de l'image
+     * @param mapPath Chemin de la cartographie de la feuille d'image
+     * @param w Largeur d'une tuile graphique
+     * @param h Hauteur d'une tuile graphique
+     * @return Une feuille d'image
+     */
     ImageMap<T> loadImageMap(String imagePath, String mapPath, int w, int h);
 
+    /**
+     * Charger une ressource.
+     *
+     * @param path Chemin de la ressource
+     * @return Un flux vers la ressource
+     */
     public static InputStream loadResource(final String path) {
         return AssetManager.class.getResourceAsStream(path);
     }
 
+    /**
+     * Charger la cartographie d'une police de caractère.
+     *
+     * @param mapPath Chemin de la cartographie de la feuille
+     * @return La cartographie
+     */
     public static String loadFontMap(final String mapPath) {
         String font;
         try (var stream = loadResource(mapPath)) {
@@ -59,6 +112,12 @@ public interface AssetManager<T> {
         return font;
     }
 
+    /**
+     * Charger la cartographie pour la génération de carte.
+     *
+     * @param mapPath Chemin de la cartographie de la feuille
+     * @return La cartographie
+     */
     public static int[][] loadMap(final String mapPath) {
         int[][] map;
         try (var stream = loadResource(mapPath)) {

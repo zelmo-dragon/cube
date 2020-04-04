@@ -10,19 +10,24 @@ import com.github.zelmothedragon.cube.pixel.entity.PixelArrayFontImage;
 import com.github.zelmothedragon.cube.pixel.entity.PixelArrayImage;
 import com.github.zelmothedragon.cube.pixel.entity.PixelArrayImageMap;
 
-public class PixelArrayAssetManager implements AssetManager<int[]> {
+/**
+ * Implémentation interne du gestionnaire des ressouces numériques. Basé sur la
+ * manipulation d'image sous forme de tableau de pixels.
+ *
+ * @author MOSELLE Maxime
+ */
+public abstract class PixelArrayAssetManager implements AssetManager<int[]> {
 
-    public PixelArrayAssetManager() {
+    /**
+     * Constructeur. Construit le gestionnaire des ressources numériques.
+     */
+    protected PixelArrayAssetManager() {
+        // RAS
     }
 
     @Override
     public Image<int[]> loadImage(final int w, final int h) {
         return new PixelArrayImage(w, h);
-    }
-
-    @Override
-    public Image<int[]> loadImage(String imagePath) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override

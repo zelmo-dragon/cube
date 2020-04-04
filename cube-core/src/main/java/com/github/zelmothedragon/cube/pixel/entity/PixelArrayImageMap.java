@@ -8,6 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Implémentation interne d'une image pour la génération de carte basé sur la
+ * manipulation de tableau de pixels.
+ *
+ * @author MOSELLE Maxime
+ */
 public class PixelArrayImageMap implements ImageMap<int[]> {
 
     private final Map<Integer, PixelArrayImage> cache;

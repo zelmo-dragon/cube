@@ -11,6 +11,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Implémentation interne d'une image animée basé sur la manipulation de tableau
+ * de pixels.
+ *
+ * @author MOSELLE Maxime
+ */
 public class PixelArrayAnimatedImage implements AnimatedImage<int[]> {
 
     private final Map<Integer, PixelArrayImage> cache;

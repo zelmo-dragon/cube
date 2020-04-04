@@ -7,6 +7,12 @@ import com.github.zelmothedragon.cube.pixel.graphic.Pixels;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * Implémentation interne d'une image simple basé sur la manipulation de tableau
+ * de pixels.
+ *
+ * @author MOSELLE Maxime
+ */
 public class PixelArrayImage implements Image<int[]> {
 
     private final int[] buffer;

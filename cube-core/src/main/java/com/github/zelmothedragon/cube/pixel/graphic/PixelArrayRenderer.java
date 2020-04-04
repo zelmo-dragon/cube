@@ -7,6 +7,12 @@ import com.github.zelmothedragon.cube.core.entity.image.ImageMap;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import java.util.Arrays;
 
+/**
+ * Implémentation interne du gestionnaire de rendu basé sur la manipulation de tableau
+ * de pixels.
+ *
+ * @author MOSELLE Maxime
+ */
 public class PixelArrayRenderer implements Renderer<int[]> {
 
     protected final int width;
