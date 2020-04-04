@@ -2,10 +2,10 @@ package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameManager;
 import com.github.zelmothedragon.cube.core.entity.Entity;
-import com.github.zelmothedragon.cube.core.entity.behavior.Controllable;
-import com.github.zelmothedragon.cube.core.entity.data.Mandelbrot;
+import com.github.zelmothedragon.cube.core.component.Controllable;
+import com.github.zelmothedragon.cube.core.component.Mandelbrot;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
-import com.github.zelmothedragon.cube.core.entity.image.Image;
+import com.github.zelmothedragon.cube.core.component.Image;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import com.github.zelmothedragon.cube.core.input.GamePad;
 import com.github.zelmothedragon.cube.pixel.graphic.Pixels;

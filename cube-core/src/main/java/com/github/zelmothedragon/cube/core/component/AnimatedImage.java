@@ -1,7 +1,5 @@
-package com.github.zelmothedragon.cube.core.entity.image;
+package com.github.zelmothedragon.cube.core.component;
 
-import com.github.zelmothedragon.cube.core.entity.Component;
-import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 
 /**

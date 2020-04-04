@@ -1,7 +1,7 @@
 package com.github.zelmothedragon.cube.fx.asset;
 
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
-import com.github.zelmothedragon.cube.core.entity.image.Image;
+import com.github.zelmothedragon.cube.core.component.Image;
 import com.github.zelmothedragon.cube.pixel.asset.PixelArrayAssetManager;
 import com.github.zelmothedragon.cube.pixel.entity.PixelArrayImage;
 import java.io.IOException;

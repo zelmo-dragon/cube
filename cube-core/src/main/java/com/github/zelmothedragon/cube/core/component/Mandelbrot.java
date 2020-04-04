@@ -1,6 +1,5 @@
-package com.github.zelmothedragon.cube.core.entity.data;
+package com.github.zelmothedragon.cube.core.component;
 
-import com.github.zelmothedragon.cube.core.entity.Component;
 import com.github.zelmothedragon.cube.core.entity.geometry.Point;
 import com.github.zelmothedragon.cube.core.util.lang.Equal;
 import com.github.zelmothedragon.cube.core.util.lang.ToString;

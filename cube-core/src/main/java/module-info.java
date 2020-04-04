@@ -3,7 +3,8 @@ module cube.core {
 
     exports com.github.zelmothedragon.cube.core;
     exports com.github.zelmothedragon.cube.core.asset;
-    exports com.github.zelmothedragon.cube.core.entity.image;
+    exports com.github.zelmothedragon.cube.core.entity;
+    exports com.github.zelmothedragon.cube.core.component;
     exports com.github.zelmothedragon.cube.core.input;
     exports com.github.zelmothedragon.cube.core.graphic;
     exports com.github.zelmothedragon.cube.core.system;

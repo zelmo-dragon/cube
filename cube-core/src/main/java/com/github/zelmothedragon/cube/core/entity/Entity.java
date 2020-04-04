@@ -1,5 +1,6 @@
 package com.github.zelmothedragon.cube.core.entity;
 
+import com.github.zelmothedragon.cube.core.component.Component;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;

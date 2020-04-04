@@ -1,6 +1,5 @@
-package com.github.zelmothedragon.cube.core.entity.geometry;
+package com.github.zelmothedragon.cube.core.util.geometry;
 
-import com.github.zelmothedragon.cube.core.component.Component;
 import com.github.zelmothedragon.cube.core.util.lang.Equal;
 import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.Objects;
@@ -10,8 +9,7 @@ import java.util.Objects;
  *
  * @author MOSELLE Maxime
  */
-@Deprecated
-public final class Rectangle implements Component {
+public final class Rectangle {
 
     /**
      * Position en abcisse.

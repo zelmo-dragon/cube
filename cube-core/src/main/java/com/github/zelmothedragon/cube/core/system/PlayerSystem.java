@@ -2,11 +2,11 @@ package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameManager;
 import com.github.zelmothedragon.cube.core.entity.Entity;
-import com.github.zelmothedragon.cube.core.entity.behavior.Controllable;
-import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
+import com.github.zelmothedragon.cube.core.component.Controllable;
+import com.github.zelmothedragon.cube.core.component.Orientation;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
-import com.github.zelmothedragon.cube.core.entity.image.AnimatedImage;
+import com.github.zelmothedragon.cube.core.component.AnimatedImage;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import com.github.zelmothedragon.cube.core.input.GamePad;
 

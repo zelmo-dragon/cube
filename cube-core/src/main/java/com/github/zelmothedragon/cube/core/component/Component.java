@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.cube.core.entity;
+package com.github.zelmothedragon.cube.core.component;
 
 import java.util.Objects;
 

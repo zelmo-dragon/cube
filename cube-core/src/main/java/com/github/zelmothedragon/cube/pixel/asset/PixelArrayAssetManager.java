@@ -1,10 +1,10 @@
 package com.github.zelmothedragon.cube.pixel.asset;
 
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
-import com.github.zelmothedragon.cube.core.entity.image.AnimatedImage;
-import com.github.zelmothedragon.cube.core.entity.image.FontImage;
-import com.github.zelmothedragon.cube.core.entity.image.Image;
-import com.github.zelmothedragon.cube.core.entity.image.ImageMap;
+import com.github.zelmothedragon.cube.core.component.AnimatedImage;
+import com.github.zelmothedragon.cube.core.component.FontImage;
+import com.github.zelmothedragon.cube.core.component.Image;
+import com.github.zelmothedragon.cube.core.component.ImageMap;
 import com.github.zelmothedragon.cube.pixel.entity.PixelArrayAnimatedImage;
 import com.github.zelmothedragon.cube.pixel.entity.PixelArrayFontImage;
 import com.github.zelmothedragon.cube.pixel.entity.PixelArrayImage;

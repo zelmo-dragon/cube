@@ -1,6 +1,5 @@
-package com.github.zelmothedragon.cube.core.entity.debug;
+package com.github.zelmothedragon.cube.core.component;
 
-import com.github.zelmothedragon.cube.core.entity.Component;
 import com.github.zelmothedragon.cube.core.util.lang.Equal;
 import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.Objects;

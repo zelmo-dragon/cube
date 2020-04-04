@@ -1,9 +1,9 @@
 package com.github.zelmothedragon.cube.core.asset;
 
-import com.github.zelmothedragon.cube.core.entity.image.AnimatedImage;
-import com.github.zelmothedragon.cube.core.entity.image.FontImage;
-import com.github.zelmothedragon.cube.core.entity.image.Image;
-import com.github.zelmothedragon.cube.core.entity.image.ImageMap;
+import com.github.zelmothedragon.cube.core.component.AnimatedImage;
+import com.github.zelmothedragon.cube.core.component.FontImage;
+import com.github.zelmothedragon.cube.core.component.Image;
+import com.github.zelmothedragon.cube.core.component.ImageMap;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;

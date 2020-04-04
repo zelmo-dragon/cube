@@ -1,4 +1,4 @@
-package com.github.zelmothedragon.cube.core.entity.geometry;
+package com.github.zelmothedragon.cube.core.component;
 
 /**
  * Orientation d'une image.

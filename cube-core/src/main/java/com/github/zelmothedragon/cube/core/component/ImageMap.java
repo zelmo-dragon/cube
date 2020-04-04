@@ -1,6 +1,4 @@
-package com.github.zelmothedragon.cube.core.entity.image;
-
-import com.github.zelmothedragon.cube.core.entity.Component;
+package com.github.zelmothedragon.cube.core.component;
 
 /**
  * Image de tuiles graphique.

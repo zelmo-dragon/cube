@@ -1,21 +1,15 @@
-package com.github.zelmothedragon.cube.core.entity.geometry;
+package com.github.zelmothedragon.cube.core.util.geometry;
 
-import com.github.zelmothedragon.cube.core.entity.Component;
 import com.github.zelmothedragon.cube.core.util.lang.Equal;
 import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.Objects;
 
 /**
- * Caméra.
+ * Point 2D.
  *
  * @author MOSELLE Maxime
  */
-public final class Camera implements Component {
-
-    /**
-     * Instance unique.
-     */
-    public static final Camera INSTANCE = new Camera();
+public final class Point {
 
     /**
      * Position en abcisse.
@@ -28,11 +22,22 @@ public final class Camera implements Component {
     private int yp;
 
     /**
-     * Constructeur interne, pas d'instanciation.
+     * Constructeur par défaut.
      */
-    private Camera() {
+    public Point() {
         this.xp = 0;
         this.yp = 0;
+    }
+
+    /**
+     * Constructeur. Construit un point à une position.
+     *
+     * @param xp
+     * @param yp
+     */
+    public Point(final int xp, final int yp) {
+        this.xp = xp;
+        this.yp = yp;
     }
 
     @Override
@@ -43,17 +48,38 @@ public final class Camera implements Component {
     @Override
     public boolean equals(final Object obj) {
         return Equal
-                .with(Camera::getXp)
-                .thenWith(Camera::getYp)
+                .with(Point::getXp)
+                .thenWith(Point::getYp)
                 .apply(this, obj);
     }
 
     @Override
     public String toString() {
+
         return ToString
-                .with("xp", Camera::getXp)
-                .thenWith("yp", Camera::getYp)
+                .with("xp", Point::getXp)
+                .thenWith("yp", Point::getYp)
                 .apply(this);
+    }
+
+    /**
+     * Déplacer un point en fonction d'un vecteur.
+     *
+     * @param vector Vecteur de déplacement
+     */
+    public void move(final Vector vector) {
+        this.xp += vector.getDx();
+        this.yp += vector.getDy();
+    }
+
+    /**
+     * Superposer deux points.
+     *
+     * @param point Un autre point
+     */
+    public void setPoint(final Point point) {
+        this.xp = point.xp;
+        this.yp = point.yp;
     }
 
     /**

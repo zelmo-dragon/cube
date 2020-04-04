@@ -1,18 +1,18 @@
 package com.github.zelmothedragon.cube.core.entity;
 
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
-import com.github.zelmothedragon.cube.core.entity.behavior.Controllable;
-import com.github.zelmothedragon.cube.core.entity.data.Mandelbrot;
-import com.github.zelmothedragon.cube.core.entity.debug.Clock;
-import com.github.zelmothedragon.cube.core.entity.geometry.Camera;
-import com.github.zelmothedragon.cube.core.entity.geometry.Orientation;
+import com.github.zelmothedragon.cube.core.component.Controllable;
+import com.github.zelmothedragon.cube.core.component.Mandelbrot;
+import com.github.zelmothedragon.cube.core.component.Clock;
+import com.github.zelmothedragon.cube.core.component.Camera;
+import com.github.zelmothedragon.cube.core.component.Orientation;
 import com.github.zelmothedragon.cube.core.entity.geometry.Point;
 import com.github.zelmothedragon.cube.core.entity.geometry.Rectangle;
 import com.github.zelmothedragon.cube.core.entity.geometry.Vector;
-import com.github.zelmothedragon.cube.core.entity.image.AnimatedImage;
-import com.github.zelmothedragon.cube.core.entity.image.FontImage;
-import com.github.zelmothedragon.cube.core.entity.image.Image;
-import com.github.zelmothedragon.cube.core.entity.image.ImageMap;
+import com.github.zelmothedragon.cube.core.component.AnimatedImage;
+import com.github.zelmothedragon.cube.core.component.FontImage;
+import com.github.zelmothedragon.cube.core.component.Image;
+import com.github.zelmothedragon.cube.core.component.ImageMap;
 
 /**
  * Fabrique d'entités. Une instance unique de cette classe est requise pour le
