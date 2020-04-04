@@ -2,7 +2,7 @@
 
 ## Présentation
 
-Un simple prototype de moteur de jeu 2D basé sur JavaFX.
+Un simple prototype de moteur de jeu 2D basé sur JavaFX / AWT.
 Ce projet est sous licence **CeCILL** (**CE**A **C**NRS **I**NRIA **L**ogiciel **L**ibre),
 une licence de logicielle libre compatible avec la **GNU GPL**.
 
@@ -17,7 +17,9 @@ Le projet est découpé en modules:
     * Le cœur du projet, comporte toute la logique de traitement en pur Java sans dépendance externe. 
     * Comporte par défaut des fonctions de rendu graphique basé sur la manipulation de tableaux de pixels.
 * **cube-fx**
-    * L'implémentation principale basé sur JavaFX, comporte le moteur du jeu.
+    * L'implémentation basé sur JavaFX, comporte le moteur du jeu.
+* **cube-awt**
+    * L'implémentation basé sur Java AWT, comporte le moteur du jeu.
     
 ## Architecture
 
@@ -38,7 +40,7 @@ Ainsi, il devient plus facile de le faire évoluer.
     
 ## Environnement
 
-Ce projet est réalisé en **Java 13** *(OpenJDK)*. et **JavaFX 13** *(OpenJFX)*.
+Ce projet est réalisé en **Java 11** *(OpenJDK)*. et **JavaFX 13** *(OpenJFX)*.
 Il utilise l'outil **Maven** en version 3.6.2.
 
 ### Exécution
