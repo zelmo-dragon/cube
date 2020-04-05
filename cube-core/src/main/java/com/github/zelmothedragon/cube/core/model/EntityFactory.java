@@ -109,7 +109,11 @@ public final class EntityFactory {
                 1,
                 AssetManager.DEBUG_BACKGROUND_MAP_LAYER_1,
                 2,
-                AssetManager.DEBUG_BACKGROUND_MAP_LAYER_2
+                AssetManager.DEBUG_BACKGROUND_MAP_LAYER_2,
+                3,
+                AssetManager.DEBUG_BACKGROUND_MAP_LAYER_3,
+                4,
+                AssetManager.DEBUG_BACKGROUND_MAP_LAYER_4
         );
 
         var image = assets.loadImageMap(

@@ -38,9 +38,13 @@ public final class SystemManager {
                 new CameraSystem(manager, 200),
                 new CollisionSystem(manager, 201),
                 new PlayerSystem(manager, 202),
-                new ImageMapSystem(manager, 301),
-                new ImageSystem(manager, 302),
-                new AnimatedImageSystem(manager, 303),
+                new BackgroundImageMapSystem(manager, 301),
+                new ShadowImageMapSystem(manager, 302),
+                new GroundImageMapSystem(manager, 303),
+                new ImageSystem(manager, 304),
+                new AnimatedImageSystem(manager, 305),
+                new ForegroundImageMapSystem(manager, 306),
+                new SkyImageMapSystem(manager, 307),
                 new MandelbrotSystem(manager, 800),
                 new TestSystem(manager, 901),
                 new DebugSystem(manager, Integer.MAX_VALUE)
@@ -48,7 +52,7 @@ public final class SystemManager {
 
         // Ce type de liste est immuable, mais supporte le tri.
         Collections.sort(world);
-        
+
         disable(MandelbrotSystem.class);
         disable(DebugSystem.class);
     }

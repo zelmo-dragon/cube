@@ -192,7 +192,7 @@ public class PixelArrayRenderer implements Renderer<int[]> {
     public void drawImage(final int x, final int y, final ImageMap<int[]> image) {
 
         for (int i = 0; i < image.getLayoutCount(); i++) {
-            
+
             for (var yp = 0; yp < image.getMapHeight(); yp++) {
                 var ya = y + yp * image.getImageHeight();
 
@@ -201,6 +201,19 @@ public class PixelArrayRenderer implements Renderer<int[]> {
                     var subImage = image.getImage(xp, yp, i);
                     drawImage(xa, ya, subImage);
                 }
+            }
+        }
+    }
+
+    @Override
+    public void drawImage(final int x, final int y, final ImageMap<int[]> image, final int layout) {
+        for (var yp = 0; yp < image.getMapHeight(); yp++) {
+            var ya = y + yp * image.getImageHeight();
+
+            for (var xp = 0; xp < image.getMapWidth(); xp++) {
+                var xa = x + xp * image.getImageWidth();
+                var subImage = image.getImage(xp, yp, layout);
+                drawImage(xa, ya, subImage);
             }
         }
     }

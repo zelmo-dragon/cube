@@ -1,17 +1,22 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameManager;
-import com.github.zelmothedragon.cube.core.model.BoundedBox;
-import com.github.zelmothedragon.cube.core.model.ImageMap;
-import com.github.zelmothedragon.cube.core.model.Entity;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
+import com.github.zelmothedragon.cube.core.model.BoundedBox;
+import com.github.zelmothedragon.cube.core.model.Entity;
+import com.github.zelmothedragon.cube.core.model.ImageMap;
 
 /**
- * Système de gestion du décor en arrière plan.
+ * Système de gestion du décor du ciel.
  *
  * @author MOSELLE Maxime
  */
-public class ImageMapSystem extends AbstractSystem {
+public class SkyImageMapSystem extends AbstractSystem {
+
+    /**
+     * Indice de profondeur du ciel.
+     */
+    private static final int LAYOUT = 4;
 
     /**
      * Constructeur. Constuire un système, une seule instance est nécessaire
@@ -21,7 +26,7 @@ public class ImageMapSystem extends AbstractSystem {
      * @param manager Gestionnaire du jeu
      * @param priority Priorié d'exécuter du système
      */
-    ImageMapSystem(final GameManager manager, final int priority) {
+    SkyImageMapSystem(final GameManager manager, final int priority) {
         super(manager, priority);
         manager.getFactory().createMapDebug();
     }
@@ -42,11 +47,14 @@ public class ImageMapSystem extends AbstractSystem {
     private static void drawImage(final Renderer<?> renderer, final Entity entity) {
         var box = entity.getComponent(BoundedBox.class);
         var image = entity.getComponent(ImageMap.class);
-        renderer.drawImage(
-                box.getBound().getXp(),
-                box.getBound().getYp(),
-                image
-        );
+        if (image.getLayoutCount() > LAYOUT) {
+            renderer.drawImage(
+                    box.getBound().getXp(),
+                    box.getBound().getYp(),
+                    image,
+                    LAYOUT
+            );
+        }
     }
 
 }

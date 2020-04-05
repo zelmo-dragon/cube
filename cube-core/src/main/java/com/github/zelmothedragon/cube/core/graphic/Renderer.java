@@ -120,6 +120,17 @@ public interface Renderer<T> {
     void drawImage(int x, int y, ImageMap<T> image);
 
     /**
+     *
+     * Dessiner une image de tuile graphique.
+     *
+     * @param x Coordonnée en abcisse
+     * @param y Coordonnée en ordonnée
+     * @param image Image de tuile graphique
+     * @param layout Indice de profondeur
+     */
+    void drawImage(final int x, final int y, final ImageMap<int[]> image, final int layout);
+
+    /**
      * Ajuster le décalage du rendu.
      *
      * @param xOffset Décalage en abcisse

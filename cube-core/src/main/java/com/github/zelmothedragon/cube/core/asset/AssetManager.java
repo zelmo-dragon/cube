@@ -27,6 +27,10 @@ public interface AssetManager<T> {
     String DEBUG_BACKGROUND_MAP_LAYER_1 = "/assets/maps/debug_layer_1.csv";
 
     String DEBUG_BACKGROUND_MAP_LAYER_2 = "/assets/maps/debug_layer_2.csv";
+    
+    String DEBUG_BACKGROUND_MAP_LAYER_3 = "/assets/maps/debug_layer_3.csv";
+    
+    String DEBUG_BACKGROUND_MAP_LAYER_4 = "/assets/maps/debug_layer_4.csv";
 
     String DEBUG_WOOD_IMAGE = "/assets/images/wood.png";
 
