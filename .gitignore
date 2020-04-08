@@ -1,5 +1,6 @@
-nbactions.xml
-nb-configuration.xml 
+**/nbactions.xml
+**/nb-configuration.xml 
 **/target/
+**/rebel.xml
 *.iml
-/.idea/
+**/.idea/

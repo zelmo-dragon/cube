@@ -3,7 +3,6 @@ package com.github.zelmothedragon.cube.fx.asset;
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
 import com.github.zelmothedragon.cube.core.model.Image;
 import com.github.zelmothedragon.cube.pixel.asset.PixelArrayAssetManager;
-import com.github.zelmothedragon.cube.pixel.model.PixelArrayImage;
 import java.io.IOException;
 import javafx.scene.image.PixelFormat;
 
@@ -25,7 +24,7 @@ public final class ResourceManager extends PixelArrayAssetManager {
     @Override
     public Image<int[]> loadImage(final String imagePath) {
 
-        PixelArrayImage image;
+        Image<int[]> image;
         try (var stream = AssetManager.loadResource(imagePath)) {
 
             var imageFX = new javafx.scene.image.Image(stream);
@@ -46,7 +45,7 @@ public final class ResourceManager extends PixelArrayAssetManager {
                             width
                     );
 
-            image = new PixelArrayImage(buffer, width, height);
+            image = loadImage(buffer, width, height);
 
         } catch (IOException ex) {
             ex.printStackTrace();

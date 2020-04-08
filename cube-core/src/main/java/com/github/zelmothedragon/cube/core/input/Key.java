@@ -38,10 +38,11 @@ public final class Key implements Serializable {
      */
     private boolean pressed;
 
-    /**
-     * Indique si la touche est appuyée hors de la boucle principale du jeu.
-     */
     private boolean hold;
+
+    private int pressing;
+
+    private int absorbing;
 
     /**
      * Constructeur. Construit une touche avec un nom associé avec le code
@@ -55,13 +56,15 @@ public final class Key implements Serializable {
         this.keyCode = keyCode;
         this.pressed = false;
         this.hold = false;
+        this.pressing = 0;
+        this.absorbing = 0;
     }
-    
+
     @Override
     public int hashCode() {
         return Objects.hash(name, keyCode);
     }
-    
+
     @Override
     public boolean equals(final Object obj) {
         return Equal
@@ -69,7 +72,7 @@ public final class Key implements Serializable {
                 .thenWith(Key::getKeyCode)
                 .apply(this, obj);
     }
-    
+
     @Override
     public String toString() {
         return ToString
@@ -87,6 +90,15 @@ public final class Key implements Serializable {
     }
 
     /**
+     * Basculer l'état de la touche hors de la boucle principale du jeu.
+     *
+     * @param toggle État de la touche
+     */
+    public void toggle(boolean toggle) {
+        hold = toggle;
+    }
+
+    /**
      * Accesseur, indique si la touche est appuyée ou non.
      *
      * @return La valeur <code>true</code> si la touche est appuyée, sinon
@@ -94,32 +106,6 @@ public final class Key implements Serializable {
      */
     public boolean isPressed() {
         return pressed;
-    }
-
-    /**
-     * Accesseur, indique si la touche est relâchée ou non.
-     *
-     * @return La valeur <code>true</code> si la touche est relâchée, sinon
-     * <code>false</code>
-     */
-    public boolean isReleased() {
-        return !pressed;
-    }
-
-    /**
-     * Appuyer sur la touche. Cette méthode permet le traitement technique hors
-     * temps de la boucle principale du jeu.
-     */
-    public void pressed() {
-        hold = true;
-    }
-
-    /**
-     * Relâcher la touche. Cette méthode permet le traitement technique hors de
-     * la boucle principale du jeu.
-     */
-    public void released() {
-        hold = false;
     }
 
     /**
@@ -139,5 +125,5 @@ public final class Key implements Serializable {
     public int getKeyCode() {
         return keyCode;
     }
-    
+
 }

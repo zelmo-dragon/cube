@@ -156,4 +156,11 @@ public interface Renderer<T> {
      * @return La hauteur
      */
     int getHeight();
+
+    /**
+     * Accesseur, obtenir la données brute de l'image du rendu.
+     *
+     * @return La donnée brute de l'image du rendu
+     */
+    T getRawData();
 }

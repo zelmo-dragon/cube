@@ -60,7 +60,7 @@ public final class InputManager {
         return keys
                 .stream()
                 .filter(k -> Objects.equals(k.getName(), name))
-                .findFirst()
+                .findAny()
                 .orElse(Key.EMPTY)
                 .isPressed();
     }
@@ -74,12 +74,12 @@ public final class InputManager {
      * <code>false</code>
      */
     public boolean isKeyReleased(final GamePad name) {
-        return keys
+        return !keys
                 .stream()
                 .filter(k -> Objects.equals(k.getName(), name))
-                .findFirst()
+                .findAny()
                 .orElse(Key.EMPTY)
-                .isReleased();
+                .isPressed();
     }
 
     /**
@@ -128,7 +128,7 @@ public final class InputManager {
         keys
                 .stream()
                 .filter(k -> Objects.equals(k.getKeyCode(), keyCode))
-                .forEach(Key::pressed);
+                .forEach(k -> k.toggle(true));
     }
 
     /**
@@ -141,7 +141,7 @@ public final class InputManager {
         keys
                 .stream()
                 .filter(k -> Objects.equals(k.getKeyCode(), keyCode))
-                .forEach(Key::released);
+                .forEach(k -> k.toggle(false));
     }
 
     /**

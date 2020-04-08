@@ -35,15 +35,14 @@ public final class RendererFX extends PixelArrayRenderer {
             final int width,
             final int height,
             final GraphicsContext g2d) {
-
+        
         super(width, height);
         this.g2d = g2d;
         this.image = new WritableImage(width, height);
     }
-
+    
     @Override
     public void clear() {
-        // Effacer le canevas
         super.clear();
         g2d.clearRect(0, 0, g2d.getCanvas().getWidth(), g2d.getCanvas().getHeight());
     }
@@ -69,5 +68,5 @@ public final class RendererFX extends PixelArrayRenderer {
         // Dessiner l'image dans le canevas
         g2d.drawImage(image, 0, 0, g2d.getCanvas().getWidth(), g2d.getCanvas().getHeight());
     }
-
+    
 }

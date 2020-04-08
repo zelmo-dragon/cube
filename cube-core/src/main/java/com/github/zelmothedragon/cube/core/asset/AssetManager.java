@@ -27,9 +27,9 @@ public interface AssetManager<T> {
     String DEBUG_BACKGROUND_MAP_LAYER_1 = "/assets/maps/debug_layer_1.csv";
 
     String DEBUG_BACKGROUND_MAP_LAYER_2 = "/assets/maps/debug_layer_2.csv";
-    
+
     String DEBUG_BACKGROUND_MAP_LAYER_3 = "/assets/maps/debug_layer_3.csv";
-    
+
     String DEBUG_BACKGROUND_MAP_LAYER_4 = "/assets/maps/debug_layer_4.csv";
 
     String DEBUG_WOOD_IMAGE = "/assets/images/wood.png";
@@ -43,6 +43,14 @@ public interface AssetManager<T> {
     String DEBUG_8X8_TEXT_MAP = "/assets/fonts/8x8_text.txt";
 
     /**
+     * Charger une image simple.
+     *
+     * @param imagePath Chemin de l'image
+     * @return Une image
+     */
+    Image<T> loadImage(String imagePath);
+
+    /**
      * Charger une image vide.
      *
      * @param w Largeur
@@ -52,12 +60,14 @@ public interface AssetManager<T> {
     Image<T> loadImage(int w, int h);
 
     /**
-     * Charger une image simple.
+     * Charger une image avec des donées brute.
      *
-     * @param imagePath Chemin de l'image
-     * @return Une image
+     * @param data Données brutes
+     * @param w Largeur
+     * @param h Hauteur
+     * @return Une nouvelle image
      */
-    Image<T> loadImage(String imagePath);
+    Image<T> loadImage(T data, int w, int h);
 
     /**
      * Charger une feuille d'image pour l'animation.
@@ -109,7 +119,7 @@ public interface AssetManager<T> {
      * @param mapPath Chemin de la cartographie de la feuille
      * @return La cartographie
      */
-    public static String loadFontMap(final String mapPath) {
+    static String loadFontMap(final String mapPath) {
         String font;
         try (var stream = loadResource(mapPath)) {
             var data = stream.readAllBytes();
@@ -128,7 +138,7 @@ public interface AssetManager<T> {
      * @param mapPath Chemin de la cartographie de la feuille
      * @return La cartographie
      */
-    public static Map<Integer, int[][]> loadMap(final Map<Integer, String> mapPath) {
+    static Map<Integer, int[][]> loadMap(final Map<Integer, String> mapPath) {
         var maps = new HashMap<Integer, int[][]>(mapPath.size());
         mapPath.forEach((k, v) -> maps.put(k, loadMap(v)));
         return maps;

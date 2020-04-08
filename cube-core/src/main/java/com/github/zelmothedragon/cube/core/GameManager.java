@@ -1,9 +1,9 @@
 package com.github.zelmothedragon.cube.core;
 
 import com.github.zelmothedragon.cube.core.asset.AssetManager;
+import com.github.zelmothedragon.cube.core.input.InputManager;
 import com.github.zelmothedragon.cube.core.model.EntityFactory;
 import com.github.zelmothedragon.cube.core.model.EntityManager;
-import com.github.zelmothedragon.cube.core.input.InputManager;
 import com.github.zelmothedragon.cube.core.system.SystemManager;
 
 /**
@@ -54,7 +54,7 @@ public final class GameManager {
         // Car il s'agit de dépendance bidirectionnelle
         this.systems = new SystemManager(this);
     }
-
+    
     /**
      * Accesseur, obtenit le gestionnaire de ressources numériques unique.
      *

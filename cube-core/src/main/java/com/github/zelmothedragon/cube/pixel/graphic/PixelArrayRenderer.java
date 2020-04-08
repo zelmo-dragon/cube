@@ -264,6 +264,11 @@ public class PixelArrayRenderer implements Renderer<int[]> {
         return height;
     }
 
+    @Override
+    public int[] getRawData() {
+        return buffer;
+    }
+
     private int getPixel(final int xp, final int yp) {
 
         int pixel;

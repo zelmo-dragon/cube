@@ -17,13 +17,18 @@ import java.util.Map;
  *
  * @author MOSELLE Maxime
  */
-public abstract class PixelArrayAssetManager implements AssetManager<int[]> {
+public class PixelArrayAssetManager implements AssetManager<int[]> {
 
     /**
      * Constructeur. Construit le gestionnaire des ressources numériques.
      */
-    protected PixelArrayAssetManager() {
+    public PixelArrayAssetManager() {
         // RAS
+    }
+
+    @Override
+    public Image<int[]> loadImage(String imagePath) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -32,6 +37,11 @@ public abstract class PixelArrayAssetManager implements AssetManager<int[]> {
             final int h) {
 
         return new PixelArrayImage(w, h);
+    }
+
+    @Override
+    public Image<int[]> loadImage(int[] data, int w, int h) {
+        return new PixelArrayImage(data, w, h);
     }
 
     @Override

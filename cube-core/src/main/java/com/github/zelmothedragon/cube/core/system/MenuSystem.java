@@ -1,9 +1,9 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameManager;
-import com.github.zelmothedragon.cube.core.model.Family;
 import com.github.zelmothedragon.cube.core.graphic.Renderer;
 import com.github.zelmothedragon.cube.core.input.GamePad;
+import com.github.zelmothedragon.cube.core.model.Family;
 
 public final class MenuSystem extends AbstractSystem {
 
@@ -22,6 +22,7 @@ public final class MenuSystem extends AbstractSystem {
     }
 
     private void buttonDebugAction() {
+
         if (manager.getSystems().isEnabled(DebugSystem.class)) {
             manager.getSystems().disable(DebugSystem.class);
         } else {

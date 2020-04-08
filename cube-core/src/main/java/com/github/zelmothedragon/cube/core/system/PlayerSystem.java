@@ -1,14 +1,14 @@
 package com.github.zelmothedragon.cube.core.system;
 
 import com.github.zelmothedragon.cube.core.GameManager;
+import com.github.zelmothedragon.cube.core.graphic.Renderer;
+import com.github.zelmothedragon.cube.core.input.GamePad;
 import com.github.zelmothedragon.cube.core.model.AnimatedImage;
 import com.github.zelmothedragon.cube.core.model.BoundedBox;
 import com.github.zelmothedragon.cube.core.model.Controllable;
-import com.github.zelmothedragon.cube.core.model.Orientation;
 import com.github.zelmothedragon.cube.core.model.Entity;
+import com.github.zelmothedragon.cube.core.model.Orientation;
 import com.github.zelmothedragon.cube.core.model.Vector;
-import com.github.zelmothedragon.cube.core.graphic.Renderer;
-import com.github.zelmothedragon.cube.core.input.GamePad;
 
 /**
  * Système de gestion du personnage principal.
@@ -32,15 +32,15 @@ public final class PlayerSystem extends AbstractSystem {
      */
     PlayerSystem(final GameManager manager, final int priority) {
         super(manager, priority);
-        
+
         this.player = manager.getFactory().createDebugPlayer();
     }
-    
+
     @Override
     public void update() {
-        
-        var image = player.getComponent(AnimatedImage.class);
+
         if (player.hasComponent(Controllable.class)) {
+            var image = player.getComponent(AnimatedImage.class);
             var vector = player.getComponent(Vector.class);
             if (manager.getInputs().isKeyPressed(GamePad.LEFT)) {
                 image.setOrientation(Orientation.LEFT);
@@ -58,15 +58,15 @@ public final class PlayerSystem extends AbstractSystem {
                 image.setOrientation(Orientation.EMPTY);
                 vector.reset();
             }
-            
-            var box = player.getComponent(BoundedBox.class);            
+
+            var box = player.getComponent(BoundedBox.class);
             box.move(vector.getDx(), vector.getDy());
         }
     }
-    
+
     @Override
     public void draw(final Renderer<?> renderer) {
-        
+
     }
-    
+
 }
