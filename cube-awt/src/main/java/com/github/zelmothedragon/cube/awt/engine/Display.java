@@ -9,7 +9,6 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.Objects;
 import javax.swing.JFrame;
 
 /**
@@ -33,6 +32,12 @@ public final class Display {
      * Hauteur initiale. Calculée avec un rapport 16/9.
      */
     private static final int HEIGHT = WIDTH / 16 * 9;
+
+    /**
+     * Nombre d'image conserver par la mémoire tampon. Valeur entre 1 et 3
+     * possible.
+     */
+    private static final int BUFFER_STRATEGY = 2;
 
     /**
      * Fenêtre principale.
@@ -60,6 +65,7 @@ public final class Display {
     public Display() {
         this.window = new JFrame();
         this.canvas = new Canvas();
+        this.canvas.createBufferStrategy(BUFFER_STRATEGY);
         this.renderer = new RendererAWT(WIDTH, HEIGHT);
         this.manager = new GameManager(new ResourceManager());
 
@@ -91,17 +97,18 @@ public final class Display {
 
     void draw() {
         var bs = canvas.getBufferStrategy();
-        if (Objects.nonNull(bs)) {
-            renderer.clear();
-            manager.getSystems().draw(renderer);
-            var g2d = bs.getDrawGraphics();
-            var image = renderer.getImage();
-            g2d.drawImage(image, 0, 0, canvas.getWidth(), canvas.getHeight(), null);
-            g2d.dispose();
+        // Voir la documentation de BufferStrategy
+        do {
+            do {
+                var g2d = bs.getDrawGraphics();
+                renderer.clear();
+                manager.getSystems().draw(renderer);
+                var image = renderer.getImage();
+                g2d.drawImage(image, 0, 0, canvas.getWidth(), canvas.getHeight(), null);
+                g2d.dispose();
+            } while (bs.contentsRestored());
             bs.show();
-        } else {
-            canvas.createBufferStrategy(2);
-        }
+        } while (bs.contentsLost());
         Toolkit.getDefaultToolkit().sync();
     }
 

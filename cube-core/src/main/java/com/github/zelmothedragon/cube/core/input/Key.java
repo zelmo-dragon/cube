@@ -38,8 +38,6 @@ public final class Key implements Serializable {
      */
     private boolean pressed;
 
-    private boolean hold;
-
     private int pressing;
 
     private int absorbing;
@@ -55,7 +53,6 @@ public final class Key implements Serializable {
         this.name = name;
         this.keyCode = keyCode;
         this.pressed = false;
-        this.hold = false;
         this.pressing = 0;
         this.absorbing = 0;
     }
@@ -86,7 +83,12 @@ public final class Key implements Serializable {
      * Synchroniser la touche durant la phase de mise à jour du jeu.
      */
     public void update() {
-        pressed = hold;
+        if (pressing < absorbing) {
+            pressing++;
+            pressed = true;
+        } else {
+            pressed = false;
+        }
     }
 
     /**
@@ -95,7 +97,9 @@ public final class Key implements Serializable {
      * @param toggle État de la touche
      */
     public void toggle(boolean toggle) {
-        hold = toggle;
+        if (toggle) {
+            absorbing++;
+        }
     }
 
     /**
