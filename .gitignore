@@ -4,3 +4,7 @@
 **/rebel.xml
 *.iml
 **/.idea/
+**/.project
+**/.classpath
+**/.settings/
+**/.vscode

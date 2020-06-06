@@ -65,7 +65,7 @@ public final class Display {
     public Display() {
         this.window = new JFrame();
         this.canvas = new Canvas();
-        this.canvas.createBufferStrategy(BUFFER_STRATEGY);
+
         this.renderer = new RendererAWT(WIDTH, HEIGHT);
         this.manager = new GameManager(new ResourceManager());
 
@@ -82,6 +82,8 @@ public final class Display {
 
         this.window.add(canvas);
         this.window.pack();
+
+        this.canvas.createBufferStrategy(BUFFER_STRATEGY);
 
         this.window.setTitle("Cube");
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

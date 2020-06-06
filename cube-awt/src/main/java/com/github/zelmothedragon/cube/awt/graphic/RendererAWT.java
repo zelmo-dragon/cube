@@ -3,7 +3,6 @@ package com.github.zelmothedragon.cube.awt.graphic;
 import com.github.zelmothedragon.cube.pixel.graphic.PixelArrayRenderer;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
 
 /**
  * Gestionnaire de rendu graphique. Permet de manipuler une image à partir de la
@@ -36,9 +35,7 @@ public final class RendererAWT extends PixelArrayRenderer {
      * @return L'image pour le prochain rendu graphique
      */
     public Image getImage() {
-        var dataBuffer = (DataBufferInt) image.getRaster().getDataBuffer();
-        var data = dataBuffer.getData();
-        System.arraycopy(buffer, 0, data, 0, data.length);
+        image.setRGB(0, 0, width, height, buffer, 0, width);
         return image;
     }
 

@@ -32,8 +32,7 @@ public final class ResourceManager extends PixelArrayAssetManager {
             var buffer = bufferedImage.getRGB(0, 0, width, height, null, 0, width);
             image = new PixelArrayImage(buffer, width, height);
         } catch (IOException ex) {
-            ex.printStackTrace();
-            image = null;
+            throw new IllegalArgumentException("Image not found: " + imagePath, ex);
         }
         return image;
     }
