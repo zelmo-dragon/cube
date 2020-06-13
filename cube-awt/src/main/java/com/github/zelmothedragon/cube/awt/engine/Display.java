@@ -111,7 +111,7 @@ public final class Display {
             } while (bs.contentsRestored());
             bs.show();
         } while (bs.contentsLost());
-        Toolkit.getDefaultToolkit().sync();
+        canvas.getToolkit().sync();
     }
 
 }

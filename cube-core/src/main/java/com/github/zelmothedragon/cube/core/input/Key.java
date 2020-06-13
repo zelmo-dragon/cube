@@ -80,26 +80,12 @@ public final class Key implements Serializable {
     }
 
     /**
-     * Synchroniser la touche durant la phase de mise à jour du jeu.
-     */
-    public void update() {
-        if (pressing < absorbing) {
-            pressing++;
-            pressed = true;
-        } else {
-            pressed = false;
-        }
-    }
-
-    /**
-     * Basculer l'état de la touche hors de la boucle principale du jeu.
+     * Basculer l'état de la touche.
      *
      * @param toggle État de la touche
      */
     public void toggle(boolean toggle) {
-        if (toggle) {
-            absorbing++;
-        }
+        pressed = toggle;
     }
 
     /**

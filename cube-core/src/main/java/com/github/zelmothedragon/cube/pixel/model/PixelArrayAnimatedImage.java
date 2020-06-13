@@ -25,6 +25,8 @@ public class PixelArrayAnimatedImage implements AnimatedImage<int[]> {
 
     private final PixelArrayImage sheet;
 
+    private final PixelArrayImage empty;
+
     private final int imageWidth;
 
     private final int imageHeight;
@@ -59,6 +61,7 @@ public class PixelArrayAnimatedImage implements AnimatedImage<int[]> {
         this.count = count;
         this.frame = 0;
         this.currentImageIndex = 0;
+        this.empty = new PixelArrayImage(imageWidth, imageHeight);
     }
 
     @Override
@@ -168,7 +171,7 @@ public class PixelArrayAnimatedImage implements AnimatedImage<int[]> {
 
     @Override
     public Image<int[]> getCurrentImage() {
-        return cache.get(currentImageIndex);
+        return cache.getOrDefault(currentImageIndex, empty);
     }
 
     @Override

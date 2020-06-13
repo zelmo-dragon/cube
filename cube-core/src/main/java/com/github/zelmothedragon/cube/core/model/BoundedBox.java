@@ -3,6 +3,7 @@ package com.github.zelmothedragon.cube.core.model;
 import com.github.zelmothedragon.cube.core.util.geometry.Dimension;
 import com.github.zelmothedragon.cube.core.util.geometry.Point;
 import com.github.zelmothedragon.cube.core.util.geometry.Rectangle;
+import com.github.zelmothedragon.cube.core.util.geometry.Vector;
 import com.github.zelmothedragon.cube.core.util.lang.Equal;
 import com.github.zelmothedragon.cube.core.util.lang.ToString;
 import java.util.Objects;
@@ -25,6 +26,11 @@ public class BoundedBox implements Component {
     private final Rectangle collision;
 
     /**
+     * Vecteur de déplacement.
+     */
+    private final Vector vector;
+
+    /**
      * Nature de la collision.
      */
     private Block block;
@@ -45,6 +51,7 @@ public class BoundedBox implements Component {
         this.bound = bound;
         this.collision = collision;
         this.block = block;
+        this.vector = new Vector();
     }
 
     /**
@@ -57,6 +64,7 @@ public class BoundedBox implements Component {
         this.bound = new Rectangle(0, 0, bound.getWidth(), bound.getHeight());
         this.collision = new Rectangle(0, 0, bound.getWidth(), bound.getHeight());
         this.block = Block.VOID;
+        this.vector = new Vector();
     }
 
     /**
@@ -69,6 +77,7 @@ public class BoundedBox implements Component {
         this.bound = new Rectangle(bound.getXp(), bound.getYp(), 0, 0);
         this.collision = new Rectangle(bound.getXp(), bound.getYp(), 0, 0);
         this.block = Block.VOID;
+        this.vector = new Vector();
     }
 
     /**
@@ -80,6 +89,7 @@ public class BoundedBox implements Component {
         this.bound = new Rectangle(0, 0, 0, 0);
         this.collision = new Rectangle(0, 0, 0, 0);
         this.block = Block.VOID;
+        this.vector = new Vector();
     }
 
     @Override
@@ -106,14 +116,11 @@ public class BoundedBox implements Component {
     }
 
     /**
-     * Déplacer cette zone en fonction d'un vecteur.
-     *
-     * @param dx Vecteur de déplacement en abcisse
-     * @param dy Vecteur de déplacement en ordonnée
+     * Déplacer suivant le vecteur.
      */
-    public void move(final int dx, final int dy) {
-        this.bound.move(dx, dy);
-        this.collision.move(dx, dy);
+    public void move() {
+        this.bound.move(vector);
+        this.collision.move(vector);
     }
 
     /**
@@ -150,6 +157,15 @@ public class BoundedBox implements Component {
      */
     public Rectangle getCollision() {
         return collision;
+    }
+
+    /**
+     * Accesseur, obtenir le vecteur de déplacement.
+     *
+     * @return Un vecteur de déplacement
+     */
+    public Vector getVector() {
+        return vector;
     }
 
 }

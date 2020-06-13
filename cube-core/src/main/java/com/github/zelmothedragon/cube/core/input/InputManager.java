@@ -45,7 +45,7 @@ public final class InputManager {
      * Synchroniser toutes les touches durant la phase de mise à jour du jeu.
      */
     public void update() {
-        keys.forEach(Key::update);
+
     }
 
     /**
@@ -60,7 +60,7 @@ public final class InputManager {
         return keys
                 .stream()
                 .filter(k -> Objects.equals(k.getName(), name))
-                .findAny()
+                .findFirst()
                 .orElse(Key.EMPTY)
                 .isPressed();
     }
@@ -77,7 +77,7 @@ public final class InputManager {
         return !keys
                 .stream()
                 .filter(k -> Objects.equals(k.getName(), name))
-                .findAny()
+                .findFirst()
                 .orElse(Key.EMPTY)
                 .isPressed();
     }
@@ -124,11 +124,12 @@ public final class InputManager {
      *
      * @param keyCode Code technique de la touche
      */
-    public void keyPressed(final int keyCode) {
+    public void keyPressed(final int keyCode) {        
         keys
                 .stream()
                 .filter(k -> Objects.equals(k.getKeyCode(), keyCode))
-                .forEach(k -> k.toggle(true));
+                .findFirst()
+                .ifPresent(k -> k.toggle(true));
     }
 
     /**
@@ -141,7 +142,8 @@ public final class InputManager {
         keys
                 .stream()
                 .filter(k -> Objects.equals(k.getKeyCode(), keyCode))
-                .forEach(k -> k.toggle(false));
+                .findFirst()
+                .ifPresent(k -> k.toggle(false));
     }
 
     /**

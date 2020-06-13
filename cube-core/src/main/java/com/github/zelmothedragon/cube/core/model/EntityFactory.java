@@ -69,7 +69,6 @@ public final class EntityFactory {
 
         var w = 16;
         var h = 32;
-        var vector = new Vector();
         var animation = assets.loadAnimatedImage(AssetManager.DEBUG_PLAYER_IMAGE_SET,
                 w,
                 h,
@@ -93,7 +92,6 @@ public final class EntityFactory {
         entity.addComponent(Controllable.INSTANCE);
         entity.addComponent(Movable.INSTANCE);
         entity.addComponent(Camera.INSTANCE);
-        entity.addComponent(vector);
         entity.addComponent(box);
         entity.addComponent(AnimatedImage.class, animation);
         entities.add(entity);
