@@ -56,16 +56,33 @@ Récupération du projet:
     mvn install
 ~~~
 
-Exécution avec le moteur JavaFX
+#### Moteur JavaFX
+
+Se placer dans le module:
 ~~~
     cd cube-fx
+~~~
+
+Exécuter le module:
+~~~
     mvn javafx:run
 ~~~
 
-Exécution avec le moteur Java Swing/AWT
+Générer une image autonome:
+~~~
+    mvn javafx:jlink
+    target/cube-fx/bin/launcher
+~~~
+
+#### Moteur Java Swing/AWT
+
+Se placer dans le module:
 ~~~
     cd cube-awt
+~~~
+
+Exécuter le module:
+~~~
     mvn exec:java
 ~~~
 
-> Il n'est pas encore possible d'empaqueter le projet sous forme de binaire Java exécutable avec *jlink*.

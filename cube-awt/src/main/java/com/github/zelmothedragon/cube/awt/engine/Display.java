@@ -8,7 +8,6 @@ import com.github.zelmothedragon.cube.core.GameManager;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
