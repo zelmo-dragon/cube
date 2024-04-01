@@ -13,7 +13,7 @@
     <properties>
         <!-- VERSION DES DÉPENDANCES -->
         <version.java>14</version.java>
-        <version.fx>14</version.fx>
+        <version.fx>17.0.10</version.fx>
         
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>${version.java}</maven.compiler.source>
