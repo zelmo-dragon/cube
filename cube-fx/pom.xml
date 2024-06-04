@@ -51,7 +51,7 @@
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.github.zelmothedragon.cube.fx.engine.Display</mainClass>
+                    <mainClass>com.github.zelmodragon.cube.fx.engine.Display</mainClass>
                     <launcher>launcher</launcher>
                     <compress>2</compress>
                     <noHeaderFiles>true</noHeaderFiles>

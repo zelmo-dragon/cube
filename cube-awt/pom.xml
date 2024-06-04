@@ -37,7 +37,7 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.github.zelmothedragon.cube.awt.Launcher</mainClass>
+                    <mainClass>com.github.zelmodragon.cube.awt.Launcher</mainClass>
                 </configuration>
             </plugin>
         </plugins>
