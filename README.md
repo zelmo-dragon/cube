@@ -45,8 +45,8 @@ Ainsi, il devient plus facile de le faire évoluer.
     
 ## Environnement
 
-Ce projet est réalisé en **Java 14** *(OpenJDK)*. et **JavaFX 14** *(OpenJFX)*.
-Il utilise l'outil **Maven** en version 3.6.3.
+Ce projet est réalisé en **Java 21** *(OpenJDK)*. et **JavaFX 21** *(OpenJFX)*.
+Il utilise l'outil **Maven** en version 3.8.7.
 
 ### Exécution
 
