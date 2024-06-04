@@ -7,13 +7,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.github.zelmothedragon</groupId>
+        <groupId>com.github.zelmo-dragon</groupId>
         <artifactId>cube</artifactId>
-        <version>0.0.1</version>
+        <version>0.2.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.github.zelmothedragon.cube</groupId>
+    <groupId>com.github.zelmo-dragon.cube</groupId>
     <artifactId>cube-core</artifactId>
     <packaging>jar</packaging>
 

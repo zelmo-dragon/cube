@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project 
-    xmlns="http://maven.apache.org/POM/4.0.0" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
+<project
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.github.zelmothedragon</groupId>
+    <groupId>com.github.zelmo-dragon</groupId>
     <artifactId>cube</artifactId>
-    <version>0.0.1</version>
+    <version>0.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    
+
     <properties>
         <!-- VERSION DES DÉPENDANCES -->
-        <version.java>14</version.java>
-        <version.fx>14</version.fx>
-        
+        <version.maven>3.8.7</version.maven>
+        <version.java>21</version.java>
+        <version.fx>21</version.fx>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>${version.java}</maven.compiler.source>
         <maven.compiler.target>${version.java}</maven.compiler.target>
     </properties>
-    
+
     <modules>
         <module>cube-core</module>
         <module>cube-fx</module>
         <module>cube-awt</module>
     </modules>
-    
+
     <dependencyManagement>
         <dependencies>
             <!-- JAVA FX -->
@@ -66,7 +67,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
     <build>
         <pluginManagement>
             <plugins>
@@ -76,14 +77,14 @@
                     <artifactId>javafx-maven-plugin</artifactId>
                     <version>0.0.4</version>
                 </plugin>
-                
+
                 <!-- EXTENSION POUR cube-awt -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
                     <version>1.6.0</version>
                 </plugin>
-                               
+
                 <!-- EXTENSION MAVEN PAR DÉFAUT -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -127,6 +128,11 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>3.5.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.22.2</version>
                 </plugin>
@@ -147,6 +153,28 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>${version.maven}</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
 </project>

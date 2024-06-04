@@ -10,7 +10,7 @@ une licence de logiciel libre compatible avec la **GNU GPL**.
 
 ## Objectifs
 
-* Mettre en oeuvre une architecture hexagonale
+* Mettre en œuvre une architecture hexagonale
 * Comparer deux implémentations JavaFX & Swing/AWT
 
 ## Module
@@ -22,9 +22,9 @@ Le projet est découpé en modules:
     * Le cœur du projet, comporte toute la logique de traitement en pur Java sans dépendance externe. 
     * Comporte par défaut des fonctions de rendu graphique basé sur la manipulation de tableaux de pixels.
 * **cube-fx**
-    * L'implémentation basé sur JavaFX, comporte le moteur du jeu.
+    * L'implémentation basée sur JavaFX, comporte le moteur du jeu.
 * **cube-awt**
-    * L'implémentation basé sur Java Swing/AWT, comporte le moteur du jeu.
+    * L'implémentation basée sur Java Swing/AWT, comporte le moteur du jeu.
     
 ## Architecture
 
